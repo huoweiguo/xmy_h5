@@ -1,0 +1,63 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-size:0.14rem;
+    box-sizing: border-box;
+    font-family: -apple-system,Helvetica Neue,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+    background: url(../../../static/images/bg@2x.png) no-repeat;
+    background-size:100% 100%;
+}
+
+.circle_rotate{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 2.85rem;
+    height: 2.85rem;
+    background: url(../../module/init/images/rotate.gif) no-repeat;
+    background-size:100% 100%;
+    transform: translate(-50%,-50%);
+    .computed_init{
+        position:fixed;
+        left: 50%;
+        top: 50%;
+        text-align: center;
+        width: 100%;
+        transform: translate(-50%,-50%);
+        color: #F8CE03;
+        p{
+            font-size: 0.14rem;
+            margin-bottom: 0.1rem;
+        }
+        span{
+            font-size:0.3rem;
+        }
+        .money_count{
+            i{
+                font-style: normal;
+                display: inline-block;
+                height: 26px;
+                line-height: 35px;
+                vertical-align: top;
+            }
+        }
+        .num-roll{
+            display: inline-block;
+            font-size: 0.3rem;
+            height: 26px;
+            overflow: hidden;
+            .num{
+                div{
+                    height: 26px;
+                    font-size:0.3rem;
+                }
+            }
+        }
+    }
+}
