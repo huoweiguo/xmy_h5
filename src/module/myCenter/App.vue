@@ -48,6 +48,26 @@
                 </a>
             </li>
         </ol>
+        <ol>
+            <li>
+                <a>
+                    <span>客服与反馈</span>
+                    <img src="../../../static/images/rightarrow_1f.png"/>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <span>设置</span>
+                    <img src="../../../static/images/rightarrow_1f.png"/>
+                </a>
+            </li>
+            <li>
+                <a>
+                    <span>手机检测</span>
+                    <img src="../../../static/images/rightarrow_1f.png"/>
+                </a>
+            </li>
+        </ol>
     </div>
 </template>
 <script>
