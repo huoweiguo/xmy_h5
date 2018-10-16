@@ -27,16 +27,16 @@
 
             <!--相关协议-->
             <div class="charge_agree">
-                <em class="protocol" @click="ischk = !ischk" :class="{agree: ischk}">本人阅读并同意签署</em><a href="#" class="a_protocol">《借款合同及相关信息》</a>
+                <em class="protocol" @click="ischk = !ischk" :class="{agree: ischk}">本人阅读并同意签署协议</em><a href="#" class="a_protocol">《借款合同及相关协议》</a>
                 <div class="agree_btn_set">
-                    <a href="javacsript:;" class="a_btn1">放弃借款</a>
+                    <!-- <a href="javacsript:;" class="a_btn1">放弃借款</a> -->
                     <a href="javacsript:;" class="a_btn2" :class="{unclick: !ischk}">立即借款</a>
                 </div>
 
                 <div class="small_txt">
-                    <p>提示:</p>
-                    <p>1、点击立即借款，则系统将自动打款到您的绑定银行卡；</p>
-                    <p>2、到账时间大约5～15分钟。</p>
+                    <p><strong>·</strong>点击<strong>“确认拿钱”</strong>，借款金额系统将自动放款至您绑定的银行卡</p>
+                    <p><strong>·</strong>到账时间一般不超过<strong>2小时</strong>，不同银行到账时间有所不同，如有疑问请联系在线客服</p>
+                    
                 </div>
             </div>
 
