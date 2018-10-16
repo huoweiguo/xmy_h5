@@ -1,0 +1,320 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-size: 0.14rem;
+	font-family: -apple-system, Helvetica Neue, Arial, PingFang SC,Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
+}
+html,body {
+	width: 100%;
+	height: 100%;
+	max-width: 750px;
+    overflow: hidden;
+    background: #F5F5F5;
+    margin: 0 auto;
+}
+#app{
+    height: 100%;
+    position: relative
+}
+em{
+    font-style: normal;
+}
+.card{
+    height: 0.6rem;
+    line-height: 0.6rem;
+    padding-left: 0.17rem;
+    padding-top: 0.08rem;
+    padding-right: 0.12rem;
+    background: #ffffff;
+    img{
+        display: block;
+        float: left;
+        height: 0.3rem;
+        width: 0.3rem;
+        border-radius: 50%;
+    }
+    .cardName{
+        float: left;
+        span{
+            display: block;
+            height: 0.25rem;
+            line-height: 0.25rem;
+            font-family: 'PingFangSC-Light';
+            font-size: 0.18rem;
+            color: #000117;
+            letter-spacing: 0;
+        }
+        .repayment{
+            height: 0.45rem;
+            line-height: 0.45rem;
+        }
+        em{
+            display: block;
+            height: 0.2rem;
+            line-height: 0.2rem;
+            font-family: 'PingFangSC-Light';
+            font-size: 0.12rem;
+            color: #9B9B9B;
+            letter-spacing: 0;
+        }
+    }
+    &>em{
+        float: right;
+        width: 0.2rem;
+        line-height: 0.45rem;
+        color: #cccccc;
+        font-size: 0.24rem;
+    }
+}
+.money{
+    height: 1.04rem;
+    line-height: 1.04rem;
+    padding: 0 0.2rem;
+    margin: 0.01rem 0;
+    background: #ffffff;
+    span{
+        display: block;
+        height: 1.04rem;
+        font-family: 'PingFangSC-Light';
+        font-size: 0.3rem;
+        color: #000117;
+        letter-spacing: 0;
+        margin-right: 0.2rem;
+        float: left
+    }
+    input{
+        display: block;
+        width: 2.3rem;
+        height: 1.04rem;
+        border: none;
+        outline: none;
+        font-family: 'PingFangSC-Light';
+        font-size: 0.18rem;
+        color: #909090;
+        letter-spacing: 0;
+        float: left;
+        outline: none;
+    }
+    strong{
+        float: right;
+        font-weight: normal;
+        font-family:'PingFangSC-Light';
+        font-size: 0.14rem;
+        color: #007BFF;
+    }
+}
+.cost{
+    height: 0.4rem;
+    line-height: 0.4rem;
+    padding-left: 0.2rem;
+    font-family: 'PingFangSC-Light';
+    font-size: 0.12rem;
+    color: #000117;
+    letter-spacing: 0;
+    margin-bottom: 0.3rem;
+    background: #ffffff;
+    span{
+        color: #ff7f26;
+    }
+}
+.amount {
+    p{
+        height: 0.3rem;
+        padding-left: 0.2rem;
+        background: #ffffff;
+        line-height: 0.3rem;
+        font-family: 'PingFangSC-Light';
+        font-size: 0.12rem;
+        color: #9B9B9B;
+        letter-spacing: 0;
+        margin-bottom: 0.1rem;
+        background: #ffffff;
+    }
+    a{
+        display: block;
+        height: 0.2rem;
+        line-height: 0.2rem;
+        margin-bottom: 0.12rem;
+        text-align: center;
+        font-family: 'PingFangSC-Light';
+        font-size: 0.14rem;
+        color: #9B9B9B;
+        letter-spacing: 0;
+        text-decoration: none;
+    }
+}
+button{
+    display: block;
+    width: 2.8rem;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    background: #cccccc;
+    border-radius: 0.05rem;
+    text-align: center;
+    font-family: PingFangSC-Medium;
+    font-size: 0.2rem;
+    color: #FFFFFF;
+    letter-spacing: 0;
+    margin: 0 auto;
+    border: none;
+    outline: none;
+}
+.click-btn{
+    background: #ff7f26;
+}
+.bank-slt{
+    width: 100%;
+    position: absolute;
+    bottom: -4rem;
+    left: 0;
+    z-index: 1001;
+    height: 4rem;
+    background-color: #f9f9f9;
+    transition: 0.3s;
+    .bank-nav{
+        width: 100%;
+        height: 0.48rem;
+        background-color: #f9f9f9;
+        font-family: PingFangSC-Light;
+        font-size: 0.2rem;
+        color: #000118;
+        line-height: 0.48rem;
+        text-align: center;
+        font-weight: normal;
+        overflow: hidden;
+        border-bottom: 1px solid #ddd;
+        .close-btn{
+            width: 0.18rem;
+            height: 0.18rem;
+            display: block;
+            background: url(../../../static/images/close.png) no-repeat;
+            background-size: contain;
+            float: right;
+            margin-top: 0.16rem;
+            margin-right: 0.2rem;
+        }
+    }
+    ul {
+        height: 3.52rem;
+        overflow-y: scroll;
+        li{
+            background-color: #fff;
+            padding: 0.12rem 0.2rem;
+            overflow: hidden;
+            border-bottom: 1px solid #ddd;
+            .bankImg{
+                width: 0.3rem;
+                height: 0.3rem;
+                display: block;
+                float: left;
+                margin-right: 0.1rem;
+                margin-top: 0.08rem;
+            }
+            .bank-detail{
+                float: left;
+                .bank-name{
+                    font-size: 0.16rem;
+                    color: #000117;
+                    display: block;
+                    i{
+                        font-style: normal;
+                        margin:0 0.1rem;
+                    }
+                }
+                
+                p{
+                    font-size: 0.14rem;
+                    color: #909090;
+                }
+            }
+            .add-card{
+                font-size: 0.16rem;
+                color: #000117;
+                height: 0.3rem;
+                line-height: 0.3rem;
+                display: block;
+                float: left;
+                margin-top: 0.1rem;
+            }
+            .correct{
+                width: 0.2rem;
+                height: 0.2rem;
+                display: block;
+                float: right;
+                background: url(../../../static/images/icon_selected@2x.png) no-repeat;
+                background-size: 100% 100%;
+                margin-top: 0.12rem;
+                display: none;
+            }
+            &.active{
+                .correct{
+                    display: block;
+                }
+            }
+        }
+    }
+}
+.showBank{
+    bottom: 0;
+}
+.bank-mask{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.65);
+    z-index: 1000;
+}
+.results{
+    border-top: 0.01px solid #eeeeee;
+    padding-top: 0.6rem;
+    height: 100%;
+    background: #FFFFFF;
+    img{
+        display: block;
+        width: 0.81rem;
+        height: auto;
+        margin: 0 auto;
+        margin-bottom: 0.22rem;
+    }
+    h2{
+        height: 0.3rem;
+        line-height: 0.3rem;
+        text-align: center;
+        font-family: 'PingFangSC-Light';
+        font-size: 0.2rem;
+        color: #000117;
+        letter-spacing: 0;
+    }
+    p{
+        height: 0.2rem;
+        line-height: 0.2rem;
+        text-align: center;
+        font-family: 'PingFangSC-Light';
+        font-size: 0.14rem;
+        color: #9B9B9B;
+        letter-spacing: 0;
+    }
+    .again{
+        margin-top: 0.5rem;
+        padding: 0 0.43rem;
+        a{
+            display: block;
+            height: 0.5rem;
+            line-height: 0.5rem;
+            text-align: center;
+            font-family:'PingFangSC-Medium';
+            color: #FFFFFF;
+            font-size: 0.16rem;
+            background: #ff7f26;
+            text-decoration: none;
+        }
+        .look{
+            background: #FFFFFF;
+            color: #ff7f26;
+            margin-top: 0.15rem;
+        }
+    }
+}

@@ -5,7 +5,13 @@
                 <img v-show="refuse" src="../../static/images/icon_refuse@2x.png">
                 <img v-show="!refuse" src="../../static/images/icon_ok@2x.png">
                 <h3 v-show="refuse">这么任性，钱都不要</h3>
-                <h5>{{message}}</h5>
+                <h5 v-show="refuse">{{message}}</h5>
+                <div class="success"  v-show="!refuse">
+                    <h4>到账详情</h4>
+                    <div class="">
+                        
+                    </div>
+                </div>
                 <div class="small-btn">
                     <slot name="btn-1"></slot>
                     <slot name="btn-2"></slot>

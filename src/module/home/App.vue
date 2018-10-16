@@ -67,8 +67,14 @@
 
         <div class="online">
             <ul>
-                <li></li>
-                <li></li>
+                <li>
+                    <img src="./images/pic1@3x.png"/>
+                    
+                </li>
+                <li>
+                    <img src="./images/pic2@3x.png"/>
+                    
+                </li>
             </ul>
         </div>
 

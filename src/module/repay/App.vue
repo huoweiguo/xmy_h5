@@ -14,7 +14,7 @@
             <div class="bank-ts">提示：本次还款手续费<i>xx</i>元，实际支付金额<i>xx</i>元。</div>
         </div>
 
-        <button class="next-btn" v-show="next" id="btnPassword">立即还款</button>
+        <button class="next-btn" v-show="next" id="btnPassword" @click="sureRepay">立即还款</button>
 
 
         <div class="bank-mask" @click="closeBank" v-show="selectCard"></div>
@@ -58,8 +58,8 @@
         </div>
 
         <!--还款信息-->
-        <div class="repay_detail" v-show="!next">
-            <div class="repay-hk">
+        <!-- <div class="repay_detail"> -->
+            <!-- <div class="repay-hk">
                 <div class="hk-ms">还款金额(元)</div>
                 <div class="hk-money">{{order.amount}}</div>
             </div>
@@ -92,10 +92,26 @@
                 </div>
             </div>
 
-            <div class="protocol"><label class="radio-chk" @click="agree" :class="{'active': isChk}">本人阅读并同意签署协议</label><a href="#">《银行卡用户服务协议》</a></div>
+            <div class="protocol"><label class="radio-chk" @click="agree" :class="{'active': isChk}">本人阅读并同意签署协议</label><a href="#">《银行卡用户服务协议》</a></div> -->
 
-            <button class="repay-btn3" v-show="!showBtn">确认还款</button>
-            <button class="repay-btn2" @click="sureRepay" v-show="showBtn">确认还款</button>
+            <!-- <button class="repay-btn3" v-show="!showBtn">确认还款</button> -->
+            <!-- <button class="repay-btn2" @click="sureRepay" >确认还款</button>
+        </div> -->
+        <!-- 还款结果 -->
+        <div class="results" v-show="results">
+            <img v-show="!success" src="../../../static/images/icon_ok@2x.png"/>
+            <img v-show="success" src="../../../static/images/icon_refuse@2x.png"/>
+            <h2 v-show="!success">充值成功</h2>
+            <h2 v-show="success">充值失败</h2>
+            <p v-show="success">展示充值失败的原因</p>
+            <p v-show="!success">充值方式：工商银行 充值金额：1004.41元</p>
+            <div class="again" v-show="!success">
+                <a href="init.html">返回首页</a>
+            </div>
+            <div class="again" v-show="success">
+                <a href="recharge.html">返回重试</a>
+                <a class="look" href="init.html">返回首页</a>
+            </div>
         </div>
     </div>
 </template>
@@ -221,16 +237,16 @@
             this.selectPay();
 
             //立即还款
-            $('#btnPassword').on('click', function () {
-                $('#btnPassword').NumberKeypad({
-                    random: true,
-                    zIndex: 1001,
-                    callback: function (elem, password) {
-                        console.log('你的密码是：' + password);
-                        elem.close();
-                    }
-                });
-            });
+            // $('#btnPassword').on('click', function () {
+            //     $('#btnPassword').NumberKeypad({
+            //         random: true,
+            //         zIndex: 1001,
+            //         callback: function (elem, password) {
+            //             console.log('你的密码是：' + password);
+            //             elem.close();
+            //         }
+            //     });
+            // });
 
         }
     }
