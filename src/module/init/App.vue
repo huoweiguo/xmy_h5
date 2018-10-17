@@ -10,6 +10,13 @@
                 </div>
             </div>
         </div>
+        <div class="result">
+            <p>提交失败，请重新提交！</p>
+            <div class="btn">
+                <a href="home.html">返回首页</a>
+                <span>重新提交</span>
+            </div>
+        </div>
     </div>
 </template>
 
