@@ -1,0 +1,218 @@
+.main{
+    padding: 0.2rem;
+    .none{
+        margin-top: 0.9rem;
+        margin-bottom: 0.3rem;
+        display: none;
+        img{
+            display: block;
+            width: 0.6rem;
+            height: 0.6rem;
+            margin: 0 auto;
+        }
+        p{
+            margin-top: 0.2rem;
+            height: 0.25rem;
+            line-height: 0.25rem;
+            font-size: 0.16rem;
+            font-family: 'PingFangSC-Light';
+            color: #909090;
+            text-align: center;
+        }
+    }
+    ul{
+        margin-bottom: 0.6rem;
+        list-style: none;
+        li{
+            width: 100%;
+            margin-bottom: 0.2rem;
+            padding: 0.2rem;
+            background:linear-gradient(90deg,rgba(255,154,51,1) 0%,rgba(255,97,23,1) 100%);
+            border-radius:0.03rem;
+            overflow: hidden;
+            img{
+                display: block;
+                width: 0.3rem;
+                height: 0.3rem;
+                float: left;
+                margin-right: 0.1rem;
+                margin-top: 0.05rem;
+            }
+            .cardContent{
+                float: left;
+                h2{
+                    height: 0.25rem;
+                    line-height: 0.25rem;
+                    strong{
+                        font-size: 0.16rem;
+                        font-family: 'PingFangSC-Medium';
+                        color: #ffffff;
+                        float: left;
+                    }
+                    span{
+                        display: block;
+                        line-height: 0.14rem;
+                        font-family: PingFangSC-Light;
+                        font-size: 0.09rem;
+                        color: #ffffff;
+                        border: 0.01rem solid #ffffff;
+                        border-radius: 0.07rem;
+                        margin-top: 0.06rem;
+                        float: right;
+                        padding: 0.02rem 0.05rem;
+                    }
+                }
+                h3{
+                    font-family:PingFangSC-Light;
+                    font-size: 0.1rem;
+                    color: #ffffff;
+                    margin-bottom: 0.1rem;
+                }
+                h4{
+                    height: 0.35rem;
+                    line-height: 0.35rem;
+                    span{
+                        font-family:PingFangSC-Light;
+                        font-size: 0.18rem;
+                        color: #FFC29B;
+                        margin-right: 0.25rem;
+                    }
+                    em{
+                        font-weight: 500;
+                        font-style: normal;
+                        font-size: 0.24rem;
+                        font-family:PingFangSC-Medium;
+                        color: #ffffff
+                    }
+                }
+            }
+        }
+    }
+    .addCard{
+        border: 0.01rem solid #f5f5f5;
+        height: 0.4rem;
+        line-height: 0.4rem;
+        margin: 0 0.2rem;
+        a{
+            display: block;
+            img{
+                display: block;
+                width: 0.2rem;
+                height: 0.2rem;
+                margin-top: 0.1rem;
+                margin-left: 0.2rem;
+                float: left;
+            }
+            span{
+                font-size:0.16rem;
+                font-family:PingFangSC-Light;
+                color: #4a4a4a;
+                margin-left: 0.2rem;
+                float: left;
+            }
+            .go{
+                height: 0.12rem;
+                width: 0.07rem;
+                float: right;
+                margin-right: 0.2rem;
+                margin-top: 0.14rem;
+            }
+        }
+    }
+    .operation{
+        width: 100%;
+        height: 1.45rem;
+        position: fixed;
+        left: 0;
+        bottom: -1.45rem;
+        background: #eeeeee;
+        transition: 0.3s;
+        .list{
+            height: 0.44rem;
+            line-height: 0.44rem;
+            text-align: center;
+            font-size:0.14rem;
+            font-family:PingFangSC-Light;
+            border-bottom: 0.01rem solid #eeeeee;
+            background: #ffffff;
+        }
+        .cancel{
+            height: 0.45rem;
+            line-height: 0.45rem;
+            text-align: center;
+            font-size:0.14rem;
+            font-family:PingFangSC-Light;
+            margin-top: 0.1rem;
+            background: #ffffff;
+        }
+    }
+    .showChange{
+        bottom: 0;
+    }
+    .popup{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,1,23,0.2);
+        display: none;
+        &>div{
+            width: 2.8rem;
+            padding-top: 0.2rem;
+            border-radius: 0.1rem;
+            background: #ffffff;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            h2{
+                height: 0.25rem;
+                line-height: 0.25rem;
+                text-align: center;
+                color: #000118;
+                font-family:PingFangSC-Light;
+                font-size:0.18rem;
+                font-weight: normal
+            }
+            p{
+                margin-top: 0.05rem;
+                line-height: 0.17rem;
+                text-align: center;
+                font-family:PingFangSC-Light;
+                color: #9b9b9b;
+                font-size: 0.12rem;
+                border-bottom: 0.01rem solid #dddddd;
+                padding: 0 0.5rem 0.15rem;
+            }
+            .btn{
+                height: 0.55rem;
+                line-height: 0.55rem;
+                button{
+                    width: 50%;
+                    height: 100%;
+                    float: left;
+                    text-align: center;
+                    font-size: 0.16rem;
+                    font-family: PingFangSC-Light;
+                    border: none;
+                    background: transparent;
+                    &.cancelBtn{
+                        color: #9b9b9b;
+                    }
+                    &.sureBtn{
+                        color: #FF7F26;
+                    }
+                }
+                span{
+                    display: block;
+                    width: 100%;
+                    text-align: center;
+                    color: #FF7F26;
+                    font-size:0.16rem;
+                    font-family:PingFangSC-Light;
+                }
+            }
+        }
+    }
+}

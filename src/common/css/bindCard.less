@@ -1,0 +1,116 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-size: 0.14rem;
+	font-family: -apple-system, Helvetica Neue, Arial, PingFang SC,Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
+}
+html,body {
+	width: 100%;
+	height: 100%;
+	max-width: 750px;
+    overflow: hidden;
+    background: #F5F5F5;
+    margin: 0 auto;
+}
+.card-ts{
+    height: 0.3rem;
+    line-height: 0.3rem;
+    background-color: #fff;
+    padding:0 0.2rem; 
+    color: #9B9B9B;
+    font-size: 0.12rem;
+    white-space: nowrap;
+    margin-bottom: 0.17rem;
+}
+
+.card-txt{
+    background-color: #fff;
+    &>div{
+        height: 0.5rem;
+        border-bottom: 1px solid #f5f5f5;
+        line-height: 0.5rem;
+        position: relative;
+        span{
+            font-size:0.16rem;
+            float: left;
+            display: block;
+            height: 0.5rem;
+            width: 25%;
+            text-align: right;
+            color: #000117;
+            margin-right:5%; 
+        }
+        i{
+            float: right;
+            width: 70%;
+            font-style: normal;
+            display: block;
+            font-size: 0.16rem;
+            img{
+                display:inline-block;
+                width: 0.24rem;
+                height: 0.24rem;
+                vertical-align: middle
+            }
+        }
+        input[type="text"],input[type="number"]{
+            width: 70%;
+            height: 0.45rem;
+            border:0;
+            outline: none;
+            font-size: 0.16rem;
+            color: #000117;
+        }
+        em{
+            position: absolute;
+            right: 0.2rem;
+            top: 0;
+            height: 0.5rem;
+            line-height: 0.5rem;
+            font-style: normal;
+            font-size: 0.16rem;
+            color: #000117;
+            &.orange{
+                color: #000117;
+            }
+        }
+    }
+}
+.bind-set{
+    margin-top:0.35rem;
+    a{
+        display: block;
+        text-align: center;
+        font-size: 0.16rem;
+        color: #9b9b9b;
+        text-decoration: none;
+    }
+}
+.bind-btn1,.bind-btn2{
+    width: 2.8rem;
+    height: 0.5rem;
+    border-radius:0.05rem;
+    font-size: 0.2rem;
+    color: #fff;
+    background-color: #ccc;
+    display: block;
+    margin:0.15rem auto;
+    outline: none;
+    border:none;
+}
+.bind-btn2{
+    background-color: #FF6117;
+}
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #909090;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #909090;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #909090;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #909090;
+}
