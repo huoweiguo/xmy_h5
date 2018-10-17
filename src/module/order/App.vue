@@ -249,8 +249,7 @@
 
                     if(this.isDeal){
                         this.curDeal++;
-                        this.renderDeal
-                        (this.curDeal);
+                        this.renderDeal(this.curDeal);
                     }
 
                     if(this.curComplete){
