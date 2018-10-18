@@ -22,3 +22,186 @@ html,body{
     height: 100%;
     z-index:-1;
 }
+.xmy_nav_title{
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: #000117;
+    font-size: 0.18rem;
+    height: 0.45rem;
+    line-height: 0.45rem;
+}
+
+
+.result {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    text-align: center;
+    z-index: 100;
+  }
+  .result .loan_result {
+    width: 100%;
+    height: 0.45rem;
+    line-height: 0.45rem;
+    text-align: center;
+    color: #000117;
+    font-size: 0.18rem;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 0.42rem;
+  }
+  .result img {
+    width: 0.9rem;
+  }
+  .result h3 {
+    color: #000117;
+    font-size: 0.2rem;
+    font-weight: normal;
+    margin-top: 0.2rem;
+  }
+  .result h5 {
+    color: #9B9B9B;
+    font-weight: normal;
+    margin: 0.06rem 0 0.6rem;
+  }
+  .result .success {
+    margin-top: 0.5rem;
+  }
+  .result .success .detail {
+    border-top: 0.01rem solid #eeeeee;
+    border-bottom: 0.01rem solid #eeeeee;
+    margin: 0 0.3rem;
+    padding: 0.15rem 0;
+    overflow: hidden;
+  }
+  .result .success .detail h4 {
+    font-weight: normal;
+    font-size: 0.12rem;
+    font-family: 'PingFangSC-Light';
+    float: left;
+  }
+  .result .success .detail .process {
+    float: right;
+  }
+  .result .success .detail .process .iconText {
+    float: right;
+    text-align: left;
+  }
+  .result .success .detail .process .iconText span {
+    display: block;
+    font-size: 0.12rem;
+    font-family: 'PingFangSC-Light';
+    margin-bottom: 0.22rem;
+    color: #9B9B9B;
+  }
+  .result .success .detail .process .iconText h6 {
+    font-size: 0.12rem;
+    font-family: 'PingFangSC-Medium';
+    color: #4a4a4a;
+  }
+  .result .success .detail .process .iconLine {
+    width: 0.2rem;
+    float: right;
+    position: relative;
+    margin-right: 0.2rem;
+  }
+  .result .success .detail .process .iconLine em {
+    display: block;
+    width: 0.12rem;
+    height: 0.12rem;
+    border-radius: 50%;
+    background: #FF7F26;
+    position: absolute;
+    top: 0.02rem;
+    left: 0.04rem;
+  }
+  .result .success .detail .process .iconLine strong {
+    display: block;
+    width: 0.02rem;
+    height: 0.3rem;
+    background: #FF7F26;
+    position: absolute;
+    top: 0.14rem;
+    left: 0.09rem;
+  }
+  .result .success .detail .process .iconLine img {
+    display: block;
+    width: 0.2rem;
+    height: 0.2rem;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 0.44rem;
+  }
+  .result .success .detail .process .iconLine i {
+    display: block;
+    width: 0.02rem;
+    height: 0.3rem;
+    background: #cccccc;
+    position: absolute;
+    top: 0.64rem;
+    left: 0.09rem;
+  }
+  .result .success .detail .process .iconLine span {
+    display: block;
+    width: 0.12rem;
+    height: 0.12rem;
+    background: #cccccc;
+    position: absolute;
+    top: 0.94rem;
+    left: 0.04rem;
+    border-radius: 50%;
+  }
+  .result .success ul {
+    list-style: none;
+    padding: 0 0.3rem;
+  }
+  .result .success ul li {
+    height: 0.2rem;
+    line-height: 0.2rem;
+    padding: 0.17rem 0;
+  }
+  .result .success ul li span {
+    font-family: 'PingFangSC-Light';
+    font-size: 0.12rem;
+    color: #9B9B9B;
+    float: left;
+  }
+  .result .success ul li em {
+    float: right;
+    font-family: 'PingFangSC-Light';
+    font-size: 0.12rem;
+    color: #9B9B9B;
+    font-style: normal;
+  }
+  .result .small-btn {
+    margin-top: 0.5rem;
+  }
+  .result .small-btn a {
+    display: inline-block;
+    width: 1.48rem;
+    height: 0.44rem;
+    border: 1px solid #9B9B9B;
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 0.44rem;
+    text-decoration: none;
+    margin: 0 0.05rem;
+  }
+  .result .small-btn a.r-btn1 {
+    color: #9B9B9B;
+  }
+  .result .small-btn a.r-btn2 {
+    color: #FFFFFF;
+    background-color: #FF7F26;
+    border: 1px solid #FF7F26;
+  }
+  
+  .result .small-btn a.r-btn3 {
+    color: #FF7F26;
+    background-color: #fff;
+    border: 1px solid #FF7F26;
+  }

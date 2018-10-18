@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <div class="charge_content" :class="{moveTo: isMove}">
+        <div class="charge_content">
             <!--额度金额-->
             <div class="quota">
                 <h6 class="qu_h6">额度金额(元)</h6>
@@ -58,6 +58,7 @@
 
 <script>
     import '../../common/css/charge.less';
+    import xmy from '../../../static/js/xmy.js';
     export default {
         data () {
             return {
@@ -66,20 +67,40 @@
                 repayment: 1020.11,
                 date: '7天',
                 ischk: true,
-                isMove: false,
                 refuse: true,
                 result: false,
-                success: false
+                success: false,
+                token: xmy.getQueryString('token'),
+                userId: xmy.getQueryString('userId'),
+                productId: xmy.getQueryString('productId'),
+                productUserId: xmy.getQueryString('productUserId'),
+                publishOrderId: xmy.getQueryString('publishOrderId')
+            }
+        },
+
+        methods: {
+            init () {
+                var _this = this;
+                $.ajax({
+                    url: '/gateway/api/order/loan/verificationCredit',
+                    type: 'POST',
+                    data: {
+                        token: _this.token,
+                        borrowerId: _this.userId,
+                        productId: _this.productId,
+                        productUserId: _this.productUserId
+                    },
+                    success: function(res){
+                        console.log(res);
+                    }
+                });
             }
         },
 
         mounted() {
             let _this = this;
 
-            //初始化移动
-            setTimeout(function(){
-                _this.isMove = true;
-            },100);
+            this.init();
         }
     }
 </script>

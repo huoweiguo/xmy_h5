@@ -14,12 +14,31 @@ html,body{
     margin: 0 auto;
 }
 
+#app{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
 .result{
-    padding-top:0.6rem;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
     text-align: center;
+    z-index:100;
+    .loan_result{
+        width: 100%;
+        height: 0.45rem;
+        line-height: 0.45rem;
+        text-align: center;
+        color: #000117;
+        font-size: 0.18rem;
+        border-bottom:1px solid #eee;
+        margin-bottom: 0.42rem;
+    }
     img{
-        width: 0.81rem;
-        height: 0.81rem;
+        width: 0.9rem;
     }
     h3{
         color: #000117;

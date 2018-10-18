@@ -22,11 +22,11 @@ module.exports = {
 		assetsSubDirectory: 'static',
 		assetsPublicPath: '/',
 		proxyTable: {
-			'/url': {
-				target: 'http://192.168.0.41:8088/',
+			'/gateway': {
+				target: 'http://test-gateway.xiaomuyu.net:81/',
 				changeOrigin:true,
 				pathRewrite: {
-					'^/url': ''
+					'^/gateway': ''
 				}
 			}
 		},

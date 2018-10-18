@@ -10,26 +10,49 @@
                 </div>
             </div>
         </div>
-        <div class="result">
+        <div class="result_refuse" v-show="isRefuse">
             <p>提交失败，请重新提交！</p>
             <div class="btn">
-                <a href="home.html">返回首页</a>
-                <span>重新提交</span>
+                <a href="/app_xmy/home">返回首页</a>
+                <span @click="reSubmit">重新提交</span>
             </div>
         </div>
+
+
+        <div class="result" v-show="isResult">
+            <div class="loan_result">借款结果</div>
+            <div class="small-text">
+                <img src="../../../static/images/icon_refuse@2x.png">
+                <h3>{{refuse_reson}}</h3>
+                <h5>{{refuse_msg}}</h5>
+                <div class="small-btn">
+                    <a href="/app_xmy/home" class="r-btn3">返回首页</a>
+                </div>
+            </div>
+        </div>
+      
     </div>
 </template>
 
 <script>
     import '../../common/css/init.less';
+    import xmy from '../../../static/js/xmy.js';
     
     export default {
         data () {
             return {
                 timer: null,
-                tickTime: 3,
+                tickTime: 10,
                 com_result: false,
-                money: 1289
+                money: 1289,
+                token: xmy.getQueryString('token'),
+                userId: xmy.getQueryString('userId'),
+                productId: xmy.getQueryString('productId'),
+                productUserId: xmy.getQueryString('productUserId'),
+                isRefuse: false,
+                refuse_msg: '',
+                refuse_reson: '',
+                isResult: false
             }
         },
 
@@ -40,19 +63,6 @@
                 this.timer = setInterval(function(){
                     if(_this.tickTime > 0){
                          _this.tickTime--;
-                    } else {
-
-                        _this.com_result = true;
-                        _this.scrollNumber();
-                        
-                        clearInterval(_this.timer); 
-
-                        setTimeout(function(){
-                            location.href='/module/charge.html'
-                        },1500);
-
-                        
-                        
                     }
                 },1000);
             },
@@ -63,10 +73,55 @@
                     container:'#num-roll'
                 });
                 r1.roll(this.money);
+            },
+
+            verificationCredit() {
+                let _this = this;
+                $.ajax({
+                    url: '/gateway/api/order/loan/verificationCredit',
+                    type: 'POST',
+                    data: {
+                        token: _this.token,
+                        borrowerId: _this.userId,
+                        productId: _this.productId,
+                        productUserId: _this.productUserId
+                    },
+                    success: function(res){
+                        if(res.respCode == '000000'){
+                            _this.money = res.loanExtend.limit;
+                            _this.com_result = true;
+
+                            _this.scrollNumber();
+                            setTimeout(function(){
+                                window.location.href = '/module/charge.html?token='+_this.token+'&userId='+_this.userId+'&productId='+_this.productId+'&productUserId='+_this.productUserId+'&publishOrderId='+res.publishOrderId;
+                            },2500);
+                            
+                        } else if(res.respCode == '072018'){
+                            _this.isResult = true;
+                            _this.refuse_msg = '小主别灰心，为您推荐更多借款产品';
+                            _this.refuse_reson = '审核未通过';
+                        }
+
+                        clearInterval(_this.timer);
+                        _this.tickTime = 10;
+                    }
+                });
+            },
+
+
+            //重新获取额度
+            reSubmit () {
+                this.isRefuse = false;
+                this.verificationCredit();
             }
         },
+        
 
         mounted() {
+            
+            //获取额度
+            this.verificationCredit();
+
             //倒计时
             this.cuntdown();
         }
