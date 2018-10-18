@@ -8,10 +8,10 @@
             <span :class="{'active': isComplete}" @click="isAll=false, isDeal=false, isComplete=true">已完成</span>
         </div>
 
-
+        <!-- 全部 -->
         <div v-show="isAll">
             <ul class="order_list">
-                <li v-for="item in allList">
+                <li @click="goOrderDetail" v-for="item in allList">
                     <div class="li_nav">
                         <div class="order_user">
                             <img :src="item.platLogo">
@@ -50,7 +50,7 @@
                 暂无数据
             </div>
         </div>
-
+        <!-- 待还款 -->
         <div v-show="isDeal">
             <ul class="order_list">
                 <li v-for="item in dealList">
@@ -93,7 +93,7 @@
             </div>
         </div>
         
-
+        <!-- 已还款 -->
         <div v-show="isComplete">
             <ul class="order_list">
                 <li v-for="item in completeList">
@@ -162,7 +162,12 @@
                 completeList: [],
                 curAll: 1,
                 curDeal: 1,
-                curComplete: 1
+                curComplete: 1,
+                token: xmy.getQueryString('token'),
+                userId: xmy.getQueryString('userId'),
+                appVersion: xmy.getQueryString('appVersion'),
+                device: xmy.getQueryString('device'),
+                channelType: xmy.getQueryString('channelType')
             }
         },  
 
@@ -176,10 +181,18 @@
                 this.isDeal = false;
                 this.isComplete = false;
 
-                xmy.getData({
-                    url: '/url/getOrder',
+                $.ajax({
+                    url: '/gateway/api/order/billOrder/getOrderListApp',
+                    type:"POST",
+                    dataType:"json",
                     data: {
-                        type: 'all'
+                        token: _this.token,
+                        userId: _this.userId,
+                        userType: "B",
+                        size: 10,
+                        current: _this.curAll,
+                        type: 1,
+                        orderType: 0
                     },
                     success: function(res){
                         if(res.respCode === '000000'){
@@ -196,10 +209,17 @@
                 this.isDeal = true;
                 this.isComplete = false;
 
-                xmy.getData({
-                    url: '/url/getOrder',
+                $.ajax({
+                    url: '/gateway/api/order/billOrder/getOrderListApp',
+                    type:'POST',
                     data: {
-                        type: 'deal'
+                        token: _this.token,
+                        userId: _this.userId,
+                        userType: "B",
+                        size: 10,
+                        current: _this.curDeal,
+                        type: 3,
+                        orderType: 0
                     },
                     success: function(res){
                         if(res.respCode === '000000'){
@@ -216,10 +236,17 @@
                 this.isDeal = false;
                 this.isComplete = true;
 
-                xmy.getData({
-                    url: '/url/getOrder',
+                $.ajax({
+                    url: '/gateway/api/order/billOrder/getOrderListApp',
+                    type:'POST',
                     data: {
-                        type: 'complete'
+                        token: _this.token,
+                        userId: _this.userId,
+                        userType: "B",
+                        size: 10,
+                        current: _this.curComplete,
+                        type: 4,
+                        orderType: 0
                     },
                     success: function(res){
                         if(res.respCode === '000000'){
@@ -227,6 +254,14 @@
                         }
                     }
                 });
+            },
+
+            // 进入详情页
+            goOrderDetail ($evevt) {
+                console.log($$evevt);
+                let _this = this;
+                let orderId =''
+                window.location.href = "orderDetail.html?token="+_this.token+"&userId="+_this.userId+"&appVersion="+ _thisappVersion+"&device="+_this.device+"&channelType="+_this.channelType+"&orderId="+orderId;
             }
         },
 
@@ -255,7 +290,7 @@
 
                     if(this.curComplete){
                         this.curComplete++;
-                        this.renderComplete(this.curDeal);
+                        this.renderComplete(this.curComplete);
                     }
                     
                 }

@@ -1,234 +1,84 @@
-.scrollText{
-    font-family: PingFangSC-Light;
-    font-size: 12px;
-    color: #9B9B9B;
-    height: 0.3rem;
-    line-height: 0.3rem;
-    padding: 0 0.2rem;
-    font-weight: normal;
-    background-color: #fff;
-    margin-bottom: 0.1rem;
-    white-space: nowrap;
-}
-.repay{
+.content-pro{
+    position: relative;
     width: 100%;
-    background-color: #fff;
-    .select-bank{
-        padding: 0.13rem 0.2rem;
-        border-bottom: 1px solid #eee;
-        overflow: hidden;
-        .bankIcon{
-            width: 0.24rem;
-            height: 0.24rem;
-            display: block;
-            float: left;
-            margin-right: 0.1rem;
-        }
-        .bankName{
-            font-family: PingFangSC-Light;
-            font-size: 0.18rem;
-            color: #000117;
-            display: block;
-            height: 0.24rem;
-            line-height: 0.24rem;
-            float: left;
-            margin-right: 0.1rem;
-            i{
-                font-size: 0.18rem;
-                font-style: normal;
-                padding: 0 0.1rem;
-            }
-        }
-        .bankSmall{
-            font-family: PingFangSC-Light;
-            font-size: 0.16rem;
-            color: #909090;
-            display: block;
-            height: 0.24rem;
-            line-height: 0.24rem;
-            float: left;
-        }
-    }
-    .bank-money{
-        height: 1.04rem;
-        line-height: 1.04rem;
-        font-family: PingFangSC-Light;
-        font-size: 0.36rem;
-        color: #000118;
-        padding: 0 0.2rem;
-        span{
-            font-family: PingFangSC-Light;
-            font-size: 0.16rem;
-            color: #222336;
-            display: block;
-            float: left;
-            margin-right: 0.1rem;
-        }
-    }
-    .bank-ts{
-        font-family: PingFangSC-Light;
-        font-size: 0.14rem;
-        color: #000117;
-        padding:0 0.2rem;
-        height: 0.4rem;
-        line-height: 0.4rem;
-        background-color: #fff;
-        border-top:1px solid #eee;
-        i{
-            color: #FF7F26;
-            font-style: normal;
-        }
-    }
+    overflow: hidden;
 }
-.next-btn{
-    width: 75%;
-    height: 0.5rem;
-    background-color: #FF7F26;
-    color: #fff;
-    font-size: 0.2rem;
-    border-radius:0.05rem;
-    outline: none;
-    border: 0;
-    margin: 0.5rem auto 0;
-    display: block;
-}
-.right-arrow{
-    width: 0.16rem;
-    height: 0.16rem;
-    display: block;
-    float: right;
-    background: url(../../../static/images/rightarrow_1f.png) no-repeat;
-    background-size: contain;
-    margin-top: 0.04rem; 
-}
-.bank-mask{
+.repaybg{
     position: fixed;
     left: 0;
     top: 0;
+    background-color: #f5f5f5;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.65);
-    z-index: 1000;
+    z-index: -1;
 }
-.bank-slt{
-    width: 100%;
-    position: absolute;
-    bottom: -4rem;
-    left: 0;
-    z-index: 1001;
-    height: 4rem;
-    background-color: #f9f9f9;
-    transition: 0.3s;
-    .bank-nav{
-        width: 100%;
-        height: 0.48rem;
-        background-color: #f9f9f9;
-        font-family: PingFangSC-Light;
-        font-size: 0.2rem;
-        color: #000118;
-        line-height: 0.48rem;
-        text-align: center;
-        font-weight: normal;
+.small-txt{
+    height: 0.3rem;
+    font-size: 0.12rem;
+    color: #9b9b9b;
+    padding: 0 0.2rem;
+    background-color: #fff;
+    line-height: 0.3rem;
+    margin-bottom: 0.1rem;
+    white-space: nowrap;
+}
+.repay-detail{
+    background-color: #fff;
+    .repay-bank{
+        height: 0.5rem;
+        line-height: 0.5rem;
+        border-bottom:1px solid #eee;
+        padding:0 0.2rem;
         overflow: hidden;
-        border-bottom: 1px solid #ddd;
-        .close-btn{
-            width: 0.18rem;
-            height: 0.18rem;
+        img{
+            width: 0.24rem;
+            height: 0.24rem;
+            border-radius:50%;
+            vertical-align: middle;
+        }
+        i{
             display: block;
-            background: url(../../../static/images/close.png) no-repeat;
-            background-size: contain;
             float: right;
-            margin-top: 0.16rem;
-            margin-right: 0.2rem;
+            width: 0.14rem;
+            height: 0.14rem;
+            background: url(../../../static/images/rightarrow_1f.png) no-repeat;
+            background-size: 100% 100%; 
+            margin-top:0.18rem; 
         }
     }
-    ul {
-        height: 3.52rem;
-        overflow-y: scroll;
-        li{
-            background-color: #fff;
-            padding: 0.12rem 0.2rem;
-            overflow: hidden;
-            border-bottom: 1px solid #ddd;
-            .bankImg{
-                width: 0.3rem;
-                height: 0.3rem;
-                display: block;
-                float: left;
-                margin-right: 0.1rem;
-                margin-top: 0.08rem;
-            }
-            .bank-detail{
-                float: left;
-                .bank-name{
-                    font-size: 0.16rem;
-                    color: #000117;
-                    display: block;
-                    i{
-                        font-style: normal;
-                        margin:0 0.1rem;
-                    }
-                }
-                
-                p{
-                    font-size: 0.14rem;
-                    color: #909090;
-                }
-            }
-            .add-card{
-                font-size: 0.16rem;
-                color: #000117;
-                height: 0.3rem;
-                line-height: 0.3rem;
-                display: block;
-                float: left;
-                margin-top: 0.1rem;
-            }
-            .correct{
-                width: 0.2rem;
-                height: 0.2rem;
-                display: block;
-                float: right;
-                background: url(../../../static/images/icon_selected@2x.png) no-repeat;
-                background-size: 100% 100%;
-                margin-top: 0.12rem;
-                display: none;
-            }
-            &.active{
-                .correct{
-                    display: block;
-                }
-            }
+    .repay-money{
+        height: 1.04rem;
+        padding: 0.2rem 0.41rem;
+        font-size:0.36rem;
+        line-height: 0.68rem;
+        span{
+            font-size:0.16rem; 
+            display: inline-block;
+            vertical-align: middle;
         }
     }
 }
-.showBank{
-    bottom: 0;
+.repay-btn2,.repay-btn5{
+    width: 80%;
+    background-color: #FF7F26;
+    color: #fff;
+    font-size: 0.16rem;
+    display: block;
+    margin:0 auto;
+    height: 0.5rem;
+    border: 0;
+    border-radius: 0.05rem;
+    outline: none;
 }
 
 .repay_detail{
     position: absolute;
     left: 0;
-    top: 0.55rem;
+    top: 0;
     z-index:1;
     width: 100%;
     .repay-btn2,.repay-btn5{
         margin-top:0.48rem;
-    }
-    .repay-btn3,.repay-btn2{
-        width: 80%;
-        height: 0.5rem;
-        font-size:0.2rem;
-        color: #fff;
-        display: block;
-        background: #CCCCCC;
-        border-radius: 5px;
-        margin:0.48rem auto 0;
-        border: 0;
-        outline: none;
-    }
-    .repay-btn2{
-        background-color: #FF7F26;
     }
     .repay-hk{
         padding:0.2rem 0;
@@ -304,85 +154,213 @@
         }
     }
 }
-.protocol{
+.repay-btn3{
+    width: 80%;
+    height: 0.5rem;
+    font-size:0.2rem;
+    color: #fff;
+    display: block;
+    background: #CCCCCC;
+    border-radius: 5px;
+    margin:0.48rem auto 0;
+    border: 0;
+    outline: none;
+}
+.repay-mes{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    padding-top: 0.6rem; 
     text-align: center;
-    color: #9b9b9b;
-    margin-top: 0.3rem;
-    a{
-        font-size: 0.12rem;
-        color: #4A4A4A;
-        text-decoration: none;
+    z-index: 10000;
+    img{
+        width: 0.81rem;
+        height: 0.81rem;
     }
-    .radio-chk{
-        position: relative;
-        display: inline-block;
-        padding-left:0.14rem;
-        &:after{
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0.04rem;
-            width: 0.12rem;
-            height: 0.12rem;
-            background-image: url(../../../static/images/icon_round_unchecked@2x.png);
-            background-repeat: no-repeat;
-            background-size:100% 100%;
+    h2{
+        color: #000117;
+        font-size: 0.2rem;
+        font-weight: normal;
+        margin-top:0.22rem;
+        p{
+            margin-top:0.02rem; 
+            color: #9b9b9b; 
+            line-height: 0.2rem;
         }
-        &.active{
-            &:after{
-                background-image: url(../../../static/images/icon_round@2x.png);
+    }
+    .repay-btn2,.repay-btn5{
+        line-height: 0.5rem;
+        text-decoration: none;
+        margin-top: 0.6rem;
+    }
+}
+.no-repport{
+    padding: 0.1rem 0;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    color:#9b9b9b;
+}
+.repay_small{
+    width: 100%;
+    height: 0.44rem;
+    border-top: 1px solid #ccc;
+    background-color: #fff;
+    line-height: 0.44rem;
+    padding:0 0.2rem;
+    color: #000012;
+    margin-bottom: 0.4rem;
+    span{
+        color: #FF7F26;
+    }
+}
+.bank-mask{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.65);
+    z-index: 1000;
+}
+.bank-slt{
+    width: 100%;
+    position: absolute;
+    bottom: -4rem;
+    left: 0;
+    z-index: 1001;
+    height: 4rem;
+    background-color: #f9f9f9;
+    transition: 0.3s;
+    .bank-nav{
+        width: 100%;
+        height: 0.48rem;
+        background-color: #f9f9f9;
+        font-family: PingFangSC-Light;
+        font-size: 0.2rem;
+        color: #000118;
+        line-height: 0.48rem;
+        text-align: center;
+        font-weight: normal;
+        overflow: hidden;
+        border-bottom: 1px solid #ddd;
+        .close-btn{
+            width: 0.18rem;
+            height: 0.18rem;
+            display: block;
+            background: url(../../../static/images/close.png) no-repeat;
+            background-size: contain;
+            float: right;
+            margin-top: 0.16rem;
+            margin-right: 0.2rem;
+        }
+    }
+    ul {
+        height: 3.52rem;
+        overflow-y: scroll;
+        li{
+            position: relative;
+            background-color: #fff;
+            padding: 0.12rem 0.2rem;
+            overflow: hidden;
+            border-bottom: 1px solid #ddd;
+            a{
+                position: absolute;
+                display: block;
+                width: 100%;
+                height: 100%;
+                left: 0;
+                top: 0;
+                z-index:10;
+                cursor:pointer;
+            }
+            .bankImg{
+                width: 0.3rem;
+                height: 0.3rem;
+                display: block;
+                float: left;
+                margin-right: 0.1rem;
+                margin-top: 0.08rem;
+            }
+            .bank-detail{
+                float: left;
+                .bank-name{
+                    font-size: 0.16rem;
+                    color: #000117;
+                    display: block;
+                    i{
+                        font-style: normal;
+                        margin:0 0.1rem;
+                    }
+                }
+                
+                p{
+                    font-size: 0.14rem;
+                    color: #909090;
+                }
+            }
+            .add-card{
+                font-size: 0.16rem;
+                color: #000117;
+                height: 0.3rem;
+                line-height: 0.3rem;
+                display: block;
+                float: left;
+                margin-top: 0.1rem;
+            }
+            .correct{
+                width: 0.2rem;
+                height: 0.2rem;
+                display: block;
+                float: right;
+                background: url(../../../static/images/icon_selected@2x.png) no-repeat;
+                background-size: 100% 100%;
+                margin-top: 0.12rem;
+                display: none;
+            }
+            &.active{
+                .correct{
+                    display: block;
+                }
             }
         }
     }
 }
-.results{
-    border-top: 0.01px solid #eeeeee;
-    padding-top: 0.6rem;
-    height: 100%;
-    background: #FFFFFF;
+.showBank{
+    bottom: 0;
+}
+.addCardPay{
+    display: block;
+    background-color: #fff;
+    padding: 0.12rem 0.2rem;
+    overflow: hidden;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.16rem;
+    text-decoration: none;
+    color: #000117;
     img{
-        display: block;
-        width: 0.81rem;
-        height: auto;
-        margin: 0 auto;
-        margin-bottom: 0.22rem;
-    }
-    h2{
+        width: 0.3rem;
         height: 0.3rem;
-        line-height: 0.3rem;
-        text-align: center;
-        font-family: 'PingFangSC-Light';
-        font-size: 0.2rem;
-        color: #000117;
-        letter-spacing: 0;
+        float: left;
+        margin-right: 0.1rem;
     }
-    p{
-        height: 0.2rem;
-        line-height: 0.2rem;
-        text-align: center;
-        font-family: 'PingFangSC-Light';
-        font-size: 0.14rem;
-        color: #9B9B9B;
-        letter-spacing: 0;
+    .add-card{
+        font-size: 0.16rem;
+        line-height: 0.32rem;
     }
-    .again{
-        margin-top: 0.5rem;
-        padding: 0 0.43rem;
-        a{
-            display: block;
-            height: 0.5rem;
-            line-height: 0.5rem;
-            text-align: center;
-            font-family:'PingFangSC-Medium';
-            color: #FFFFFF;
-            font-size: 0.16rem;
-            background: #ff7f26;
-            text-decoration: none;
-        }
-        .look{
-            background: #FFFFFF;
-            color: #ff7f26;
-            margin-top: 0.15rem;
-        }
-    }
+}
+.repay-btn6{
+    display: block;
+    width: 80%;
+    height: 0.5rem;
+    margin: 0.2rem auto 0;
+    border: 1px solid #FF7F26;
+    color:#FF7F26;
+    line-height: 0.5rem;
+    text-align: center;
+    font-size: 0.16rem;
+    border-radius:0.05rem;
+    text-decoration: none;
 }
