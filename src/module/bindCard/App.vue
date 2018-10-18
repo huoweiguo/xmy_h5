@@ -19,8 +19,8 @@
 
         <div class="bind-set">
             <a href="http://proxy.xiaomuyu.net:8704/jbj/listBanks">支持的银行卡和限额</a>
-            <button v-show="!bind" class="bind-btn1">确认添加银行卡</button>
-            <button v-show="bind" @click="gobind" class="bind-btn2">确认添加银行卡</button>
+            <button v-show="!bind" class="bind-btn1">确认绑定银行卡</button>
+            <button v-show="bind" @click="gobind" class="bind-btn2">确认绑定银行卡</button>
         </div>
         <div id="xdy_toast" class="xdy_toast" v-show="unOpen"></div>
     </div>
@@ -29,6 +29,8 @@
 <script>
 // import xdy from '../js/xdy.js';
 import '../../common/css/bindCard.less';
+import xmy from '../../../static/js/xmy.js';
+import Toast from "../../../static/js/toast.js";
 export default {
     data () {
         return {
@@ -44,7 +46,9 @@ export default {
             idCard:'',
             bankCode:'',
             bankName:'',
-            bindCardSeqNo:''
+            bindCardSeqNo:'',
+            token: xmy.getQueryString('token'),
+            userId: xmy.getQueryString('userId')
         }
     },
 
@@ -55,7 +59,18 @@ export default {
 
         cardName () {
             let _this = this;
-            
+            $.ajax({
+                url: '/gateway/api/proxy/jbj/getBankInfo?token='+_this.token+'&bankCard='+_this.bankId,
+                type: 'GET',
+                success: function(res){
+                    if(res.respCode == "000000"){
+                        _this.bankCode = res.bankCode;
+                        _this.bankName = res.bankName;
+                    }else{
+                        // _this.$toast.center(res.respMsg);
+                    }
+                }
+            });
         },
 
         getSms () {
@@ -64,20 +79,72 @@ export default {
                 tel = this.trim(_this.telphone);
             
             if(telReg.test(tel)){
-                _hmt.push(['_trackEvent', "小木鱼绑卡发送短信验证码", "getsms"]);
-            
+                // _hmt.push(['_trackEvent', "口代鱼绑卡发送短信验证码", "getsms"]);
+                $.ajax({
+                    url: '/gateway/api/order/bindCard/pre',
+                    type: 'POST',
+                    data: {
+                        token: _this.token,
+                        userId: _this.userId,
+                        userType: "B",
+                        custName: _this.userName,
+                        custIdentity: _this.idCard,
+                        bankCard: _this.bankId,
+                        bankCode: _this.bankCode,
+                        bankName: _this.bankName,
+                        custPhone: _this.telphone
+                    },
+                    success: function(res){
+                        if(res.respCode == "000000"){
+                            _this.isClick = false;
+                            _this.bindCardSeqNo = res.data;
+                            clearInterval(_this.timer);
+                            _this.timer = setInterval(function(){
+                                if(_this.time <= 0){
+                                    _this.time = 60;
+                                    _this.isClick = true;
+                                    clearInterval(_this.timer);
+                                } else {
+                                    _this.isClick = false;
+                                    _this.time--;
+                                }
+                            },1000);
+                        }else{
+                            // _this.$toast.center(res.data.respMsg);
+                        }
+                    }
+
+                });
+
                 
             }else{
-                _this.$toast.center("请输入11位手机号码！");
+                // _this.$toast.center("请输入11位手机号码！");
             }
         },
 
         gobind () {
             let _this = this;
 
-            _hmt.push(['_trackEvent', "口代鱼绑卡", "bindcard"]);
+            // _hmt.push(['_trackEvent', "口代鱼绑卡", "bindcard"]);
 
-            
+            $.ajax({
+                url: '/gateway/api/order/bindCard/confirm',
+                type: 'POST',
+                data: {
+                    token: _this.token,
+                    userId: _this.userId,
+                    bindCardSeqNo: _this.bindCardSeqNo,
+                    smsCode: _this.chkcode
+                },
+
+                success: function(res){
+                    if(res.respCode == "000000"){
+                        window.history.back();
+                    }else{
+                        // _this.$toast.center(res.data.respMsg);
+                    }
+                }
+            });
         },
 
         isEmpty () {
@@ -93,9 +160,25 @@ export default {
     },
 
     mounted () {
-        let _this = this
+        let _this = this;
 
-        
+        $.ajax({
+            url: '/gateway/api/order/bindCardLog/initBandCardInfo',
+            type: 'POST',
+            data: {
+                token: _this.token,
+                userId: _this.userId,
+                userType: "B"
+            },
+            success: function(res){
+                if(res.respCode == "000000"){
+                    _this.userName = res.data.userName;
+                    _this.idCard = res.data.idCard;
+                    _this.telphone = res.data.mobile;
+                }
+                // _this.$toast.center("gsgege");
+            }
+        });
         
     }
 }

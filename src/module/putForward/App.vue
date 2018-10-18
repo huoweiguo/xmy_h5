@@ -1,77 +1,61 @@
 <template>
     <div id="app">
         <div class="amount" v-show="amount">
-            <p>注意：提现金额需≥10元，每笔将产生0.2%的提现手续费。</p>
+            <p>注意：提现金额需≥10元，每笔将产生{{fee}}%的提现手续费。</p>
             <div class="card" @click="selectBank">
-                <img src=""/>
+                <img :src="bankLogo"/>
                 <div class="cardName">
-                    <span class="repayment">工商银行（1918）</span>
+                    <span class="repayment">{{bankName}}</span>
                     <!-- <em>单笔金额≤5万元，单日金额≤5万元</em> -->
                 </div>
                 <em>＞</em>
             </div>
             <div class="money">
                 <span>¥</span>
-                <input type="number" @input="inspect" pattern="[0-9]" v-model="amt" placeholder="请输入大于等于100的金额"/>
-                <strong>全部转出</strong>
+                <input type="number" v-model="tradeAmount" @input="inspect" pattern="[0-9]" placeholder="请输入大于等于100的金额"/>
+                <strong @click="allMoney">全部转出</strong>
             </div>
-            <div class="cost">提示：本次提现手续费<span>xx</span>元，实际到账金额<span>xx</span>元。</div>
+            <div class="cost">提示：本次提现手续费<span>{{serviceFee}}</span>元，实际到账金额<span>{{actualAmount}}</span>元。</div>
             <a href="http://proxy.xiaomuyu.net:8704/jbj/listBanks">支持的银行卡和限额</a>
-            <button v-show="!haveNum">下一步</button>
-            <button class="click-btn" v-show="haveNum" @click="next">下一步</button>
+            <button v-show="!haveNum">确认</button>
+            <button class="click-btn" v-show="haveNum" @click="next">确认</button>
         </div>
         <div class="bank-mask" @click="closeBank" v-show="selectCard"></div>
         <!--选择提现方式-->
-        <div v-show="next" class="bank-slt">
+        <div class="bank-slt">
             <h3 class="bank-nav">选择支付方式<span class="close-btn" @click="closeBank"></span></h3>
-            <ul>
-                
-                <li>
-                    <img src="../../../static/images/icon_bank_logo@2x.png" class="bankImg">
+            <ul id="bank_list">
+                <li v-for="item in bankList" :class="{'active':item.isDefault =='Y'}" :data-bankid="item.id" :data-bankname="item.bankName" :data-banklogo="item.bankImag">
+                    <img :src="item.bankImag" class="bankImg">
                     <div class="bank-detail">
-                        <span class="bank-name">中国工商银行储蓄卡<i>(4488)</i></span>
-                        <p>银行单笔限额10000.00元</p>
+                        <span class="bank-name">{{item.bankName}}<i>({{item.bankCard}})</i></span>
+                        <p>银行单笔限额{{item.perDayLimit}}元，单日限额{{item.perTransactionLimit}}元</p>
                     </div>
                     <i class="correct"></i>
-                </li>
-
-                <li>
-                    <img src="../../../static/images/icon_bank_logo@2x.png" class="bankImg">
-                    <div class="bank-detail">
-                        <span class="bank-name">中国工商银行储蓄卡<i>(4488)</i></span>
-                        <p>银行单笔限额10000.00元</p>
-                    </div>
-                    <i class="correct"></i>
-                </li>
-
-                <li class="active">
-                    <img src="../../../static/images/icon_zhye@3x.png" class="bankImg">
-                    <div class="bank-detail">
-                        <span class="bank-name">账户余额</span>
-                        <p>10000.00元</p>
-                    </div>
-                    <i class="correct"></i>
-                </li>
-
-                <li>
-                    <img src="../../../static/images/icon_tjyhk@2x.png" class="bankImg">
-                    <div class="add-card">添加银行卡支付</div>
                 </li>
             </ul>
+            <a class="add" :href="addCard">
+                <img src="../../../static/images/icon_tjyhk@2x.png" class="bankImg">
+                <div class="add-card">
+                    <span>添加银行卡支付</span>
+                    <p>该交易仅支持储蓄卡</p>
+                </div>
+            </a>
+            
         </div>
         <div class="results" v-show="results">
             <img v-show="!success" src="../../../static/images/icon_ok@2x.png"/>
             <img v-show="success" src="../../../static/images/icon_refuse@2x.png"/>
             <h2 v-show="!success">提现成功</h2>
             <h2 v-show="success">提现失败</h2>
-            <p v-show="success">展示提现失败的原因</p>
+            <p v-show="success">{{result}}</p>
             <p v-show="!success">到账银行：工商银行 提现金额：1004.41元</p>
             <div class="again" v-show="!success">
-                <a href="home.html">返回首页</a>
+                <a :href="homeLink">返回首页</a>
             </div>
             <div class="again" v-show="success">
-                <a href="recharge.html">返回重试</a>
-                <a class="look" href="home.html">返回首页</a>
+                <a :href="recharge">返回重试</a>
+                <a class="look" :href="homeLink">返回首页</a>
             </div>
         </div>
     </div>
@@ -79,11 +63,11 @@
 
 <script>
 import '../../common/css/recharge.less';
+import xmy from '../../../static/js/xmy.js';
 export default {
     data () {
         return {
             amount:true,
-            amt:'',
             code:'',
             haveNum: false,
             telphone: false,
@@ -92,86 +76,190 @@ export default {
             success:false,
             results:false,
             choose:true,
-            selectCard:false
+            selectCard:false,
+            token: xmy.getQueryString('token'),
+            userId: xmy.getQueryString('userId'),
+            bankId:'',
+            tradeAmount:'',
+            serviceFee:'',
+            actualAmount:'',
+            bankLogo:'',
+            bankName:'',
+            balance:'',
+            bankList:[],
+            fee:'',
+            result:'',
+            homeLink:'',
+            recharge:'',
+            addCard:''
         }
     },
     methods:{
         trim (str) {
             return str.replace(/(^\s*)|(\s*$)/g,"");
         },
+        // 输入数字，提现手续费和到账金额获取
         inspect () {
             let _this = this;
             // 判断输入的是数字，显示手续费、实际支付金额和下一步按钮成可点击
-            if(Number(_this.trim(_this.amt))!=NaN){
+            if(Number(_this.trim(_this.tradeAmount))!=NaN){
                 _this.haveNum = true;
+                $.ajax({
+                    type: "POST",
+                    url: "/gateway/api/order/withdrawOrder/calc",
+                    data: {
+                        token: _this.token,
+                        userId: _this.userId,
+                        tradeType: "TX",
+                        tradeAmount: _this.tradeAmount,
+                        userType: "B"
+                    },
+                    success: function(res){
+                        if(res.respCode == "000000"){
+                            _this.actualAmount = res.data.actualAmount;
+                            _this.serviceFee = res.data.serviceFee;
+
+                        }
+                    }
+                })
             }else{
                 alert("请输入正确的数字")
             }
         },
-        next () {
-            this.amount = false
-            this.results = true;
+        // 全部转出
+        allMoney () {
             let _this = this;
-            if(Number(_this.trim(_this.amt))<100){
-                alert("充值金额大于或等于100元")
-            }else{
-                
+            if(_this.balance>0){
+                _this.haveNum = true;
             }
+            _this.tradeAmount = _this.balance;
+        },
+        // 确认提现
+        next () {
+            let _this = this;
+            $.ajax({
+                url: '/gateway/api/order/withdrawOrder/add',
+                type: 'POST',
+                data: {
+                    token: _this.token,
+                    userId: _this.userId,
+                    userType: "B",
+                    tradeType: "TX",
+                    tradeAmount: _this.tradeAmount,
+                    bankId: _this.bankId,
+                    serviceFee: _this.serviceFee,
+                    actualAmount: _this.actualAmount
+                },
+                success: function(res){
+                    if(res.respCode === '000000'){
+                        _this.amount = false
+                        _this.results = true;
+                        // 成功结果显示未添加
+                    }else{
+                        _this.amount = false
+                        _this.results = true;
+                        _this.success = true;
+                    }
+                    _this.result = res.respMsg;
+                    _this.recharge = "putForward.html?userId="+_this.userId+'&token='+_this.token;
+                    _this.homeLink = "home.html?userId="+_this.userId+'&token='+_this.token;
+                }
+            })
             
         },
-        codeCheck () {
-            let _this = this;
-            // 判断输入的是数字，显示手续费、实际支付金额和下一步按钮成可点击
-            if(Number(_this.trim(_this.code))!=NaN){
-                _this.haveCode = true;
-            }else{
-                alert("请输入正确的验证码！")
-            }
-        },
-        chengeTel () {
-
-        },
-        countDown () {
-
-        },
-        chooseCard () {
-            this.next = true;
-        },
+        // 更换支付方式
         selectBank(){
             this.selectCard = true;
             document.querySelector('.bank-slt').className = 'bank-slt showBank';
         },
-
+        // 关闭选择提现方式
         closeBank(){
             this.selectCard = false;
             document.querySelector('.bank-slt').className = 'bank-slt';
         },
-
         //选择银行卡
         selectPay(){
-            let bankSlt = document.querySelector('.bank-slt');
-            let aLi = bankSlt.querySelectorAll('li');
             let _this = this;
-
-            aLi.forEach(function(item,index){
-                item.addEventListener('click', function(){
-
-                    if(index == aLi.length - 1){
-                        console.log("添加银行卡");
-                    }
-
-                    aLi.forEach(function(item){
-                        item.className = ''
+            let aLi = $('#bank_list').find('li');
+            aLi.each(function(index,item){
+                $(item).on("click",function(){
+                    aLi.each(function(index,item){
+                        aLi[index].className = '';    
                     });
-
-                    _this.closeBank()
-                    item.className = 'active';
-                }, false);
+                    $(this).addClass('active');
+                    _this.bankId = $(this).data("bankid");
+                    _this.bankLogo = $(this).data("banklogo");
+                    _this.bankName = $(this).data("bankname");
+                    _this.closeBank();
+                });
             });
+        },
+        // 得到银行卡列表
+        getBankList () {
+            let _this = this;
+            _this.addCard = "bindCard?userId="+_this.userId+'&token='+_this.token;
+            $.ajax({
+                type: "POST",
+                url: "/gateway/api/proxy/jbj/reCharge",
+                data: {
+                    token: _this.token,
+                    userId: _this.userId,
+                    userType: "B"
+                },
+                success: function(res){
+                    if(res.respCode == "000000"){
+                        _this.bankList = res.bankList;
+                        console.log(res.bankList);
+                        _this.$nextTick(function(){
+                            _this.selectPay();
+                        });
+                        
+                    }
+                    
+                }
+            })
+        },
+        // 得到手续费费率
+        getFee () {
+            let _this = this;
+            $.ajax({
+                url: "/gateway/api/order/get/fee",
+                type: "POST",
+                data: {
+                    token: _this.token,
+                    userId: _this.userId,
+                    userType: "B",
+                    tradeType: "TX"
+                },
+                success: function(res){
+                    if(res.respCode == "000000"){
+                        _this.fee = res.data*100;
+                    }
+                }
+            })
         }
     },
     mounted() {
-        this.selectPay();
+        let _this = this;
+        _this.getBankList();
+        _this.getFee();
+        $.ajax({
+            url: '/gateway/api/proxy/jbj/getUserDetail',
+            type: 'post',
+            data: {
+                token: _this.token,
+                userId: _this.userId,
+                userType: "B"
+            },
+            success: function(res){
+                if(res.respCode == "000000"){
+                    _this.bankLogo = res.userBankInfo.bankImag;
+                    _this.bankName = res.userBankInfo.bankName;
+                    _this.bankId = res.userBankInfo.id;
+                    _this.balance = res.accountBalance;
+                }
+            }
+        })
     }
 }
 </script>

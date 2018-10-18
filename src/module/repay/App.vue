@@ -1,254 +1,427 @@
 <template>
-    <div>
-        <div class="body-mask"></div>
-        <navBar title="立即还款"></navBar>
-        <h3 class="scrollText" v-show="next">注意：还款支持余额还款，银行卡仅支持储蓄卡还款。</h3>
-        <div class="repay" v-show="next">
-            <div class="select-bank" @click="selectBank">
-                <img :src="bankIcon" class="bankIcon">
-                <span class="bankName">中国银行<i>(1918)</i></span>
-                <span class="bankSmall">快捷</span>
-                <em class="right-arrow"></em>
+    <div class="content-pro" id="process">
+        <!-- <Menu>
+            <span class="menu_nav" name="title">立即还款</span>
+        </Menu> -->
+        <div class="repaybg"></div>
+        <div class="small-txt" v-show="nextProcess">注意：银行卡仅支持储蓄卡还款。</div>
+        <div class="repay-detail" v-show="nextProcess">
+            <div class="repay-bank" @click="selectCard = true">
+                <template v-if="payType == 'A'"><img src="../../../static/images/icon_zhye@3x.png"> 账户余额</template>
+                <template v-if="payType == 'B'"><img :src="bankLogo"> {{bankName}} ({{cardEndNum}})</template>
+                <i class="arrow_right"></i>
             </div>
-            <div class="bank-money"><span>&yen;</span>1003.84</div>
-            <div class="bank-ts">提示：本次还款手续费<i>xx</i>元，实际支付金额<i>xx</i>元。</div>
+            <div class="repay-money">
+                <span>&yen;</span>
+                {{orderAmount}}
+            </div>
         </div>
 
-        <button class="next-btn" v-show="next" id="btnPassword" @click="sureRepay">立即还款</button>
+        <!--去除-->
+        <!--<div class="no-repport">暂不支持余额还款</div>-->
+        <!--<button class="repay-btn2" v-show="nextProcess" @click="nextClick">下一步</button>-->
+        <div class="repay_small">本次还款手续费<span>{{serviceFee}}</span>元，实扣金额<span>{{orderAmount}}</span>元</div>
+        <button class="repay-btn2" @click="repaySure">确认</button>
 
-
-        <div class="bank-mask" @click="closeBank" v-show="selectCard"></div>
-        <!--选择还款方式-->
-        <div v-show="next" class="bank-slt">
-            <h3 class="bank-nav">选择支付方式<span class="close-btn" @click="closeBank"></span></h3>
-            <ul>
-                
-                <li>
-                    <img src="../../../static/images/icon_bank_logo@2x.png" class="bankImg">
-                    <div class="bank-detail">
-                        <span class="bank-name">中国工商银行储蓄卡<i>(4488)</i></span>
-                        <p>银行单笔限额10000.00元</p>
-                    </div>
-                    <i class="correct"></i>
-                </li>
-
-                <li>
-                    <img src="../../../static/images/icon_bank_logo@2x.png" class="bankImg">
-                    <div class="bank-detail">
-                        <span class="bank-name">中国工商银行储蓄卡<i>(4488)</i></span>
-                        <p>银行单笔限额10000.00元</p>
-                    </div>
-                    <i class="correct"></i>
-                </li>
-
-                <li class="active">
-                    <img src="../../../static/images/icon_zhye@3x.png" class="bankImg">
-                    <div class="bank-detail">
-                        <span class="bank-name">账户余额</span>
-                        <p>10000.00元</p>
-                    </div>
-                    <i class="correct"></i>
-                </li>
-
-                <li>
-                    <img src="../../../static/images/icon_tjyhk@2x.png" class="bankImg">
-                    <div class="add-card">添加银行卡支付</div>
-                </li>
-            </ul>
-        </div>
-
-        <!--还款信息-->
-        <!-- <div class="repay_detail"> -->
-            <!-- <div class="repay-hk">
+        <!--去除-->
+        <!--
+        <div class="repay_detail" v-show="!nextProcess">
+            <div class="repay-hk">
                 <div class="hk-ms">还款金额(元)</div>
-                <div class="hk-money">{{order.amount}}</div>
+                <div class="hk-money">{{orderAmount}}</div>
             </div>
 
             <div class="hk-list">
-                <div><span>订单编号</span><i>{{order.id}}</i></div>
+                <div><span>订单编号</span><i>{{orderId}}</i></div>
                 <div>
                     <span>银行名称</span>
                     <i>
-                        <template v-if="order.payType == 'A'">账户余额</template>
-                        <template v-if="order.payType == 'B'">{{order.bankName}}</template>
+                        <template v-if="payType == 'A'">账户余额</template>
+                        <template v-if="payType == 'B'">{{bankName}}</template>
                     </i>
                 </div>
-                <div><span>银行卡号</span><i>{{order.bankCard}}</i></div>
-                <div><span>姓名</span><i>{{order.cardName}}</i></div>
+                <div><span>银行卡号</span><i>{{bankCard}}</i></div>
+                <div><span>姓名</span><i>{{cardName}}</i></div>
             </div>
 
             <div class="hk-list">
                 <div>
                     <span>预留电话</span>
-                    <h5 v-show="showTel">{{order.bankPhone}}</h5>
-                    <input type="number" @input="chkVal" v-show="!showTel" v-model="order.bankPhone"> 
+                    <h5 v-show="showTel">{{bankPhone}}</h5>
+                    <input type="number" @input="chkVal" v-show="!showTel" v-model="bankPhone"> 
                     <em @click="showTel = false">修改电话</em>
                 </div>
                 <div>
                     <span>验证码&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <input type="number" v-model="order.hkcode" @input="chkVal" placeholder="输入验证码">
+                    <input type="number" v-model="hkcode" @input="chkVal" placeholder="输入验证码">
                     <em class="getcode" v-show="!isSms" @click="getSms">获取验证码</em> 
                     <em class="getcode orange" v-show="isSms">{{getNumber}}s</em> 
                 </div>
             </div>
 
-            <div class="protocol"><label class="radio-chk" @click="agree" :class="{'active': isChk}">本人阅读并同意签署协议</label><a href="#">《银行卡用户服务协议》</a></div> -->
-
-            <!-- <button class="repay-btn3" v-show="!showBtn">确认还款</button> -->
-            <!-- <button class="repay-btn2" @click="sureRepay" >确认还款</button>
-        </div> -->
-        <!-- 还款结果 -->
-        <div class="results" v-show="results">
-            <img v-show="!success" src="../../../static/images/icon_ok@2x.png"/>
-            <img v-show="success" src="../../../static/images/icon_refuse@2x.png"/>
-            <h2 v-show="!success">充值成功</h2>
-            <h2 v-show="success">充值失败</h2>
-            <p v-show="success">展示充值失败的原因</p>
-            <p v-show="!success">充值方式：工商银行 充值金额：1004.41元</p>
-            <div class="again" v-show="!success">
-                <a href="init.html">返回首页</a>
-            </div>
-            <div class="again" v-show="success">
-                <a href="recharge.html">返回重试</a>
-                <a class="look" href="init.html">返回首页</a>
-            </div>
+            <button class="repay-btn3" v-show="!showBtn">确认还款</button>
+            <button class="repay-btn2" @click="sureRepay" v-show="showBtn">确认还款</button>
         </div>
+        -->
+
+        <div class="bank-mask" v-show="selectCard" @click="closeBank"></div>
+        <!--选择还款方式-->
+        <div class="bank-slt" id="bank_list" :class="{'showBank': selectCard}">
+            <h3 class="bank-nav">选择支付方式<span class="close-btn" @click="closeBank"></span></h3>
+            <ul v-show="cardList.length > 0">
+                
+                <li v-for="item in cardList"  :class="{'active': isClick == false && payType=='B' && item.isDefault == 'Y'}" :data-bankid="item.id" :data-endnum="item.bankCard" :data-bankimg="item.bankImag" :data-bankname="item.bankName" :data-id="item.realBankCard">
+                    <img :src="item.bankImag" class="bankImg">
+                    <div class="bank-detail">
+                        <span class="bank-name">{{item.bankName}}<i>({{item.bankCard}})</i></span>
+                        <p>银行单笔限额{{item.perTransactionLimit}}元</p>
+                    </div>
+                    <i class="correct"></i>
+                </li>
+            </ul>
+
+            <template v-if="!adequate">
+                <a class="addCardPay" href="bindCard.html">
+                    <img src="../../../static/images/more_add@2x.png" class="bankImg">
+                    <div class="add-card">添加银行卡支付</div>
+                </a>
+
+                <ul>
+                    <li class="account_my" :class="{'active': payType=='A'}">
+                        <img src="../../../static/images/icon_zhye@3x.png" class="bankImg">
+                        <div class="bank-detail">
+                            <span class="bank-name">账户余额</span>
+                            <p>{{balance.number}}元</p>
+                        </div>
+                        <i class="correct"></i>
+                    </li>
+                </ul>
+            </template>
+
+
+            <template v-if="adequate">
+                <ul>
+                    <li class="account_my" :class="{'active': payType=='A'}">
+                        <img src="../../../static/images/icon_zhye@3x.png" class="bankImg">
+                        <div class="bank-detail">
+                            <span class="bank-name">账户余额</span>
+                            <p>{{balance.number}}元</p>
+                        </div>
+                        <i class="correct"></i>
+                        <a href="javascript:;" class="mask-bank"></a>
+                    </li>
+                </ul>
+                <a class="addCardPay" href="bindCard.html">
+                    <img src="../../../static/images/more_add@2x.png" class="bankImg">
+                    <div class="add-card">添加银行卡支付</div>
+                </a>
+            </template>
+
+                
+
+            
+        </div>
+
+
+        <!--还款成功/失败信息-->
+        <div class="repay-mes" v-show="result"><!--v-show="result"-->
+            <img v-show="faild" src="../../../static/images/more_add@2x.png">
+            <img v-show="!faild" src="../../../static/images/icon_ok@2x.png">
+
+            <h2 v-show="faild">
+                <template v-if="deal">还款失败</template>
+                <p>{{faildMes}}</p>
+            </h2>
+
+            <h2 v-show="!faild">
+                还款成功，为信用点赞
+                <p>还款方式：{{bankName}} 还款金额：{{tradeAmount}}元</p>
+            </h2>
+
+            <a v-show="faild" class="repay-btn5" href="orderDetail.html">返回重试</a>
+            <!-- <a href="javascript:;" @click="download" v-show="faild" class="repay-btn6">下载小木鱼APP查看订单</a>
+            <a href="javascript:;" @click="download" v-show="!faild" class="repay-btn5">下载小木鱼APP再借一笔</a> -->
+        </div>
+        <div id="xdy_toast" class="xdy_toast" v-show="unOpen"></div>
     </div>
 </template>
 
 <script>
-    import navBar from '../../components/nav.vue';
-    import '../../common/css/repay.less';
-    import xmy from '../../../static/js/xmy.js';
-    export default {
-        components: {
-            navBar
-        },
-
-        data () {
-            return {
-                bankIcon: require('../../../static/images/icon_bank_logo@2x.png'),
-                selectCard: false,
-                next: true,
-                showTel: true,
-                isSms: false,
-                getNumber: 60,
-                showBtn: false, 
-                isChk: true,
-                timer: null,
-                order: {
-                    amount: 1120.84,
-                    id: 'PL151185009670902300153306',
-                    bankName: '中国工商银行',
-                    payType: 'B',
-                    bankCard: '6222 **** **** **** 390',
-                    cardName: '*维国',
-                    bankPhone: '18721686596',
-                    hkcode: ''
-                }
-            }
-        },
-
-        methods: {
-            selectBank(){
-                this.selectCard = true;
-                document.querySelector('.bank-slt').className = 'bank-slt showBank';
+// import xdy from '../js/xdy.js';
+// import Menu from './menu.vue'
+export default {
+    components: {
+        Menu
+    },
+    data (){
+        return {
+            nextProcess: true,
+            hktel: '',
+            hkcode: '',
+            showTel: true,
+            showBtn: false,
+            unOpen: false,
+            isSms: false,
+            timer: null,
+            getNumber: 60,
+            faild: false,
+            result: false,
+            bankImg: '',
+            orderAmount: '',
+            payType: '',
+            bankLogo: '',
+            bankName: '',
+            sysSeqId: '',
+            bankId: '',
+            orderId: '',
+            bankPhone: '',
+            bankCard: '',
+            cardName: '',
+            faildMes: '',
+            tradeAmount: '',
+            deal: true,
+            hkuan: true,
+            selectCard: false,
+            serviceFee: 0,
+            cardList: [],
+            repayBankCard: '',
+            cardEndNum: '',
+            balance: {
+                number: 0
             },
-
-            closeBank(){
-                this.selectCard = false;
-                document.querySelector('.bank-slt').className = 'bank-slt';
-            },
-
-            //选择银行卡
-            selectPay(){
-                let bankSlt = document.querySelector('.bank-slt');
-                let aLi = bankSlt.querySelectorAll('li');
-                let _this = this;
-
-                aLi.forEach(function(item,index){
-                    item.addEventListener('click', function(){
-
-                        if(index == aLi.length - 1){
-                            console.log("添加银行卡");
-                        }
-
-                        aLi.forEach(function(item){
-                            item.className = ''
-                        });
-
-                        _this.closeBank()
-                        item.className = 'active';
-                    }, false);
-                });
-            },
-
-            chkVal(){
-                let hkcode = xmy.trim(this.order.hkcode),
-                    bankPhone = xmy.trim(this.order.bankPhone);
-                
-                if(hkcode != '' && bankPhone != '' && this.isChk){
-                    this.showBtn = true;
-                } else {
-                    this.showBtn = false;
-                }
-            },
-
-            //获取验证码
-            getSms(){
-                let _this = this;
-                this.isSms = true;
-                clearInterval(this.timer);
-                this.timer = setInterval(function(){
-                    if(_this.getNumber <= 0){
-                        _this.getNumber = 60;
-                        _this.isSms = false;
-                        clearInterval(_this.timer);
-                    } else {
-                        _this.isSms = true;
-                        _this.getNumber--;
-                    }
-                },1000);
-            },
-
-            //是否同意借款协议
-            agree(){
-                this.isChk = !this.isChk;
-
-                if(this.isChk == false){
-                    this.showBtn = false;
-                } else {
-                    let hkcode = xmy.trim(this.order.hkcode),
-                        bankPhone = xmy.trim(this.order.bankPhone);
-
-                    if(hkcode != '' && bankPhone != ''){
-                        this.showBtn = true;
-                    }
-                }
-            },
-
-            //确认还款
-            sureRepay(){
-                
-            }
-        },
-
-        mounted() {
-            this.selectPay();
-
-            //立即还款
-            // $('#btnPassword').on('click', function () {
-            //     $('#btnPassword').NumberKeypad({
-            //         random: true,
-            //         zIndex: 1001,
-            //         callback: function (elem, password) {
-            //             console.log('你的密码是：' + password);
-            //             elem.close();
-            //         }
-            //     });
-            // });
-
+            adequate: true,
+            isClick: false 
         }
+    },
+
+    methods: {
+        trim (str) {
+            return str.replace(/(^\s*)|(\s*$)/g,"");
+        },
+
+        chkVal () {
+            let chkCode = this.trim(this.hkcode);
+            let tel = this.trim(this.bankPhone);
+
+            if(tel != '' && chkCode != ''){
+                this.showBtn = true;
+            } else {
+                this.showBtn = false;
+            }
+        },
+
+
+        //选择银行卡
+        closeBank () {
+            this.selectCard = false;
+        },  
+
+        //确认还款
+        repaySure () {
+            let _this = this;
+            xdy.ajax({
+                url: '/proxy/api/order/orderLog/confirmDirect',
+                method: 'POST',
+                params: {
+                    token: window.localStorage.getItem('token'),
+                    userId: window.localStorage.getItem('userId'),
+                    sysSeqId: _this.sysSeqId,
+                    payType: _this.payType,
+                    bankId: _this.bankId
+                },
+                success: function(res){
+                    _this.result = true;
+                    if(res.data.respCode == '000000'){
+                        _this.faild = false;
+                        _this.bankName = res.data.data.bankName;
+                        _this.tradeAmount = res.data.data.tradeAmount;
+                    } else {
+                        _this.faild = true;
+                        _this.faildMes = res.data.respMsg;
+                    }
+                }
+            });
+
+            _hmt.push(['_trackEvent', "短信链接还款", "repayment"]);
+        },
+
+
+        download: function(){
+            var _this = this;
+            $.ajax({
+                url:'/proxy/api/proxy/dl/getAndroidAppUrl?channel=M214',
+                type:'GET',
+                success:function(s){
+                    if(s.respCode=="000000"){
+                        if(ismobile()=="0"){
+                            location.href="https://itunes.apple.com/cn/app/id1395223757?mt=8";
+                        } else if(ismobile()=="1"){
+                            location.href=s.data;
+                        }
+                    }     
+                }
+            });
+        },
+
+
+
+        //渲染卡列表
+        renderCardList () {
+            let _this = this;
+            xdy.ajax({
+                url: '/proxy/api/user/jbj/findBankCardByUserId',
+                method: 'POST',
+                params: {
+                    token: window.localStorage.getItem('token'),
+                    userId: window.localStorage.getItem('userId')
+                },
+                success: function(res){
+                    if(res.data.respCode == '000000'){
+                        _this.cardList = res.data.data;
+                    }
+                }
+            });
+        },
+
+        //渲染余额
+        renderYY () {
+            let _this = this;
+            xdy.ajax({
+                url: '/proxy/api/proxy/jbj/getUserDetail',
+                method: 'POST',
+                params: {
+                    token: window.localStorage.getItem('token'),
+                    userId: window.localStorage.getItem('userId'),
+                    userType: 'B'
+                },
+                success: function(res){
+                    if(res.data.respCode == '000000'){
+                        _this.balance.number = res.data.accountBalance;
+                        if(parseFloat(res.data.accountBalance) >= _this.orderAmount){
+                            _this.adequate = true;
+                        } else {
+                            _this.adequate = false;
+                        }
+                    }
+                }
+            });
+        }, 
+
+        toast (msg) {
+            let _this = this;
+            this.unOpen = true;
+            document.getElementById('xdy_toast').innerHTML = msg;
+            setTimeout(function(){
+                _this.unOpen = false;
+            },1500);
+        },
+
+        init () {
+
+            let _this = this;
+            this.orderId = this.$route.params.orderId;
+
+            xdy.ajax({
+                method: 'POST',
+                url: '/proxy/api/order/orderLog/begin',
+                params: {
+                    token: window.localStorage.getItem('token'),
+                    payerUserId: window.localStorage.getItem('userId'),
+                    payerUserType: 'B',
+                    orgOrderId: _this.$route.params.orderId,
+                    orderType: 'HK'
+                },
+                success: function(res){
+                    if(res.data.respCode == '000000'){
+                        _this.bankImg = res.data.data.accountLogo;
+                        _this.orderAmount = res.data.data.orderAmount;
+                        _this.payType = res.data.data.payType;
+                        _this.bankImg = res.data.data.accountLogo;
+                        _this.bankLogo = res.data.data.bankLogo;
+                        _this.bankName = res.data.data.bankName;
+                        _this.sysSeqId = res.data.data.sysSeqId;
+                        _this.bankId = res.data.data.bankId;
+                        _this.serviceFee = res.data.data.serviceFee;
+                        _this.balance.number = res.data.data.accountBalance;
+                        _this.cardEndNum = res.data.data.cardEndNum;
+                    }
+                    _this.renderYY();
+                    _this.listEvent();
+                }
+            });
+        
+        },
+
+
+        listEvent(){
+            let _this = this;
+            let aLi = $('#bank_list').find('li');
+
+            aLi.each(function(index,item){
+                $(item).on("click",function(){
+                    _this.isClick = true;
+                    if($(this).hasClass('account_my')){
+                        if(_this.orderAmount > parseFloat(_this.balance.number)){
+                            _this.$toast.center("余额不足");
+                            return false;
+                        }  else {
+
+                            aLi.each(function(index,item){
+                                if(item.className.indexOf('account_my') != -1){
+                                    aLi[index].className = 'account_my';
+                                } else {
+                                    aLi[index].className = '';
+                                }
+                            });
+
+                            $('this').addClass('active');
+                            _this.payType = 'A';
+                            _this.bankId = '';
+
+                            _this.closeBank();
+                        }
+                    } else {
+
+                        aLi.each(function(index,item){
+                            if(aLi[index].className.indexOf('account_my') != -1){
+                                aLi[index].className = 'account_my';
+                            } else {
+                                aLi[index].className = '';
+                            }
+                        });
+                            
+
+                        $(this).addClass('active');
+                        _this.repayBankCard = $(this).data('id');
+                        _this.cardEndNum = $(this).data('endnum');
+                        _this.bankName =  $(this).data('bankname');
+                        _this.bankLogo = $(this).data('bankimg');
+                        _this.payType = 'B';
+                        _this.bankId = $(this).data('bankid');
+                        
+                        _this.closeBank();
+                    }
+                });
+            });
+        }
+       
+    },
+
+    mounted () {
+        this.init();
+        this.renderCardList();
+
+        let process = document.getElementById('process');
+        let clientHeight = document.documentElement.clientHeight;
+        process.style.height = clientHeight + 'px';
+        
     }
+}
 </script>
+
+
+
+<style lang="less" scoped>
+@import url(../../common/css/repay.less);
+</style>
 

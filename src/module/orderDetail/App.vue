@@ -8,16 +8,16 @@
             </div>
 
             <div class="order_header">
-                <img class="head_img" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=850016154,2966264409&fm=27&gp=0.jpg">
-                <span class="head_name">芝麻借款</span>
-                <span class="head_status">已拒绝</span>
+                <img class="head_img" :src="orderText.headImg">
+                <span class="head_name">{{orderText.investorName}}</span>
+                <span class="head_status">{{orderText.orderStatus}}</span>
             </div>
         </div>
 
         <div class="order_li">
-            <div><span class="order_id">订单编号</span><span class="order_text">PL151185009670902300153306</span></div>
-            <div><span class="order_id">创建时间</span><span class="order_text">2018.06.12  12:12:12 </span></div>
-            <div><span class="order_id">薪资协议</span><a href="#">点击查看</a></div>
+            <div><span class="order_id">订单编号</span><span class="order_text">{{orderText.orderId}}</span></div>
+            <div><span class="order_id">创建时间</span><span class="order_text">{{orderText.createTime}}</span></div>
+            <div><span class="order_id">借款协议</span><a :href="orderText.protocolPage">点击查看</a></div>
         </div>
 
         <div class="order_table">
@@ -31,11 +31,11 @@
                 </tr>
 
                 <tr>
-                    <td>1000.00</td>
-                    <td>12%</td>
-                    <td>7天</td>
-                    <td>教育</td>
-                    <td>2018.06.12</td>
+                    <td>{{orderText.originalAmt}}</td>
+                    <td>{{orderText.annualInterestRate}}</td>
+                    <td>{{orderText.timeLimit}}</td>
+                    <td>{{orderText.loanPurpose}}</td>
+                    <td>{{orderText.loanDate}}</td>
                 </tr>
             </table>
 
@@ -50,11 +50,11 @@
                     </tr>
 
                     <tr>
-                        <td>1000.00</td>
-                        <td>12%</td>
-                        <td>7天</td>
-                        <td>教育</td>
-                        <td>2018.06.12</td>
+                        <td>{{orderText.dueDate}}</td>
+                        <td>{{orderText.expireRepayment}}</td>
+                        <td>{{orderText.penalSum}}</td>
+                        <td>{{orderText.penaltyInterest}}</td>
+                        <td>{{orderText.overdueLevel}}</td>
                     </tr>
                 </table>
 
@@ -68,11 +68,11 @@
                     </tr>
 
                     <tr>
-                        <td>1000.00</td>
-                        <td>12%</td>
-                        <td>7天</td>
-                        <td>教育</td>
-                        <td>2018.06.12</td>
+                        <td>{{orderText.reliefAmt}}</td>
+                        <td>{{orderText.presentRepayment}}</td>
+                        <td>{{orderText.repaymentWay}}</td>
+                        <td>{{orderText.actualRepaymentAmt}}</td>
+                        <td>{{orderText.actualRepaymentDate}}</td>
                     </tr>
                 </table>
             </div>
@@ -82,16 +82,96 @@
             <!-- 找TA聊聊 -->
             <a href="#">
                 <template v-if="1==1">立即还款</template>
-                <template v-if="1==2">再借一笔</template>
             </a>
         </div>
     </div>
 </template>
 
 <script>
-    export default {
-       
-    }
+export default {
+     data () {
+        return {
+            orderText: {
+                orderId: '',
+                investorName: '',
+                headImg: '',
+                timeLimit: '',
+                loanPurpose: '',
+                createTime: '',
+                protocolPage: '',
+                originalAmt: '',
+                annualInterestRate: '',
+                loanDate: '',
+                dueDate: '',
+                expireRepayment: '',
+                penalSum: '',
+                penaltyInterest: '',
+                overdueLevel: '',
+                reliefAmt: '',
+                presentRepayment: '',
+                repaymentWay: '',
+                actualRepaymentAmt: '',
+                actualRepaymentDate: '',
+                orderStatus: '',
+                token: xmy.getQueryString('token'),
+                userId: xmy.getQueryString('userId'),
+                appVersion: xmy.getQueryString('appVersion'),
+                device: xmy.getQueryString('device'),
+                channelType: xmy.getQueryString('channelType')
+            }
+        }
+    },
+    methods: {
+        orderContext () {
+            let _this = this;
+            let orderId = this.$route.params.orderId;
+            $.ajax({
+                url: '/proxy/api/order/h5/orderDetail',
+                type: 'GET',
+                data: {
+                    token: _this.token,
+                    userId: _this.userId,
+                    orderId: orderId
+                },
+                success: function(res){
+                    if(res.data.respCode == '000000'){
+                        _this.orderText.orderId = res.data.data.orderNo;
+                        _this.orderText.headImg = res.data.data.investorAvatar;
+                        _this.orderText.investorName = res.data.data.investorName;
+                        _this.orderText.orderStatus = res.data.data.orderStatus;
+                        
+                        
+                        _this.orderText.timeLimit = res.data.data.timeLimit;
+                        _this.orderText.loanPurpose = res.data.data.loanPurpose;
+                        _this.orderText.createTime = res.data.data.createTime;
+                        _this.orderText.protocolPage = 'http://proxy.xiaomuyu.net:8704/xmy/agreementXDY.html?userId='+window.localStorage.getItem('userId')+'&loanUrl='+res.data.data.loanUrl;
+                        _this.orderText.originalAmt = res.data.data.originalAmt;
+
+                        _this.orderText.annualInterestRate = res.data.data.annualInterestRate;
+                        _this.orderText.loanDate = res.data.data.loanDate;
+                        _this.orderText.dueDate = res.data.data.dueDate;
+                        _this.orderText.expireRepayment = res.data.data.expireRepayment;
+                        _this.orderText.penalSum = res.data.data.penalSum;
+                        _this.orderText.penaltyInterest = res.data.data.penaltyInterest;
+                        _this.orderText.overdueLevel = res.data.data.overdueLevel;
+
+                        _this.orderText.reliefAmt = res.data.data.reliefAmt;
+                        _this.orderText.presentRepayment = res.data.data.presentRepayment;
+                        _this.orderText.repaymentWay = res.data.data.repaymentWay;
+                        _this.orderText.actualRepaymentAmt = res.data.data.actualRepaymentAmt;
+                        _this.orderText.actualRepaymentDate = res.data.data.actualRepaymentDate;
+                        
+                    } else {
+                        _this.$toast.center(res.data.respMsg);
+                    }
+                }
+            });
+        }
+    },
+    mounted () {
+        this.orderContext();
+    }  
+}
 </script>
 
 <style lang="less" scoped>
