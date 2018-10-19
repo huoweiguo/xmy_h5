@@ -37,7 +37,7 @@
         
         <div class="online">
             <ul>
-                <li v-for="item in recruitList" :data-id="item.productId" :data-uid="item.productUserId" v-if="item.type == 'Loan'" @click="golink(item.productId, item.productUserId)">
+                <li v-for="item in recruitList" :data-id="item.productId" :data-uid="item.productUserId" v-if="item.type == 'Loan'" @click="golink(item.productId, item.productUserId, item.productName)">
                     <img :src="item.bannerUrl"/>
                 </li>
             </ul>
@@ -93,7 +93,8 @@
                 window.location.href = '/app_xmy/zpdetail?recruitId='+recruitId;
             },
 
-            golink (productId,productUserId) {
+            golink (productId,productUserId,productName) {
+                xmy.setCookie('productName',productName);
                 let _this = this;
                 $.ajax({
                     url: '/gateway/api/user/product/checkAuth',
@@ -106,7 +107,9 @@
                     success: function(res){
                         if(res.respCode == '000000'){
                             if(res.data.status == 'Y'){
-                                window.location.href = '/module/init.html?token='+_this.token+'&userId='+_this.userId+'&productId='+productId + '&productUserId='+ productUserId;
+                                var link = '/module/init.html?token='+_this.token+'&userId='+_this.userId+'&productId='+productId + '&productUserId='+ productUserId;
+                                window.location.href = link;
+                                
                             } else if(res.data.status == 'N'){
                                 window.location.href = '/app_xmy/renzhen?productId='+productId;
                             }
