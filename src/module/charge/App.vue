@@ -74,15 +74,15 @@
                 <ul>
                     <li>
                         <span>借款金额</span>
-                        <em>¥1500.00</em>
+                        <em>¥{{tradeAmt}}</em>
                     </li>
                     <li>
                         <span>到账金额</span>
-                        <em>¥1200.00</em>
+                        <em>¥{{actualAmt}}</em>
                     </li>
                     <li>
                         <span>到账方式</span>
-                        <em v-show="isCard">招商银行 尾号8899</em>
+                        <em v-show="isCard">{{bankName}} 尾号{{bankCard}}</em>
                         <em v-show="!isCard">账户余额</em>
                     </li>
                 </ul>
@@ -91,6 +91,16 @@
                 <a href="/app_xmy/home" class="r-btn1">返回首页</a>
                 <a href="#" class="r-btn2" v-show="!success">更多借款</a>
                 <a href="#" class="r-btn2" v-show="success">查看订单</a>
+            </div>
+        </div>
+
+        <div class="loan_mask" v-show="toLeave"></div>
+        <div class="go_combox" v-show="toLeave">
+            <h3>任性！确认不拿钱了？</h3>
+            <div class="loan_small">借款成功后，下次借款可以提额还降息哟</div>
+            <div class="loan_set">
+                <a href="/app_xmy/home">确认返回</a>
+                <a href="javascript:;" @click="loankv" class="loankv">在考虑下</a>
             </div>
         </div>
     </div>
@@ -121,13 +131,18 @@
                 bank_suc: false,
                 afterTime: '',
                 showMsg: false,
-                isCard: true
+                isCard: true,
+                bankName: '',
+                tradeAmt: '',
+                bankCard: '',
+                actualAmt: '',
+                toLeave: false
             }
         },
 
         methods: {
             goback () {
-                window.history.go(1);
+                this.toLeave = true;
             },
 
             toLoan () {
@@ -149,6 +164,10 @@
                             _this.success = true;
                             _this.bank_suc = true;
                             _this.isCard = true;
+                            _this.actualAmt = res.data.actualAmt;
+                            _this.bankName = res.data.bankName;
+                            _this.tradeAmt = res.data.tradeAmt;
+                            _this.bankCard = res.data.bankCard;
                             
                         } else if(res.respCode == '080001') {
                             _this.message = '借款成功';
@@ -190,20 +209,16 @@
                         } 
                     }
                 });
+            },
+
+            loankv () {
+                this.toLeave = false;
             }
         },
 
         mounted() {
             let _this = this;
             this.init();
-
-            _this.result = true;
-            _this.message = '借款成功';
-            _this.success = true;
-            _this.bank_suc = false;
-            _this.showMsg = true;
-            _this.isCard = false;
-            _this.faildMsg = '请在账户上提现';
         }
     }
 </script>

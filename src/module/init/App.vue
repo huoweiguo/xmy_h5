@@ -52,7 +52,8 @@
                 isRefuse: false,
                 refuse_msg: '',
                 refuse_reson: '',
-                isResult: false
+                isResult: false,
+                ajaxEV: null 
             }
         },
 
@@ -63,6 +64,11 @@
                 this.timer = setInterval(function(){
                     if(_this.tickTime > 0){
                          _this.tickTime--;
+                    }
+
+                    if(_this.tickTime <= 0){
+                        _this.isRefuse = true;
+                        _this.ajaxEV.abort();
                     }
                 },1000);
             },
@@ -77,7 +83,7 @@
 
             verificationCredit() {
                 let _this = this;
-                $.ajax({
+                _this.ajaxEV = $.ajax({
                     url: '/gateway/api/order/loan/verificationCredit',
                     type: 'POST',
                     data: {
@@ -111,6 +117,7 @@
 
             //重新获取额度
             reSubmit () {
+                this.tickTime = 10;
                 this.isRefuse = false;
                 this.verificationCredit();
             }
