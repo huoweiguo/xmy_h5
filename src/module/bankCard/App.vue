@@ -5,7 +5,7 @@
             <p>还没有银行卡哟！</p>
         </div>
         <ul>
-            <li v-for="(item,index) in cardList" :key="index" :data-bankid="item.id" :data-isdefault="item.isDefault" @click="operationCard">
+            <li v-for="(item,index) in cardList" :data-cardname="item.bankName" :data-realbankcard="item.realBankCard" :data-lastname="item.bankCard" :data-bankid="item.id" :data-isdefault="item.isDefault" @click="operationCard">
                 <img :src="item.bankImag"/>
                 <div class="cardContent">
                     <h2><strong>{{item.bankName}}</strong><span v-show="item.isDefault == 'Y'" >默认</span></h2>
@@ -28,19 +28,20 @@
             <div class="list" @click="major" v-show="isMain">设置默认银行卡</div>
             <div class="cancel" @click="abolish">取消</div>
         </div>
-        <div class="popup">
-            <div class="inquiry">
-                <h2>确认解除绑定？</h2>
-                <p>解绑后，该银行卡将不再列表中展示，需重新绑定银行卡</p>
+        <div class="popup" v-show="showTip">
+            <div class="inquiry" v-show="success">
+                <h2>{{question}}</h2>
+                <p>{{makeSure}}</p>
                 <div class="btn">
-                    <button class="cancelBtn">取消</button>
-                    <button class="sureBtn">确定</button>
+                    <button class="cancelBtn" @click="abolish">取消</button>
+                    <button class="sureBtn" v-show="defaulted" @click="majorSure">确定</button>
+                    <button class="sureBtn" v-show="clear" @click="relieveSure">确定</button>
                 </div>
             </div>
-            <div class="notice">
-                <h2>暂不支持解除</h2>
-                <p>列表中至少保证有一张银行卡，不影响借款成功到账您的银行卡</p>
-                <div class="btn">
+            <div class="notice" v-show="showResult">
+                <h2>{{resultTittle}}</h2>
+                <p>{{resultReason}}</p>
+                <div class="btn" @click="abolish">
                     <span>知道了</span>
                 </div>
             </div>
@@ -57,10 +58,22 @@ export default {
             bindCard:'',
             token: xmy.getQueryString('token'),
             userId: xmy.getQueryString('userId'),
-            noCard:true,
+            noCard: false,
             cardId:'',
             isDefault:'',
-            isMain:true
+            isMain:true,
+            realBankCard:'',
+            showTip: false,
+            success: false,
+            question:'',
+            cardName:'',
+            makeSure:'',
+            lastName:'',
+            showResult:false,
+            resultTittle:'',
+            resultReason:'',
+            defaulted:false,
+            clear: false
         }
     },
     methods:{
@@ -69,24 +82,100 @@ export default {
             let _this = this;
             _this.cardId = $event.path[2].dataset.bankid;
             _this.isDefault = $event.path[2].dataset.isdefault;
+            _this.realBankCard =$event.path[2].dataset.realbankcard;
+            _this.cardName = $event.path[2].dataset.cardname;
+            _this.lastName = $event.path[2].dataset.lastname;
             if(_this.isDefault == "Y"){
                 _this.isMain = false;
+                _this.isChk = false;
+                // 提示默认银行卡不可操作
+                
             }else{
                 _this.isMain = true;
             }
             _this.isChk = true;
         },
-        // 解除绑定银行卡
+        // 解除绑定银行卡询问
         relieve () {
-
+            let _this = this;
+            _this.isChk = false;
+            _this.clear = true;
+            _this.defaulted = false;
+            _this.success = true;
+            _this.question = "确认解除绑定？";
+            _this.makeSure = "您确定要把"+_this.cardName+"("+_this.lastName+") 的银行卡解除绑定，解绑后，该银行卡将不再列表中展示，需重新绑定银行卡？"
+            _this.showTip = true;
+        },
+        // 确认解除绑定银行卡
+        relieveSure () {
+            let _this = this;
+            $.ajax({
+                url: '/gateway/api/order/unbindCard/direct',
+                type: "post",
+                data: {
+                    userId: _this.userId,
+                    token: _this.token,
+                    bankId: _this.cardId
+                },
+                success:function(res){
+                    if(res.respCode == "000000"){
+                        _this.success = false;
+                        _this.showResult = true;
+                        _this.resultTittle = "已解除该银行卡的绑定";
+                        // window.location.reload()
+                    }else{
+                        _this.success = false;
+                        _this.showResult = true;
+                        _this.resultTittle = "解除银行卡绑定失败"
+                        _this.resultReason = res.respMsg;
+                        // window.location.reload()
+                    }
+                }
+            })
+        },
+        // 设为主卡询问
+        major () {
+            let _this = this;
+            _this.isChk = false;
+            _this.defaulted = true;
+            _this.clear = false;
+            _this.showTip = true;
+            _this.success = true;
+            _this.question = "设置为默认卡？";
+            _this.makeSure = "您确定要把"+_this.cardName+"("+_this.lastName+") 设置为默认银行卡？"
         },
         // 设为主卡
-        major () {
-
+        majorSure () {
+            let _this = this;
+            $.ajax({
+                url: '/gateway/api/user/jbj/setDefaultCard',
+                type: "post",
+                data: {
+                    userId: _this.userId,
+                    token: _this.token,
+                    bankCard: _this.realBankCard
+                },
+                success:function(res){
+                    if(res.respCode == "000000"){
+                        _this.success = false;
+                        _this.showResult = true;
+                        _this.resultTittle = "已设置为默认卡";
+                        window.location.reload();
+                    }else{
+                        _this.success = false;
+                        _this.showResult = true;
+                        _this.resultTittle = "设置默认卡失败"
+                        _this.resultReason = res.respMsg;
+                        window.location.reload();
+                    }
+                }
+            })
         },
         // 取消
         abolish () {
             this.isChk = false;
+            this.showTip = false;
+            window.location.reload();
         }
     },
     mounted () {
@@ -104,6 +193,8 @@ export default {
                 success: function(res){
                     if(res.respCode == "000000"){
                         if(res.data.length==0){
+                            _this.noCard = true;
+                        }else{
                             _this.noCard = false;
                         }
                         _this.cardList = res.data;
