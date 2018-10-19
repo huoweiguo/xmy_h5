@@ -11,35 +11,35 @@
         <!-- 全部 -->
         <div v-show="isAll">
             <ul class="order_list">
-                <li @click="goOrderDetail" v-for="item in allList">
+                <li v-for="item in allList" @click="goOrderDetail(item.orderId)">
                     <div class="li_nav">
                         <div class="order_user">
-                            <img :src="item.platLogo">
-                            {{item.company}}
+                            <img :src="item.listAvaterUrl">
+                            {{item.listName}}
                         </div>
 
                         <div class="order_status">
-                            <img v-if="item.status == 0" src="../../../static/images/icon_yjj@2x.png">
-                            <img v-if="item.status == 1" src="../../../static/images/icon_yyq@2x.png">
-                            <img v-if="item.status == 2" src="../../../static/images/icon_yhk@2x.png">
-                            <img v-if="item.status == 3" src="../../../static/images/icon_lyz@2x.png">
-                            <template v-if="item.status == 0">已拒绝</template>
-                            <template v-if="item.status == 1">已逾期</template>
-                            <template v-if="item.status == 2">已还款</template>
-                            <template v-if="item.status == 3">处理中</template>
+                            <img v-if="item.orderStatus == 'O'" src="../../../static/images/icon_yyq@2x.png">
+                            <img v-if="item.orderStatus == 'S'" src="../../../static/images/icon_yhk@2x.png">
+                            <img v-if="item.orderStatus == 'P'" src="../../../static/images/icon_lyz@2x.png">
+                            <img v-if="item.orderStatus == 'W'" src="../../../static/images/round_blue@2x.png">
+                            <template v-if="item.orderStatus == 'O'">已逾期{{item.overdueDay}}天</template>
+                            <template v-if="item.orderStatus == 'S'">已还款</template>
+                            <template v-if="item.orderStatus == 'P'">处理中</template>
+                            <template v-if="item.orderStatus == 'W'">剩余{{item.day}}天还款</template>
                         </div>
                     </div>
                     <div class="li_desc">
                         <div class="order_money">
-                            <i>&yen;</i>{{item.amount}}
+                            <i>&yen;</i>{{item.orderAmt}}
                         </div>
                         <div class="order_rate">
-                            <p>酬金：{{item.excharge}}</p>
-                            <p>利率：{{item.rate}}</p>
+                            <p>酬金：{{item.rewardRateDesc}}</p>
+                            <p>利率：{{item.interestRateDesc}}</p>
                         </div>
                         <div class="order_date">
-                            <p>借款日：{{item.Loan}}</p>
-                            <p>还款日：{{item.repayment}}</p>
+                            <p>借款日：{{item.orderTime}}</p>
+                            <p>还款日：{{item.repaymentDate}}</p>
                         </div>
                     </div>
                 </li>
@@ -53,35 +53,35 @@
         <!-- 待还款 -->
         <div v-show="isDeal">
             <ul class="order_list">
-                <li v-for="item in dealList">
+                <li v-for="item in dealList" @click="goOrderDetail(item.orderId)">
                     <div class="li_nav">
                         <div class="order_user">
-                            <img :src="item.platLogo">
-                            {{item.company}}
+                            <img :src="item.listAvaterUrl">
+                            {{item.listName}}
                         </div>
 
                         <div class="order_status">
-                            <img v-if="item.status == 0" src="../../../static/images/icon_yjj@2x.png">
-                            <img v-if="item.status == 1" src="../../../static/images/icon_yyq@2x.png">
-                            <img v-if="item.status == 2" src="../../../static/images/icon_yhk@2x.png">
-                            <img v-if="item.status == 3" src="../../../static/images/icon_lyz@2x.png">
-                            <template v-if="item.status == 0">已拒绝</template>
-                            <template v-if="item.status == 1">已逾期</template>
-                            <template v-if="item.status == 2">已还款</template>
-                            <template v-if="item.status == 3">处理中</template>
+                            <img v-if="item.orderStatus == 'O'" src="../../../static/images/icon_yyq@2x.png">
+                            <img v-if="item.orderStatus == 'S'" src="../../../static/images/icon_yhk@2x.png">
+                            <img v-if="item.orderStatus == 'P'" src="../../../static/images/icon_lyz@2x.png">
+                            <img v-if="item.orderStatus == 'W'" src="../../../static/images/round_blue@2x.png">
+                            <template v-if="item.orderStatus == 'O'">已逾期{{item.overdueDay}}天</template>
+                            <template v-if="item.orderStatus == 'S'">已还款</template>
+                            <template v-if="item.orderStatus == 'P'">处理中</template>
+                            <template v-if="item.orderStatus == 'W'">剩余{{item.day}}天还款</template>
                         </div>
                     </div>
                     <div class="li_desc">
                         <div class="order_money">
-                            <i>&yen;</i>{{item.amount}}
+                            <i>&yen;</i>{{item.orderAmt}}
                         </div>
                         <div class="order_rate">
-                            <p>酬金：{{item.excharge}}</p>
-                            <p>利率：{{item.rate}}</p>
+                            <p>酬金：{{item.rewardRateDesc}}</p>
+                            <p>利率：{{item.interestRateDesc}}</p>
                         </div>
                         <div class="order_date">
-                            <p>借款日：{{item.Loan}}</p>
-                            <p>还款日：{{item.repayment}}</p>
+                            <p>借款日：{{item.orderTime}}</p>
+                            <p>还款日：{{item.repaymentDate}}</p>
                         </div>
                     </div>
                 </li>
@@ -96,35 +96,35 @@
         <!-- 已还款 -->
         <div v-show="isComplete">
             <ul class="order_list">
-                <li v-for="item in completeList">
+                <li v-for="item in completeList" @click="goOrderDetail(item.orderId)">
                     <div class="li_nav">
                         <div class="order_user">
-                            <img :src="item.platLogo">
-                            {{item.company}}
+                            <img :src="item.listAvaterUrl">
+                            {{item.listName}}
                         </div>
 
                         <div class="order_status">
-                            <img v-if="item.status == 0" src="../../../static/images/icon_yjj@2x.png">
-                            <img v-if="item.status == 1" src="../../../static/images/icon_yyq@2x.png">
-                            <img v-if="item.status == 2" src="../../../static/images/icon_yhk@2x.png">
-                            <img v-if="item.status == 3" src="../../../static/images/icon_lyz@2x.png">
-                            <template v-if="item.status == 0">已拒绝</template>
-                            <template v-if="item.status == 1">已逾期</template>
-                            <template v-if="item.status == 2">已还款</template>
-                            <template v-if="item.status == 3">处理中</template>
+                            <img v-if="item.orderStatus == 'O'" src="../../../static/images/icon_yyq@2x.png">
+                            <img v-if="item.orderStatus == 'S'" src="../../../static/images/icon_yhk@2x.png">
+                            <img v-if="item.orderStatus == 'P'" src="../../../static/images/icon_lyz@2x.png">
+                            <img v-if="item.orderStatus == 'W'" src="../../../static/images/round_blue@2x.png">
+                            <template v-if="item.orderStatus == 'O'">已逾期{{item.overdueDay}}天</template>
+                            <template v-if="item.orderStatus == 'S'">已还款</template>
+                            <template v-if="item.orderStatus == 'P'">处理中</template>
+                            <template v-if="item.orderStatus == 'W'">剩余{{item.day}}天还款</template>
                         </div>
                     </div>
                     <div class="li_desc">
                         <div class="order_money">
-                            <i>&yen;</i>{{item.amount}}
+                            <i>&yen;</i>{{item.orderAmt}}
                         </div>
                         <div class="order_rate">
-                            <p>酬金：{{item.excharge}}</p>
-                            <p>利率：{{item.rate}}</p>
+                            <p>酬金：{{item.rewardRateDesc}}</p>
+                            <p>利率：{{item.interestRateDesc}}</p>
                         </div>
                         <div class="order_date">
-                            <p>借款日：{{item.Loan}}</p>
-                            <p>还款日：{{item.repayment}}</p>
+                            <p>借款日：{{item.orderTime}}</p>
+                            <p>还款日：{{item.repaymentDate}}</p>
                         </div>
                     </div>
                 </li>
@@ -196,7 +196,7 @@
                     },
                     success: function(res){
                         if(res.respCode === '000000'){
-                            _this.allList = _this.allList.concat(res.list);
+                            _this.allList = _this.allList.concat(res.data);
                         }
                     }
                 });
@@ -223,7 +223,7 @@
                     },
                     success: function(res){
                         if(res.respCode === '000000'){
-                            _this.dealList = _this.dealList.concat(res.list);
+                            _this.dealList = _this.dealList.concat(res.data);
                         }
                     }
                 });
@@ -250,18 +250,16 @@
                     },
                     success: function(res){
                         if(res.respCode === '000000'){
-                            _this.completeList = _this.completeList.concat(res.list);
+                            _this.completeList = _this.completeList.concat(res.data);
                         }
                     }
                 });
             },
 
             // 进入详情页
-            goOrderDetail ($evevt) {
-                console.log($$evevt);
+            goOrderDetail (orderId) {
                 let _this = this;
-                let orderId =''
-                window.location.href = "orderDetail.html?token="+_this.token+"&userId="+_this.userId+"&appVersion="+ _thisappVersion+"&device="+_this.device+"&channelType="+_this.channelType+"&orderId="+orderId;
+                window.location.href = "orderDetail.html?token="+_this.token+"&userId="+_this.userId+"&appVersion="+ _this.appVersion+"&device="+_this.device+"&channelType="+_this.channelType+"&orderId="+orderId;
             }
         },
 

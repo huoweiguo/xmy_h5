@@ -3,8 +3,8 @@
         <div class="order-bg"></div>
         <div class="card-ts">注意：请绑定您的借记卡或储蓄卡，不支持绑定信用卡。</div>
         <div class="card-txt">
-            <!-- <div><span>持卡人</span><i v-text="userName">借百家</i></div> -->
-            <div><span>持卡人</span><input type="text" v-model="userName" /></div>
+            <div><span>持卡人</span><i v-text="userName">借百家</i></div>
+            <!-- <div><span>持卡人</span><input type="text" v-model="userName" readonly /></div> -->
             <div><span>身份证号</span><i v-text="idCard">422801 1999 1212 131X</i></div>
             <div><span>银行卡号</span><input type="text" @input="isEmpty" @blur="cardName" maxlength="19" v-model="bankId" pattern="[0-9]*" placeholder="请输入卡号"></div>
             <div><span>银行名称</span><i>{{bankName}}</i></div>

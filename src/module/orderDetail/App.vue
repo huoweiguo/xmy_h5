@@ -78,16 +78,17 @@
             </div>
         </div>
 
-        <div class="order_foot">
+        <div class="order_foot" v-if="orderText.orderStatus=='待还款'||orderText.orderStatus=='逾期中'">
             <!-- 找TA聊聊 -->
-            <a href="#">
-                <template v-if="1==1">立即还款</template>
+            <a :href="repaymentLink">
+                <template>立即还款</template>
             </a>
         </div>
     </div>
 </template>
 
 <script>
+import xmy from '../../../static/js/xmy.js';
 export default {
      data () {
         return {
@@ -118,51 +119,48 @@ export default {
                 appVersion: xmy.getQueryString('appVersion'),
                 device: xmy.getQueryString('device'),
                 channelType: xmy.getQueryString('channelType')
-            }
+            },
+            repaymentLink:''
         }
     },
     methods: {
         orderContext () {
             let _this = this;
-            let orderId = this.$route.params.orderId;
+            let orderId = xmy.getQueryString('orderId');
             $.ajax({
-                url: '/proxy/api/order/h5/orderDetail',
-                type: 'GET',
-                data: {
-                    token: _this.token,
-                    userId: _this.userId,
-                    orderId: orderId
-                },
+                url: '/gateway/api/order/h5/orderDetail?token='+_this.orderText.token+'&userId='+_this.orderText.userId+'&orderId='+orderId,
+                type: 'post',
                 success: function(res){
-                    if(res.data.respCode == '000000'){
-                        _this.orderText.orderId = res.data.data.orderNo;
-                        _this.orderText.headImg = res.data.data.investorAvatar;
-                        _this.orderText.investorName = res.data.data.investorName;
-                        _this.orderText.orderStatus = res.data.data.orderStatus;
+                    if(res.respCode == '000000'){
+                        _this.orderText.orderId = res.data.orderNo;
+                        _this.orderText.headImg = res.data.investorAvatar;
+                        _this.orderText.investorName = res.data.investorName;
+                        _this.orderText.orderStatus = res.data.orderStatus;
                         
                         
-                        _this.orderText.timeLimit = res.data.data.timeLimit;
-                        _this.orderText.loanPurpose = res.data.data.loanPurpose;
-                        _this.orderText.createTime = res.data.data.createTime;
-                        _this.orderText.protocolPage = 'http://proxy.xiaomuyu.net:8704/xmy/agreementXDY.html?userId='+window.localStorage.getItem('userId')+'&loanUrl='+res.data.data.loanUrl;
-                        _this.orderText.originalAmt = res.data.data.originalAmt;
+                        _this.orderText.timeLimit = res.data.timeLimit;
+                        _this.orderText.loanPurpose = res.data.loanPurpose;
+                        _this.orderText.createTime = res.data.createTime;
+                        _this.orderText.protocolPage = 'http://proxy.xiaomuyu.net:8704/xmy/agreementXDY.html?userId='+_this.orderText.userId+'&loanUrl='+res.data.loanUrl;
+                        _this.orderText.originalAmt = res.data.originalAmt;
 
-                        _this.orderText.annualInterestRate = res.data.data.annualInterestRate;
-                        _this.orderText.loanDate = res.data.data.loanDate;
-                        _this.orderText.dueDate = res.data.data.dueDate;
-                        _this.orderText.expireRepayment = res.data.data.expireRepayment;
-                        _this.orderText.penalSum = res.data.data.penalSum;
-                        _this.orderText.penaltyInterest = res.data.data.penaltyInterest;
-                        _this.orderText.overdueLevel = res.data.data.overdueLevel;
+                        _this.orderText.annualInterestRate = res.data.annualInterestRate;
+                        _this.orderText.loanDate = res.data.loanDate;
+                        _this.orderText.dueDate = res.data.dueDate;
+                        _this.orderText.expireRepayment = res.data.expireRepayment;
+                        _this.orderText.penalSum = res.data.penalSum;
+                        _this.orderText.penaltyInterest = res.data.penaltyInterest;
+                        _this.orderText.overdueLevel = res.data.overdueLevel;
 
-                        _this.orderText.reliefAmt = res.data.data.reliefAmt;
-                        _this.orderText.presentRepayment = res.data.data.presentRepayment;
-                        _this.orderText.repaymentWay = res.data.data.repaymentWay;
-                        _this.orderText.actualRepaymentAmt = res.data.data.actualRepaymentAmt;
-                        _this.orderText.actualRepaymentDate = res.data.data.actualRepaymentDate;
+                        _this.orderText.reliefAmt = res.data.reliefAmt;
+                        _this.orderText.presentRepayment = res.data.presentRepayment;
+                        _this.orderText.repaymentWay = res.data.repaymentWay;
+                        _this.orderText.actualRepaymentAmt = res.data.actualRepaymentAmt;
+                        _this.orderText.actualRepaymentDate = res.data.actualRepaymentDate;
                         
+                        _this.repaymentLink = 'repay.html?userId='+_this.orderText.userId+'&token='+_this.orderText.token+'&orderId='+_this.orderText.orderId
                     } else {
-                        _this.$toast.center(res.data.respMsg);
+                        // _this.$toast.center(res.respMsg);
                     }
                 }
             });

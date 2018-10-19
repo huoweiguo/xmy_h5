@@ -81,7 +81,7 @@
             </ul>
 
             <template v-if="!adequate">
-                <a class="addCardPay" href="bindCard.html">
+                <a class="addCardPay" :href="bindCard">
                     <img src="../../../static/images/more_add@2x.png" class="bankImg">
                     <div class="add-card">添加银行卡支付</div>
                 </a>
@@ -111,7 +111,7 @@
                         <a href="javascript:;" class="mask-bank"></a>
                     </li>
                 </ul>
-                <a class="addCardPay" href="bindCard.html">
+                <a class="addCardPay" :href="bindCard">
                     <img src="../../../static/images/more_add@2x.png" class="bankImg">
                     <div class="add-card">添加银行卡支付</div>
                 </a>
@@ -149,10 +149,11 @@
 <script>
 // import xdy from '../js/xdy.js';
 // import Menu from './menu.vue'
+import xmy from '../../../static/js/xmy.js';
 export default {
-    components: {
-        Menu
-    },
+    // components: {
+    //     Menu
+    // },
     data (){
         return {
             nextProcess: true,
@@ -190,7 +191,11 @@ export default {
                 number: 0
             },
             adequate: true,
-            isClick: false 
+            isClick: false,
+            token: xmy.getQueryString('token'),
+            userId: xmy.getQueryString('userId'),
+            orderId: xmy.getQueryString('orderId'),
+            bindCard:''
         }
     },
 
@@ -219,48 +224,30 @@ export default {
         //确认还款
         repaySure () {
             let _this = this;
-            xdy.ajax({
-                url: '/proxy/api/order/orderLog/confirmDirect',
-                method: 'POST',
-                params: {
-                    token: window.localStorage.getItem('token'),
-                    userId: window.localStorage.getItem('userId'),
+            $.ajax({
+                url: '/gateway/api/order/orderLog/confirmDirect',
+                type: 'POST',
+                data: {
+                    token: _this.token,
+                    userId: _this.userId,
                     sysSeqId: _this.sysSeqId,
                     payType: _this.payType,
                     bankId: _this.bankId
                 },
                 success: function(res){
                     _this.result = true;
-                    if(res.data.respCode == '000000'){
+                    if(res.respCode == '000000'){
                         _this.faild = false;
-                        _this.bankName = res.data.data.bankName;
-                        _this.tradeAmount = res.data.data.tradeAmount;
+                        _this.bankName = res.data.bankName;
+                        _this.tradeAmount = res.data.tradeAmount;
                     } else {
                         _this.faild = true;
-                        _this.faildMes = res.data.respMsg;
+                        _this.faildMes = res.respMsg;
                     }
                 }
             });
 
-            _hmt.push(['_trackEvent', "短信链接还款", "repayment"]);
-        },
-
-
-        download: function(){
-            var _this = this;
-            $.ajax({
-                url:'/proxy/api/proxy/dl/getAndroidAppUrl?channel=M214',
-                type:'GET',
-                success:function(s){
-                    if(s.respCode=="000000"){
-                        if(ismobile()=="0"){
-                            location.href="https://itunes.apple.com/cn/app/id1395223757?mt=8";
-                        } else if(ismobile()=="1"){
-                            location.href=s.data;
-                        }
-                    }     
-                }
-            });
+            // _hmt.push(['_trackEvent', "短信链接还款", "repayment"]);
         },
 
 
@@ -268,16 +255,16 @@ export default {
         //渲染卡列表
         renderCardList () {
             let _this = this;
-            xdy.ajax({
-                url: '/proxy/api/user/jbj/findBankCardByUserId',
-                method: 'POST',
-                params: {
-                    token: window.localStorage.getItem('token'),
-                    userId: window.localStorage.getItem('userId')
+            $.ajax({
+                url: '/gateway/api/user/jbj/findBankCardByUserId',
+                type: 'POST',
+                data: {
+                    token: _this.token,
+                    userId: _this.userId
                 },
                 success: function(res){
-                    if(res.data.respCode == '000000'){
-                        _this.cardList = res.data.data;
+                    if(res.respCode == '000000'){
+                        _this.cardList = res.data;
                     }
                 }
             });
@@ -286,18 +273,18 @@ export default {
         //渲染余额
         renderYY () {
             let _this = this;
-            xdy.ajax({
-                url: '/proxy/api/proxy/jbj/getUserDetail',
-                method: 'POST',
-                params: {
-                    token: window.localStorage.getItem('token'),
-                    userId: window.localStorage.getItem('userId'),
+            $.ajax({
+                url: '/gateway/api/proxy/jbj/getUserDetail',
+                type: 'POST',
+                data: {
+                    token: _this.token,
+                    userId: _this.userId,
                     userType: 'B'
                 },
                 success: function(res){
-                    if(res.data.respCode == '000000'){
-                        _this.balance.number = res.data.accountBalance;
-                        if(parseFloat(res.data.accountBalance) >= _this.orderAmount){
+                    if(res.respCode == '000000'){
+                        _this.balance.number = res.accountBalance;
+                        if(parseFloat(res.accountBalance) >= _this.orderAmount){
                             _this.adequate = true;
                         } else {
                             _this.adequate = false;
@@ -319,31 +306,31 @@ export default {
         init () {
 
             let _this = this;
-            this.orderId = this.$route.params.orderId;
+            // this.orderId = this.$route.params.orderId;
 
-            xdy.ajax({
-                method: 'POST',
-                url: '/proxy/api/order/orderLog/begin',
-                params: {
-                    token: window.localStorage.getItem('token'),
-                    payerUserId: window.localStorage.getItem('userId'),
+            $.ajax({
+                type: 'POST',
+                url: '/gateway/api/order/orderLog/begin',
+                data: {
+                    token: _this.token,
+                    payerUserId: _this.userId,
                     payerUserType: 'B',
-                    orgOrderId: _this.$route.params.orderId,
+                    orgOrderId: _this.orderId,
                     orderType: 'HK'
                 },
                 success: function(res){
-                    if(res.data.respCode == '000000'){
-                        _this.bankImg = res.data.data.accountLogo;
-                        _this.orderAmount = res.data.data.orderAmount;
-                        _this.payType = res.data.data.payType;
-                        _this.bankImg = res.data.data.accountLogo;
-                        _this.bankLogo = res.data.data.bankLogo;
-                        _this.bankName = res.data.data.bankName;
-                        _this.sysSeqId = res.data.data.sysSeqId;
-                        _this.bankId = res.data.data.bankId;
-                        _this.serviceFee = res.data.data.serviceFee;
-                        _this.balance.number = res.data.data.accountBalance;
-                        _this.cardEndNum = res.data.data.cardEndNum;
+                    if(res.respCode == '000000'){
+                        _this.bankImg = res.data.accountLogo;
+                        _this.orderAmount = res.data.orderAmount;
+                        _this.payType = res.data.payType;
+                        _this.bankImg = res.data.accountLogo;
+                        _this.bankLogo = res.data.bankLogo;
+                        _this.bankName = res.data.bankName;
+                        _this.sysSeqId = res.data.sysSeqId;
+                        _this.bankId = res.data.bankId;
+                        _this.serviceFee = res.data.serviceFee;
+                        _this.balance.number = res.data.accountBalance;
+                        _this.cardEndNum = res.data.cardEndNum;
                     }
                     _this.renderYY();
                     _this.listEvent();
@@ -410,7 +397,7 @@ export default {
     mounted () {
         this.init();
         this.renderCardList();
-
+        this.bindCard = "bindCard.html?userId="+this.userId+"&token="+this.token;
         let process = document.getElementById('process');
         let clientHeight = document.documentElement.clientHeight;
         process.style.height = clientHeight + 'px';
