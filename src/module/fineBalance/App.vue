@@ -34,8 +34,57 @@ import '../../common/css/fineBalance.less';
 export default {
     data () {
         return {
-            noData: false
+            noData: false,
+            page:'',
+            isWether: true,
+            dataAll:false
         }
+    },
+    methods: {
+        getList () {
+            $.ajax({
+                url: '/gateway/api/account/getAccountLogList',
+                type: 'post',
+                data: {
+                    token: _this.token,
+                    userId: _this.userId,
+                    userType: "B",
+                    filterCond:'2',
+                    page: _this.page,
+                    pageSize:'10'
+                },
+                success: function(res){
+                    if(res.respCode == "000000"){
+
+                        if(_this.page == 1 && res.data.length == 0){
+                            _this.noData = true;
+                        }
+
+                        if(res.data.length > 0 && res.data.length < 10){
+                            _this.dataAll = true;
+                        }
+                    }
+
+                    _this.isWether =  true;
+                }
+            })
+        }
+    },
+    mounted() {
+        let _this = this;
+        _this.getList();
+        window.onscroll = function(){
+            let scrollTop = xmy.getScrollTop(),
+                clientHeight = xmy.getClientHeight(),
+                scrollHeight = xmy.getScrollHeight();
+            if(scrollTop + clientHeight + 70 > scrollHeight) {
+                if( _this.isWether){
+                    _this.isWether =  false;
+                    _this.page++;
+                    _this.renderAll();
+                }
+            }
+        };
     }
 }
 </script>

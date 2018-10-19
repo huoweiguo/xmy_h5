@@ -167,7 +167,10 @@
                 userId: xmy.getQueryString('userId'),
                 appVersion: xmy.getQueryString('appVersion'),
                 device: xmy.getQueryString('device'),
-                channelType: xmy.getQueryString('channelType')
+                channelType: xmy.getQueryString('channelType'),
+                isWetherAll: true,
+                isWetherDeal: true,
+                isWetherComplete: true
             }
         },  
 
@@ -177,9 +180,10 @@
             //渲染全部订单列表
             renderAll () {
                 let _this = this;
-                this.isAll = true;
-                this.isDeal = false;
-                this.isComplete = false;
+                
+                if(this.showAll || this.visAll){
+                    return false;
+                }
 
                 $.ajax({
                     url: '/gateway/api/order/billOrder/getOrderListApp',
@@ -197,7 +201,18 @@
                     success: function(res){
                         if(res.respCode === '000000'){
                             _this.allList = _this.allList.concat(res.data);
+                            if(_this.curAll == 1 && res.data.length == 0){
+                                _this.visAll = true;
+                            }
+
+                            if(res.data.length > 0 && res.data.length < 10){
+                                _this.showAll = true;
+                            }else{
+                                _this.showAll = false;
+                            }
                         }
+
+                        _this.isWetherAll =  true;
                     }
                 });
             },
@@ -205,10 +220,9 @@
             //渲染待处理订单列表
             renderDeal () {
                 let _this = this;
-                this.isAll = false;
-                this.isDeal = true;
-                this.isComplete = false;
-
+                if(this.showDeal || this.visDeal){
+                    return false;
+                }
                 $.ajax({
                     url: '/gateway/api/order/billOrder/getOrderListApp',
                     type:'POST',
@@ -224,7 +238,16 @@
                     success: function(res){
                         if(res.respCode === '000000'){
                             _this.dealList = _this.dealList.concat(res.data);
+                            if(_this.curDeal == 1 && res.data.length == 0){
+                                _this.visDeal = true;
+                            }
+
+                            if(res.data.length > 0 && res.data.length < 10){
+                                _this.showDeal = true;
+                            }
                         }
+
+                        _this.isWetherDeal =  true;
                     }
                 });
             },
@@ -232,10 +255,9 @@
             //渲染已完成订单列表
             renderComplete () {
                 let _this = this;
-                this.isAll = false;
-                this.isDeal = false;
-                this.isComplete = true;
-
+                if(this.showComplete || this.visComplete){
+                    return false;
+                }
                 $.ajax({
                     url: '/gateway/api/order/billOrder/getOrderListApp',
                     type:'POST',
@@ -251,7 +273,16 @@
                     success: function(res){
                         if(res.respCode === '000000'){
                             _this.completeList = _this.completeList.concat(res.data);
+                            if(_this.curComplete == 1 && res.data.length == 0){
+                                _this.visComplete = true;
+                            }
+
+                            if(res.data.length > 0 && res.data.length < 10){
+                                _this.showComplete = true;
+                            }
                         }
+
+                        _this.isWetherComplete =  true;
                     }
                 });
             },
@@ -264,6 +295,7 @@
         },
 
         mounted () {
+            var _this = this;
 
             this.renderAll();
             this.renderDeal();
@@ -274,20 +306,26 @@
                     clientHeight = xmy.getClientHeight(),
                     scrollHeight = xmy.getScrollHeight();
                 
+
+                console.log(_this.isAll,_this.isDeal,_this.isComplete);
+
                 if(scrollTop + clientHeight + 70 > scrollHeight) {
-                    if(this.isAll){
-                        this.curAll++;
-                        this.renderAll(this.curAll);
+                    if(_this.isAll && _this.isWetherAll){
+                        _this.isWetherAll =  false;
+                        _this.curAll++;
+                        _this.renderAll();
                     }
 
-                    if(this.isDeal){
-                        this.curDeal++;
-                        this.renderDeal(this.curDeal);
+                    if(_this.isDeal && _this.isWetherDeal){
+                        _this.isWetherDeal =  false;
+                        _this.curDeal++;
+                        _this.renderDeal();
                     }
 
-                    if(this.curComplete){
-                        this.curComplete++;
-                        this.renderComplete(this.curComplete);
+                    if(_this.isComplete && _this.isWetherComplete){
+                        _this.isWetherComplete =  false;
+                        _this.curComplete++;
+                        _this.renderComplete();
                     }
                     
                 }

@@ -12,7 +12,7 @@
             </div>
             <div class="money">
                 <span>¥</span>
-                <input type="number" v-model="tradeAmount" @input="inspect" pattern="[0-9]" placeholder="请输入大于等于100的金额"/>
+                <input type="text" id="bindcard" v-model="tradeAmount" readonly placeholder="请输入大于等于100的金额"/>
                 <strong @click="allMoney">全部转出</strong>
             </div>
             <div class="cost">提示：本次提现手续费<span>{{serviceFee}}</span>元，实际到账金额<span>{{actualAmount}}</span>元。</div>
@@ -49,7 +49,7 @@
             <h2 v-show="!success">提现成功</h2>
             <h2 v-show="success">提现失败</h2>
             <p v-show="success">{{result}}</p>
-            <p v-show="!success">到账银行：工商银行 提现金额：1004.41元</p>
+            <p v-show="!success">到账银行：{{bankAccount}} 提现金额：{{bankAmt}}元</p>
             <div class="again" v-show="!success">
                 <a :href="homeLink">返回首页</a>
             </div>
@@ -91,7 +91,9 @@ export default {
             result:'',
             homeLink:'',
             recharge:'',
-            addCard:''
+            addCard:'',
+            bankAmt:'',
+            bankAccount:''
         }
     },
     methods:{
@@ -154,7 +156,8 @@ export default {
                     if(res.respCode === '000000'){
                         _this.amount = false
                         _this.results = true;
-                        // 成功结果显示未添加
+                        _this.bankAccount = res.data.type;
+                        _this.bankAmt = res.data.amt;
                     }else{
                         _this.amount = false
                         _this.results = true;
@@ -243,6 +246,17 @@ export default {
         let _this = this;
         _this.getBankList();
         _this.getFee();
+        $('#bindcard').on('click', function () {
+            $('#bindcard').NumberKeypad({
+                type: 'number',
+                zIndex: 1001,
+                callback: function (elem, number) {
+                    _this.tradeAmount = number;
+                    _this.inspect();
+                    elem.close();
+                }
+            });
+        });
         $.ajax({
             url: '/gateway/api/proxy/jbj/getUserDetail',
             type: 'post',

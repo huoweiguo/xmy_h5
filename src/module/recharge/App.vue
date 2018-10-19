@@ -5,14 +5,14 @@
             <div class="card" @click="selectBank">
                 <img :src="bankLogo"/>
                 <div class="cardName">
-                    <span class="repayment">{{bankName}}</span>
+                    <span>{{bankName}}</span>
                     <em>单笔金额≤{{perDayLimit}}万元，单日金额≤{{perTransactionLimit}}万元</em>
                 </div>
                 <em>＞</em>
             </div>
             <div class="money">
                 <span>¥</span>
-                <input type="number" @input="inspect" pattern="[0-9]" v-model="tradeAmount" placeholder="请输入大于等于100的金额"/>
+                <input type="text" id="bindcard" readonly v-model="tradeAmount" placeholder="请输入大于等于100的金额"/>
             </div>
             <div class="cost">提示：本次充值手续费<span>{{serviceFee}}</span>元，实际支付金额<span>{{actualAmount}}</span>元。</div>
             <a href="http://proxy.xiaomuyu.net:8704/jbj/listBanks">支持的银行卡和限额</a>
@@ -48,7 +48,7 @@
             <h2 v-show="!success">充值成功</h2>
             <h2 v-show="success">充值失败</h2>
             <p v-show="success">{{result}}</p>
-            <p v-show="!success">到账银行：工商银行 充值金额：1004.41元</p>
+            <p v-show="!success">到账银行：{{bankAccount}} 充值金额：{{bankAmt}}元</p>
             <div class="again" v-show="!success">
                 <a :href="homeLink">返回首页</a>
             </div>
@@ -92,14 +92,16 @@ export default {
             recharge:'',
             addCard:'',
             perDayLimit:'',
-            perTransactionLimit:''
+            perTransactionLimit:'',
+            bankAccount:'',
+            bankAmt:''
         }
     },
     methods:{
         trim (str) {
             return str.replace(/(^\s*)|(\s*$)/g,"");
         },
-        // 输入数字，提现手续费和到账金额获取
+        // 输入数字，充值手续费和到账金额获取
         inspect () {
             let _this = this;
             // 判断输入的是数字，显示手续费、实际支付金额和下一步按钮成可点击
@@ -107,7 +109,7 @@ export default {
                 _this.haveNum = true;
                 $.ajax({
                     type: "POST",
-                    url: "/gateway/api/order/withdrawOrder/calc",
+                    url: "/gateway/api/order/rechargeOrder/calc",
                     data: {
                         token: _this.token,
                         userId: _this.userId,
@@ -131,7 +133,7 @@ export default {
         next () {
             let _this = this;
             $.ajax({
-                url: '/gateway/api/order/withdrawOrder/add',
+                url: '/gateway/api/order/rechargeOrder/confirm',
                 type: 'POST',
                 data: {
                     token: _this.token,
@@ -147,7 +149,8 @@ export default {
                     if(res.respCode === '000000'){
                         _this.amount = false
                         _this.results = true;
-                        // 成功结果显示未添加
+                        _this.bankAccount = res.data.type;
+                        _this.bankAmt = res.data.amt;
                     }else{
                         _this.amount = false
                         _this.results = true;
@@ -165,7 +168,7 @@ export default {
             this.selectCard = true;
             document.querySelector('.bank-slt').className = 'bank-slt showBank';
         },
-        // 关闭选择提现方式
+        // 关闭选择充值方式
         closeBank(){
             this.selectCard = false;
             document.querySelector('.bank-slt').className = 'bank-slt';
@@ -236,6 +239,17 @@ export default {
         let _this = this;
         _this.getBankList();
         _this.getFee();
+        $('#bindcard').on('click', function () {
+            $('#bindcard').NumberKeypad({
+                type: 'number',
+                zIndex: 1001,
+                callback: function (elem, number) {
+                    _this.tradeAmount = number;
+                    _this.inspect();
+                    elem.close();
+                }
+            });
+        });
         $.ajax({
             url: '/gateway/api/proxy/jbj/getUserDetail',
             type: 'post',
@@ -254,7 +268,7 @@ export default {
                     _this.perTransactionLimit = res.userBankInfo.perTransactionLimit/10000;
                 }
             }
-        })
+        });
     }
 }
 </script>
