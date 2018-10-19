@@ -89,11 +89,16 @@ export default {
                 _this.isMain = false;
                 _this.isChk = false;
                 // 提示默认银行卡不可操作
+                console.log('默认银行卡不可操作');
+                _this.showTip = true;
+                _this.success = false;
+                _this.showResult = true;
+                _this.resultTittle = " 默认银行卡不可操作 请先更换默认卡"
                 
             }else{
                 _this.isMain = true;
+                _this.isChk = true;
             }
-            _this.isChk = true;
         },
         // 解除绑定银行卡询问
         relieve () {
