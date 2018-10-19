@@ -148,9 +148,9 @@ export default {
         },
 
         isEmpty () {
-            let bankid = this.trim(this.bankId),
-                tel = this.trim(this.telphone),
-                chkcode = this.trim(this.chkcode);
+            let bankid = this.trim(this.bankId || ""),
+                tel = this.trim(this.telphone || ""),
+                chkcode = this.trim(this.chkcode || "");
             if(bankid != '' && tel != '' && chkcode != ''){
                 this.bind = true;
             } else {
