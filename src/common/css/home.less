@@ -15,6 +15,22 @@
             background: #fff;
             margin-bottom: 10px;
             padding:0.2rem;
+            .li-content{
+                position: relative;
+                padding-left:0.46rem;
+                .block-headImg{
+                    position: absolute;
+                    left: 0;
+                    top: 0.04rem;
+                    width: 0.36rem;
+                    height: 0.36rem;
+                    img{
+                        width: 0.36rem;
+                        height: 0.36rem;
+                        border-radius:50%;
+                    }
+                }
+            }
             .list-block1{
                 overflow: hidden;
                 padding-bottom:0.12rem;
@@ -25,7 +41,6 @@
                     b{
                         font-size: 0.14rem;
                         color: #4A4A4A;
-                        font-weight: normal;
                         margin-right:0.05rem;
                     }
                     i{
@@ -37,7 +52,7 @@
                 .block-span{
                     float: right;
                     font-size: 0.14rem;
-                    color: #4A4A4A;
+                    color: #FF7F26;
                     font-weight: bold;
                 }
                 .block-list{
@@ -67,6 +82,7 @@
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
+                    line-height:0.2rem;
                     img{
                         width: 0.18rem;
                         height: 0.18rem;
@@ -114,6 +130,16 @@
             }
         }
     }
+}
+.home-tj{
+    height: 0.5rem;
+    background-color: #fff;
+    line-height: 0.5rem;
+    padding:0 0.2rem;
+    color:#4A4A4A;
+    font-weight:bold;
+    border-bottom:1px solid #eee;
+    font-size: 0.16rem;
 }
 .nav-foot{
     position: fixed;
