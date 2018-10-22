@@ -1,6 +1,10 @@
 <template>
     <div id="app">
         <div class="amount" v-show="amount">
+            <navigation>
+                <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a>
+                <span slot="navigation_title" class="navigation_title">提现</span>
+            </navigation>
             <p>注意：提现金额需≥10元，每笔将产生{{fee}}%的提现手续费。</p>
             <div class="card" @click="selectBank">
                 <img :src="bankLogo"/>
@@ -44,6 +48,10 @@
             
         </div>
         <div class="results" v-show="results">
+            <navigation>
+                <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a>
+                <span slot="navigation_title" class="navigation_title">交易结果</span>
+            </navigation>
             <img v-show="!success" src="../../../static/images/icon_ok@2x.png"/>
             <img v-show="success" src="../../../static/images/icon_refuse@2x.png"/>
             <h2 v-show="!success">提现成功</h2>
@@ -63,8 +71,12 @@
 
 <script>
 import '../../common/css/recharge.less';
+import navigation from '../../components/navigation.vue';
 import xmy from '../../../static/js/xmy.js';
 export default {
+    components: {
+        navigation: navigation
+    },
     data () {
         return {
             amount:true,
@@ -211,7 +223,14 @@ export default {
                 success: function(res){
                     if(res.respCode == "000000"){
                         _this.bankList = res.bankList;
-                        console.log(res.bankList);
+                        for(var i=0;i<res.bankList.length;i++){
+                            if(res.bankList[i].isDefault == 'Y'){
+                                 _this.bankLogo = res.bankList[i].bankImag;
+                                _this.bankName = res.bankList[i].bankName;
+                                _this.bankId = res.bankList[i].id;
+                                _this.balance = res.bankList[i].accountBalance;
+                            }
+                        }
                         _this.$nextTick(function(){
                             _this.selectPay();
                         });
@@ -256,23 +275,23 @@ export default {
                 }
             });
         });
-        $.ajax({
-            url: '/gateway/api/proxy/jbj/getUserDetail',
-            type: 'post',
-            data: {
-                token: _this.token,
-                userId: _this.userId,
-                userType: "B"
-            },
-            success: function(res){
-                if(res.respCode == "000000"){
-                    _this.bankLogo = res.userBankInfo.bankImag;
-                    _this.bankName = res.userBankInfo.bankName;
-                    _this.bankId = res.userBankInfo.id;
-                    _this.balance = res.accountBalance;
-                }
-            }
-        })
+        // $.ajax({
+        //     url: '/gateway/api/proxy/jbj/getUserDetail',
+        //     type: 'post',
+        //     data: {
+        //         token: _this.token,
+        //         userId: _this.userId,
+        //         userType: "B"
+        //     },
+        //     success: function(res){
+        //         if(res.respCode == "000000"){
+        //             _this.bankLogo = res.userBankInfo.bankImag;
+        //             _this.bankName = res.userBankInfo.bankName;
+        //             _this.bankId = res.userBankInfo.id;
+        //             _this.balance = res.accountBalance;
+        //         }
+        //     }
+        // })
     }
 }
 </script>

@@ -1,5 +1,9 @@
 <template>
     <div class="main">
+        <navigation>
+            <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a>
+            <span slot="navigation_title" class="navigation_title">银行卡</span>
+        </navigation>
         <div class="none" v-show="noCard">
             <img src="../../../static/images/icon_bank_card@2x.png"/>
             <p>还没有银行卡哟！</p>
@@ -49,8 +53,12 @@
     </div>
 </template>
 <script>
+import navigation from '../../components/navigation.vue';
 import xmy from '../../../static/js/xmy.js';
 export default {
+    components: {
+        navigation: navigation
+    },
     data () {
         return{
             isChk:false,

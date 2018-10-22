@@ -1,7 +1,10 @@
 <template>
     <div>
         <div class="body-mask"></div>
-        <navBar title="订单列表"></navBar>
+        <navigation>
+            <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a>
+            <span slot="navigation_title" class="navigation_title">订单列表</span>
+        </navigation>
         <div class="order_menu">
             <span :class="{'active': isAll}" @click="isAll=true, isDeal=false, isComplete=false">全部</span>
             <span :class="{'active': isDeal}" @click="isAll=false, isDeal=true, isComplete=false">待处理</span>
@@ -139,11 +142,11 @@
 </template>
 
 <script>
-    import navBar from '../../components/nav.vue';
+    import navigation from '../../components/navigation.vue';
     import xmy from '../../../static/js/xmy.js';
-    export default{
+    export default {
         components: {
-            navBar
+            navigation: navigation
         },
 
         data () {

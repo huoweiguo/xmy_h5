@@ -1,5 +1,9 @@
 <template>
     <div>
+        <navigation>
+            <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a>
+            <span slot="navigation_title" class="navigation_title">绑定银行卡</span>
+        </navigation>
         <div class="order-bg"></div>
         <div class="card-ts">注意：请绑定您的借记卡或储蓄卡，不支持绑定信用卡。</div>
         <div class="card-txt">
@@ -29,8 +33,12 @@
 <script>
 // import xdy from '../js/xdy.js';
 import '../../common/css/bindCard.less';
+import navigation from '../../components/navigation.vue';
 import xmy from '../../../static/js/xmy.js';
 export default {
+    components: {
+        navigation: navigation
+    },
     data () {
         return {
             bankId: '',

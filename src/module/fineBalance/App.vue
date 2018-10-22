@@ -1,5 +1,9 @@
 <template>
     <div id="app">
+        <navigation>
+            <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a>
+            <span slot="navigation_title" class="navigation_title">明细</span>
+        </navigation>
         <div class="time"><button id='demo2' class="btn mui-btn mui-btn-block">{{queryDateText}}</button><img src="./images/arrow@2x.png"/></div>
         <div class="main" v-show="!noData">
             <div class="list" v-for="(item, index) in balanceDetail" :key="index">
@@ -34,8 +38,12 @@
 </template>
 <script>
 import '../../common/css/fineBalance.less';
+import navigation from '../../components/navigation.vue';
 import xmy from '../../../static/js/xmy.js';
 export default {
+    components: {
+        navigation: navigation
+    },
     data () {
         return {
             noData: true,
@@ -67,13 +75,15 @@ export default {
                 },
                 success: function(res){
                     if(res.rspCode == "000000"){
-                        if(Number(res.total) == 0){
+                        if(res.total == 0){
+                            _this.dataAll = false;
                             _this.noData = true;
                         }else{
+                            _this.dataAll = false;
                             _this.noData = false;
                             _this.balanceDetail = _this.balanceDetail.concat(res.accTradeLog);
                         }
-                        if(_this.page >= res.pages){
+                        if(res.total != 0&&_this.page >= res.pages){
                             _this.dataAll = true;
                             _this.isWether =  false;
                         }else{
@@ -122,7 +132,7 @@ export default {
                         * rs.i 分（minutes 的第二个字母），用法同年
                         */
                         _this.queryDate = rs.text.split("-").join("");
-                        _this.queryDateText = rs.text.split("-")[0]+'年'+rs.text.split("-")[1]+'月'+rs.text.split("-")[2]+'日'
+                        _this.queryDateText = rs.text.split("-")[0]+'年'+rs.text.split("-")[1]+'月';
                         _this.getList();
                         /*
                         * 返回 false 可以阻止选择框的关闭
