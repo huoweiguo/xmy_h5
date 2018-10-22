@@ -16,7 +16,7 @@
                 </a>
             </li>
             <li>
-                <a>
+                <a href="/api/static/xmy_app/stars">
                     <span>我的星级</span>
                     <img src="../../../static/images/rightarrow_1f.png"/>
                 </a>
@@ -41,28 +41,28 @@
                     <img src="../../../static/images/rightarrow_1f.png"/>
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a>
                     <span>签到拿现金</span>
                     <img src="../../../static/images/rightarrow_1f.png"/>
                 </a>
-            </li>
+            </li> -->
         </ol>
         <ol>
             <li>
-                <a>
+                <a href="/api/static/xmy_app/khfk">
                     <span>客服与反馈</span>
                     <img src="../../../static/images/rightarrow_1f.png"/>
                 </a>
             </li>
             <li>
-                <a>
+                <a href="/api/static/xmy_app/setting">
                     <span>设置</span>
                     <img src="../../../static/images/rightarrow_1f.png"/>
                 </a>
             </li>
             <li>
-                <a>
+                <a href="/api/static/xmy_app/phone">
                     <span>手机检测</span>
                     <img src="../../../static/images/rightarrow_1f.png"/>
                 </a>
