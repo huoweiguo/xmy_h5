@@ -143,7 +143,7 @@
                 <p>还款方式：{{bankName}} 还款金额：{{tradeAmount}}元</p>
             </h2>
             <div class="again" v-show="!faild">
-                <a href="/api/static/xmy_app/gohome">提额降息了，再去借一笔</a>
+                <a href="/api/static/app_xmy/gohome">提额降息了，再去借一笔</a>
                 <a class="look" :href="order">查看订单</a>
             </div>
             <div class="again" v-show="faild">

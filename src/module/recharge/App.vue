@@ -58,11 +58,11 @@
             <p v-show="success">{{result}}</p>
             <p v-show="!success">到账银行：{{bankAccount}} 充值金额：{{bankAmt}}元</p>
             <div class="again" v-show="!success">
-                <a href="/api/static/xmy_app/gohome">返回首页</a>
+                <a href="/api/static/app_xmy/gohome">返回首页</a>
             </div>
             <div class="again" v-show="success">
                 <a :href="recharge">返回重试</a>
-                <a class="look" href="/api/static/xmy_app/gohome">返回首页</a>
+                <a class="look" href="/api/static/app_xmy/gohome">返回首页</a>
             </div>
         </div>
     </div>

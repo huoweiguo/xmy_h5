@@ -13,7 +13,7 @@
         <div class="result_refuse" v-show="isRefuse">
             <p>提交失败，请重新提交！</p>
             <div class="btn">
-                <a href="/api/static/xmy_app/gohome">返回首页</a>
+                <a href="/api/static/app_xmy/gohome">返回首页</a>
                 <span @click="reSubmit">重新提交</span>
             </div>
         </div>
@@ -26,7 +26,7 @@
                 <h3>{{refuse_reson}}</h3>
                 <h5>{{refuse_msg}}</h5>
                 <div class="small-btn">
-                    <a href="/api/static/xmy_app/gohome" class="r-btn3">返回首页</a>
+                    <a href="/api/static/app_xmy/gohome" class="r-btn3">返回首页</a>
                 </div>
             </div>
         </div>

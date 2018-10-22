@@ -4,7 +4,7 @@
             <div class="charge_nav">
                 <a href="javascript:;" class="goback" @click="goback"></a>
                 <span>{{productName}}</span>
-                <a href="#" class="charge_pro">产品详情</a>
+                <a href="javascript:;" @click="productDetail" class="charge_pro">产品详情</a>
             </div>
             <!--额度金额-->
             <div class="quota">
@@ -92,8 +92,8 @@
                 </ul>
             </div>
             <div class="small-btn">
-                <a href="/api/static/xmy_app/gohome" class="r-btn1">返回首页</a>
-                <a href="/api/static/xmy_app/gohome" @click="" class="r-btn2" v-show="!success">更多借款</a>
+                <a href="/api/static/app_xmy/gohome" class="r-btn1">返回首页</a>
+                <a href="/api/static/app_xmy/gohome" @click="" class="r-btn2" v-show="!success">更多借款</a>
                 <a href="javascript:;" @click="lookOrder" class="r-btn2" v-show="success">查看订单</a>
             </div>
         </div>
@@ -103,7 +103,7 @@
             <h3>任性！确认不拿钱了？</h3>
             <div class="loan_small">借款成功后，下次借款可以提额还降息哟</div>
             <div class="loan_set">
-                <a href="/api/static/xmy_app/gohome">确认返回</a>
+                <a href="/api/static/app_xmy/gohome">确认返回</a>
                 <a href="javascript:;" @click="loankv" class="loankv">在考虑下</a>
             </div>
         </div>
@@ -147,6 +147,10 @@
         methods: {
             goback () {
                 this.toLeave = true;
+            },
+
+            productDetail() {
+                window.location.href = 'http://proxy.xiaomuyu.net:8704/xmy/productDetail.html?productId='+this.productId+'&publishOrderId=' + this.publishOrderId;
             },
 
             toLoan () {
