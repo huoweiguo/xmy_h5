@@ -30,7 +30,6 @@
 // import xdy from '../js/xdy.js';
 import '../../common/css/bindCard.less';
 import xmy from '../../../static/js/xmy.js';
-import Toast from "../../../static/js/toast.js";
 export default {
     data () {
         return {
@@ -67,7 +66,7 @@ export default {
                         _this.bankCode = res.bankCode;
                         _this.bankName = res.bankName;
                     }else{
-                        // _this.$toast.center(res.respMsg);
+                        xmy.toast(res.respMsg);
                     }
                 }
             });
@@ -110,7 +109,7 @@ export default {
                                 }
                             },1000);
                         }else{
-                            // _this.$toast.center(res.data.respMsg);
+                            xmy.toast(res.data.respMsg);
                         }
                     }
 
@@ -118,7 +117,7 @@ export default {
 
                 
             }else{
-                // _this.$toast.center("请输入11位手机号码！");
+                xmy.toast("请输入11位手机号码！");
             }
         },
 
@@ -141,7 +140,7 @@ export default {
                     if(res.respCode == "000000"){
                         window.history.back();
                     }else{
-                        // _this.$toast.center(res.data.respMsg);
+                        xmy.toast(res.data.respMsg);
                     }
                 }
             });
@@ -176,7 +175,7 @@ export default {
                     _this.idCard = res.data.idCard;
                     _this.telphone = res.data.mobile;
                 }
-                // _this.$toast.center("gsgege");
+                xmy.toast(res.respMsg);
             }
         });
         

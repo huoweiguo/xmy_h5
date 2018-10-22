@@ -22,15 +22,6 @@ var xmy = {
         }
     },
 
-    toast: function(msg){
-        layer.open({
-            type: 0,
-            content: msg,
-            time: 1.5,
-            skin: 'msg'
-        });
-    },
-
     chkIdCard: function(idCard){
         var identify = /^[1-9]\d{5}[1-9]\d{3}[0-1][0-9][0-3][0-9]\d{3}(\d|X|x)$/;
         if(identify.test(idCard)){
@@ -104,7 +95,15 @@ var xmy = {
         var cval=getCookie(name); 
         if(cval!=null) 
             document.cookie= name + "="+cval; 
-    } 
+    },
+
+    toast: function(msg){
+        layer.open({
+            content: msg,
+            skin: 'msg',
+            time: 1.5
+        });
+    }
 }
 
 export default xmy;

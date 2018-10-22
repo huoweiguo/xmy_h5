@@ -160,7 +160,7 @@ export default {
                         
                         _this.repaymentLink = 'repay.html?userId='+_this.orderText.userId+'&token='+_this.orderText.token+'&orderId='+_this.orderText.orderId
                     } else {
-                        // _this.$toast.center(res.respMsg);
+                        xmy.toast(res.respMsg);
                     }
                 }
             });

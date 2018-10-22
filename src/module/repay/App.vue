@@ -147,13 +147,8 @@
 </template>
 
 <script>
-// import xdy from '../js/xdy.js';
-// import Menu from './menu.vue'
 import xmy from '../../../static/js/xmy.js';
 export default {
-    // components: {
-    //     Menu
-    // },
     data (){
         return {
             nextProcess: true,
@@ -294,15 +289,6 @@ export default {
             });
         }, 
 
-        toast (msg) {
-            let _this = this;
-            this.unOpen = true;
-            document.getElementById('xdy_toast').innerHTML = msg;
-            setTimeout(function(){
-                _this.unOpen = false;
-            },1500);
-        },
-
         init () {
 
             let _this = this;
@@ -349,7 +335,7 @@ export default {
                     _this.isClick = true;
                     if($(this).hasClass('account_my')){
                         if(_this.orderAmount > parseFloat(_this.balance.number)){
-                            _this.$toast.center("余额不足");
+                            xmy.toast("余额不足");
                             return false;
                         }  else {
 
