@@ -103,6 +103,10 @@ var xmy = {
             skin: 'msg',
             time: 1.5
         });
+    },
+
+    confirm: function(){
+        
     }
 }
 
