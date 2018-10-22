@@ -224,3 +224,12 @@ html,body{
     background-size: auto 0.16rem;
     z-index: 100;
   }
+  .navigation_small{
+      position: absolute;
+      right: 0.1rem;
+      top: 0;
+      height:0.45rem;
+      line-height: 0.45rem;
+      color: #9B9B9B;
+      text-decoration: none;
+  }
