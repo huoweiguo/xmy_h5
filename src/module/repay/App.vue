@@ -130,15 +130,22 @@
 
             <h2 v-show="faild">
                 <template v-if="deal">还款失败</template>
-                <p>{{faildMes}}</p>
+                <p style="color:#ff7f26;">{{faildMes}}</p>
             </h2>
 
             <h2 v-show="!faild">
                 还款成功，为信用点赞
                 <p>还款方式：{{bankName}} 还款金额：{{tradeAmount}}元</p>
             </h2>
-
-            <a v-show="faild" class="repay-btn5" href="orderDetail.html">返回重试</a>
+            <div class="again" v-show="!faild">
+                <a href="/api/static/xmy_app/gohome">提额降息了，再去借一笔</a>
+                <a class="look" :href="order">查看订单</a>
+            </div>
+            <div class="again" v-show="faild">
+                <a :href="order">确保余额充足，再次还款</a>
+                <a class="look" :href="order">查看订单</a>
+            </div>
+            <!-- <a v-show="faild" class="repay-btn5" href="orderDetail.html">返回重试</a> -->
             <!-- <a href="javascript:;" @click="download" v-show="faild" class="repay-btn6">下载小木鱼APP查看订单</a>
             <a href="javascript:;" @click="download" v-show="!faild" class="repay-btn5">下载小木鱼APP再借一笔</a> -->
         </div>
@@ -169,7 +176,6 @@ export default {
             bankName: '',
             sysSeqId: '',
             bankId: '',
-            orderId: '',
             bankPhone: '',
             bankCard: '',
             cardName: '',
@@ -190,7 +196,8 @@ export default {
             token: xmy.getQueryString('token'),
             userId: xmy.getQueryString('userId'),
             orderId: xmy.getQueryString('orderId'),
-            bindCard:''
+            bindCard:'',
+            order:'/api/static/xmy/module/order.html?token='+this.token+'&userId='+this.userId
         }
     },
 
