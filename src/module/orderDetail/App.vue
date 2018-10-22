@@ -3,7 +3,7 @@
         <div class="body-mask"></div>
         <div class="detail_header">
             <div class="xmy_nav">
-                <a class="goback" href="javascript:histroy.go(-1);"></a>
+                <a class="goback" href="javascript:window.history.go(-1);"></a>
                 <span class="proname">订单详情</span>
             </div>
 
@@ -155,7 +155,7 @@ export default {
                         _this.orderText.actualRepaymentAmt = res.data.actualRepaymentAmt;
                         _this.orderText.actualRepaymentDate = res.data.actualRepaymentDate;
                         
-                        _this.repaymentLink = '/api/static/xmy/repay.html?userId='+_this.orderText.userId+'&token='+_this.orderText.token+'&orderId='+_this.orderText.orderId
+                        _this.repaymentLink = '/api/static/xmy/module/repay.html?userId='+_this.orderText.userId+'&token='+_this.orderText.token+'&orderId='+_this.orderText.orderId
                     } else {
                         xmy.toast(res.respMsg);
                     }

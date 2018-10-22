@@ -35,12 +35,12 @@
                     <img src="../../../static/images/rightarrow_1f.png"/>
                 </a>
             </li>
-            <li>
+            <!-- <li>
                 <a :href="creditCard">
                     <span>信用卡取现</span>
                     <img src="../../../static/images/rightarrow_1f.png"/>
                 </a>
-            </li>
+            </li> -->
             <!-- <li>
                 <a>
                     <span>签到拿现金</span>
