@@ -115,10 +115,7 @@ export default {
                 actualRepaymentDate: '',
                 orderStatus: '',
                 token: xmy.getQueryString('token'),
-                userId: xmy.getQueryString('userId'),
-                appVersion: xmy.getQueryString('appVersion'),
-                device: xmy.getQueryString('device'),
-                channelType: xmy.getQueryString('channelType')
+                userId: xmy.getQueryString('userId')
             },
             repaymentLink:''
         }
@@ -158,7 +155,7 @@ export default {
                         _this.orderText.actualRepaymentAmt = res.data.actualRepaymentAmt;
                         _this.orderText.actualRepaymentDate = res.data.actualRepaymentDate;
                         
-                        _this.repaymentLink = 'repay.html?userId='+_this.orderText.userId+'&token='+_this.orderText.token+'&orderId='+_this.orderText.orderId
+                        _this.repaymentLink = '/api/static/xmy/repay.html?userId='+_this.orderText.userId+'&token='+_this.orderText.token+'&orderId='+_this.orderText.orderId
                     } else {
                         xmy.toast(res.respMsg);
                     }

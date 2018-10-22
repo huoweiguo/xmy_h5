@@ -78,9 +78,6 @@ export default {
             accountBalance:'',
             token: xmy.getQueryString('token'),
             userId: xmy.getQueryString('userId'),
-            appVersion: xmy.getQueryString('appVersion'),
-            device: xmy.getQueryString('device'),
-            channelType: xmy.getQueryString('channelType'),
             repayment:'',
             shareLink:'',
             myCard:'',
@@ -107,14 +104,14 @@ export default {
                         _this.repayment = '';
                     }
                     _this.shareLink = "http://proxy.xiaomuyu.net:8704/myd/share.html?userId="+_this.userId+'&token='+_this.token;
-                    _this.creditCard = "http://proxy.xiaomuyu.net:8704/myd/creditCard.html?userId="+_this.userId+'&token='+_this.userType+"userType=B";
+                    _this.creditCard = "http://proxy.xiaomuyu.net:8704/myd/creditCard.html?userId="+_this.userId+'&token='+_this.token+"&userType=B";
                     if(res.userAuthInfo.bankCardAuth == "Y"){
-                        _this.myCard = "bankCard.html?userId="+_this.userId+'&token='+_this.token;
+                        _this.myCard = "/api/static/xmy/module/bankCard.html?userId="+_this.userId+'&token='+_this.token;
                     }else{
-                        _this.myCard = "bindCard.html?userId="+_this.userId+'&token='+_this.token;
+                        _this.myCard = "/api/static/xmy/module/bindCard.html?userId="+_this.userId+'&token='+_this.token;
                     }
-                    _this.balance = "balance.html?userId="+_this.userId+'&token='+_this.token;
-                    _this.order = "order.html?userId="+_this.userId+'&token='+_this.token;
+                    _this.balance = "/api/static/xmy/module/balance.html?userId="+_this.userId+'&token='+_this.token;
+                    _this.order = "/api/static/xmy/module/order.html?userId="+_this.userId+'&token='+_this.token;
                 }
             }
         })

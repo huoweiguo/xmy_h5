@@ -45,7 +45,7 @@
 
         <div class="repayment-ts">
             <span>待还金额: <b>1004.45元</b></span>
-            <a href="#">立即还款</a>
+            <a href="javscript:;" @click="goOrder">立即还款</a>
         </div>
     </div>
 </template>
@@ -90,7 +90,7 @@
             },
 
             gozp (recruitId) {
-                window.location.href = '/app_xmy/zpdetail?recruitId='+recruitId;
+                window.location.href = '/api/static/app_xmy/zpdetail?recruitId='+recruitId;
             },
 
             golink (productId,productUserId,productName) {
@@ -107,15 +107,19 @@
                     success: function(res){
                         if(res.respCode == '000000'){
                             if(res.data.status == 'Y'){
-                                var link = '/module/init.html?token='+_this.token+'&userId='+_this.userId+'&productId='+productId + '&productUserId='+ productUserId;
+                                var link = '/api/static/xmy/module/init.html?token='+_this.token+'&userId='+_this.userId+'&productId='+productId + '&productUserId='+ productUserId;
                                 window.location.href = link;
                                 
                             } else if(res.data.status == 'N'){
-                                window.location.href = '/app_xmy/renzhen?productId='+productId;
+                                window.location.href = '/api/static/xmy/app_xmy/renzhen?productId='+productId;
                             }
                         }
                     }
                 });
+            },
+
+            goOrder () {
+                window.location.href = '/api/static/xmy/module/order.html?token='+  this.token + '&userId='+this.userId;
             }
         },
 

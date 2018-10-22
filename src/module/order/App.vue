@@ -165,9 +165,6 @@
                 curComplete: 1,
                 token: xmy.getQueryString('token'),
                 userId: xmy.getQueryString('userId'),
-                appVersion: xmy.getQueryString('appVersion'),
-                device: xmy.getQueryString('device'),
-                channelType: xmy.getQueryString('channelType'),
                 isWetherAll: true,
                 isWetherDeal: true,
                 isWetherComplete: true
@@ -290,7 +287,7 @@
             // 进入详情页
             goOrderDetail (orderId) {
                 let _this = this;
-                window.location.href = "orderDetail.html?token="+_this.token+"&userId="+_this.userId+"&appVersion="+ _this.appVersion+"&device="+_this.device+"&channelType="+_this.channelType+"&orderId="+orderId;
+                window.location.href = "/api/static/xmy/module/orderDetail.html?token="+_this.token+"&userId="+_this.userId+"&orderId="+orderId;
             }
         },
 

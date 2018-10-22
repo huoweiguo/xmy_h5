@@ -186,7 +186,7 @@ export default {
     mounted () {
             let _this = this;
             // 获取银行卡列表
-            _this.bindCard = "bindCard.html?userId="+_this.userId+'&token='+_this.token;
+            _this.bindCard = "/api/static/xmy/module/bindCard.html?userId="+_this.userId+'&token='+_this.token;
             $.ajax({
                 url: '/gateway/api/user/jbj/findBankCardByUserId',
                 type: 'POST',

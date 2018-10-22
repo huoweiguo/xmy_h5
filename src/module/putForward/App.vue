@@ -51,11 +51,11 @@
             <p v-show="success">{{result}}</p>
             <p v-show="!success">到账银行：{{bankAccount}} 提现金额：{{bankAmt}}元</p>
             <div class="again" v-show="!success">
-                <a :href="homeLink">返回首页</a>
+                <a href="/api/static/xmy_app/gohome">返回首页</a>
             </div>
             <div class="again" v-show="success">
                 <a :href="recharge">返回重试</a>
-                <a class="look" :href="homeLink">返回首页</a>
+                <a class="look" href="/api/static/xmy_app/gohome">返回首页</a>
             </div>
         </div>
     </div>
@@ -164,8 +164,7 @@ export default {
                         _this.success = true;
                     }
                     _this.result = res.respMsg;
-                    _this.recharge = "putForward.html?userId="+_this.userId+'&token='+_this.token;
-                    _this.homeLink = "home.html?userId="+_this.userId+'&token='+_this.token;
+                    _this.recharge = "/api/static/xmy/module/putForward.html?userId="+_this.userId+'&token='+_this.token;
                 }
             })
             
