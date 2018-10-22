@@ -32,7 +32,7 @@
 
             <!--相关协议-->
             <div class="charge_agree">
-                <em class="protocol" @click="ischk = !ischk" :class="{agree: ischk}">本人阅读并同意签署协议</em><a href="#" class="a_protocol">《借款合同及相关协议》</a>
+                <em class="protocol" @click="ischk = !ischk" :class="{agree: ischk}">本人阅读并同意签署协议</em><a :href="protocolPage" class="a_protocol">《借款合同及相关协议》</a>
                 <div class="agree_btn_set">
                     <a href="javacsript:;" class="a_btn2" @click="toLoan" :class="{unclick: !ischk}">立即借款</a>
                 </div>
@@ -140,7 +140,8 @@
                 tradeAmt: '',
                 bankCard: '',
                 actualAmt: '',
-                toLeave: false
+                toLeave: false,
+                protocolPage: 'http://proxy.xiaomuyu.net:8704/xmy/agreement.html?loanUrl=http://baijiajiekuan.oss-cn-shanghai.aliyuncs.com/protocol/template/20180304231453.png&userId='+xmy.getQueryString('userId')
             }
         },
 
