@@ -49,7 +49,7 @@
         </div>
         <div class="results" v-show="results">
             <navigation>
-                <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a>
+                <!-- <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a> -->
                 <span slot="navigation_title" class="navigation_title">交易结果</span>
             </navigation>
             <img v-show="!success" src="../../../static/images/icon_ok@2x.png"/>
@@ -59,11 +59,10 @@
             <p v-show="success">{{result}}</p>
             <p v-show="!success">到账银行：{{bankAccount}} 提现金额：{{bankAmt}}元</p>
             <div class="again" v-show="!success">
-                <a href="/api/static/app_xmy/gohome">返回首页</a>
+                <a :href="myCenter">返回我的</a>
             </div>
             <div class="again" v-show="success">
                 <a :href="recharge">返回重试</a>
-                <a class="look" href="/api/static/app_xmy/gohome">返回首页</a>
             </div>
         </div>
     </div>
@@ -105,7 +104,8 @@ export default {
             recharge:'',
             addCard:'',
             bankAmt:'',
-            bankAccount:''
+            bankAccount:'',
+            myCenter:'/api/static/xmy/module/myCenter.html?token='+xmy.getQueryString('token')+'&userId='+xmy.getQueryString('userId')
         }
     },
     methods:{

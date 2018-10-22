@@ -138,7 +138,7 @@ export default {
                         _this.orderText.timeLimit = res.data.timeLimit;
                         _this.orderText.loanPurpose = res.data.loanPurpose;
                         _this.orderText.createTime = res.data.createTime;
-                        _this.orderText.protocolPage = 'http://proxy.xiaomuyu.net:8704/xmy/agreementXDY.html?userId='+_this.orderText.userId+'&loanUrl='+res.data.loanUrl;
+                        _this.orderText.protocolPage = 'http://proxy.xiaomuyu.net:8704/xmy/agreement.html?userId='+_this.orderText.userId+'&loanUrl='+res.data.loanUrl;
                         _this.orderText.originalAmt = res.data.originalAmt;
 
                         _this.orderText.annualInterestRate = res.data.annualInterestRate;
