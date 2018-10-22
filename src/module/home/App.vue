@@ -44,7 +44,7 @@
 
         <div class="repayment-ts">
             <span>待还金额: <b>1004.45元</b></span>
-            <a href="javscript:;" @click="goOrder">立即还款</a>
+            <a href="javascript:;" @click="goOrder">立即还款</a>
         </div>
     </div>
 </template>
@@ -111,7 +111,7 @@
                                 window.location.href = link;
                                 
                             } else if(res.data.status == 'N'){
-                                window.location.href = '/api/static/xmy/app_xmy/renzhen?productId='+productId;
+                                window.location.href = '/api/static/xmy/app_xmy/renzhen?productId='+productId+'&productUserId='+productUserId;
                             }
                         }
                     }
