@@ -205,3 +205,22 @@ html,body{
     background-color: #fff;
     border: 1px solid #FF7F26;
   }
+  .navigation_title{
+      display: block;
+      height: 0.45rem;
+      line-height: 0.45rem;
+      text-align: center;
+      font-size: 0.18rem;
+      color: #000117;
+  }
+  .navigation_goback{
+    position: absolute;
+    left:0.1rem;
+    top:0.13rem;
+    display: block;
+    width:0.16rem;
+    height:0.16rem;
+    background:url('../../static/images/leftarrow_1f.png') no-repeat;
+    background-size: auto 0.16rem;
+    z-index: 100;
+  }

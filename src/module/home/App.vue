@@ -1,7 +1,6 @@
 <template>
     <div>
         <div class="body-mask"></div>
-
         
         <div class="home-list">
             <ul v-show="recruitList.length > 0">
@@ -52,6 +51,7 @@
 
 <script>
     import xmy from '../../../static/js/xmy.js';
+    import navigation from '../../components/navigation.vue';
     export default {
         data () {
             return {
@@ -88,6 +88,7 @@
                     }
                 });
             },
+
 
             gozp (recruitId) {
                 window.location.href = '/api/static/app_xmy/zpdetail?recruitId='+recruitId;
