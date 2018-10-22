@@ -50,6 +50,10 @@
             <img v-show="!success" class="result_img" src="../../../static/images/icon_refuse@2x.png">
             <img v-show="success" class="result_img" src="../../../static/images/icon_ok@2x.png">
             <h2>{{message}}</h2>
+            <div v-show="success" class="loan_small_txt">
+                到期准时还款，再次借款每笔
+                <p>提额<span>最高50%</span>降息<span>最高30%</span></p> 
+            </div>
             <h5 v-show="showMsg">{{faildMsg}}</h5>
             <div class="success"  v-show="success && bank_suc">
                 <div class="detail">
@@ -88,9 +92,9 @@
                 </ul>
             </div>
             <div class="small-btn">
-                <a href="/app_xmy/home" class="r-btn1">返回首页</a>
-                <a href="#" class="r-btn2" v-show="!success">更多借款</a>
-                <a href="#" class="r-btn2" v-show="success">查看订单</a>
+                <a href="/api/static/xmy_app/gohome" class="r-btn1">返回首页</a>
+                <a href="/api/static/xmy_app/gohome" @click="" class="r-btn2" v-show="!success">更多借款</a>
+                <a href="javascript:;" @click="lookOrder" class="r-btn2" v-show="success">查看订单</a>
             </div>
         </div>
 
@@ -99,7 +103,7 @@
             <h3>任性！确认不拿钱了？</h3>
             <div class="loan_small">借款成功后，下次借款可以提额还降息哟</div>
             <div class="loan_set">
-                <a href="/app_xmy/home">确认返回</a>
+                <a href="/api/static/xmy_app/gohome">确认返回</a>
                 <a href="javascript:;" @click="loankv" class="loankv">在考虑下</a>
             </div>
         </div>
@@ -213,6 +217,10 @@
 
             loankv () {
                 this.toLeave = false;
+            },
+
+            lookOrder () {
+                window.location.href = '/api/static/xmy/module/order.html?token='+_this.token+'&userId='+_this.userId;
             }
         },
 

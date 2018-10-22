@@ -2,6 +2,7 @@
     <div class="navigation">
         <slot name="navigation_goback"></slot>
         <slot name="navigation_title"></slot>
+        <slot name="navigation_small"></slot>
     </div>
 </template>
 

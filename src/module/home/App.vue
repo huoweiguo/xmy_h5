@@ -51,7 +51,6 @@
 
 <script>
     import xmy from '../../../static/js/xmy.js';
-    import navigation from '../../components/navigation.vue';
     export default {
         data () {
             return {
