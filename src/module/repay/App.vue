@@ -127,7 +127,7 @@
         <!--还款成功/失败信息-->
         <div class="repay-mes" v-show="result"><!--v-show="result"-->
             <navigation>
-                <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a>
+                <!-- <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a> -->
                 <span slot="navigation_title" class="navigation_title">还款结果</span>
             </navigation>
             <img v-show="faild" src="../../../static/images/more_add@2x.png">
