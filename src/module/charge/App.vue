@@ -101,10 +101,10 @@
         <div class="loan_mask" v-show="toLeave"></div>
         <div class="go_combox" v-show="toLeave">
             <h3>任性！确认不拿钱了？</h3>
-            <div class="loan_small">借款成功后，下次借款可以提额还降息哟</div>
+            <div class="loan_small">借款成功后，下次借款可以<span>提额</span>还<span>降息</span>哟</div>
             <div class="loan_set">
                 <a href="/api/static/app_xmy/gohome">确认返回</a>
-                <a href="javascript:;" @click="loankv" class="loankv">在考虑下</a>
+                <a href="javascript:;" @click="loankv" class="loankv">再考虑下</a>
             </div>
         </div>
     </div>

@@ -173,13 +173,13 @@ export default {
                         _this.success = false;
                         _this.showResult = true;
                         _this.resultTittle = "已设置为默认卡";
-                        window.location.reload();
+                        // window.location.reload();
                     }else{
                         _this.success = false;
                         _this.showResult = true;
                         _this.resultTittle = "设置默认卡失败"
                         _this.resultReason = res.respMsg;
-                        window.location.reload();
+                        // window.location.reload();
                     }
                 }
             })
