@@ -138,29 +138,17 @@ html,body{
     .charge_agree{
         padding: 0.2rem 0 0.3rem;
         background-color: #fff;
-        height: 100%;
-        font-size:0.12rem;
+        font-size:0.1rem;
+        text-align: center;
+        border-radius: 0 0 0.05rem 0.05rem;
         .protocol{
             position: relative;
             color: #ccc;
             margin-bottom: 0.2rem;
-            padding-left:0.4rem;
             outline: none;
             font-style: normal;
             display: inline-block;
-            font-size: 0.12rem;
-            &::before{
-                position: absolute;
-                left: 0.25rem;
-                top: 0.04rem;
-                content: '';
-                clear: both;
-                display: block;
-                width: 0.12rem;
-                height: 0.12rem;
-                background: url(../../module/charge/images/icon_round_unchecked@2x.png);
-                background-size: 100% 100%;
-            }
+            font-size: 0.1rem;
         }
         a.a_protocol{
             font-size: 0.12rem;
@@ -194,9 +182,11 @@ html,body{
                 text-decoration: none;
                 line-height: 0.44rem;
                 text-align: center;
+                font-size: 0.14rem;
                 &.a_btn2{
                     background: #FF7F26;
                     color: #FFF0E5;
+                    font-size: 0.14rem;
                 }
                 &.unclick{
                     background-color: #9B9B9B;
@@ -207,13 +197,17 @@ html,body{
             margin:0 0.25rem;
             color: #9B9B9B;;
             letter-spacing: 1px;
-            font-size: 0.12rem;
+            font-size: 0.1rem;
             p{
-                font-size: 0.12rem;
+                font-size: 0.1rem;
                 line-height: 0.2rem;
                 margin-bottom: 0.06rem;
+                text-align: left;
+                span{
+                    color: #FF7F26;
+                }
                 strong{
-                    font-size: 0.12rem;
+                    font-size: 0.1rem;
                     color: #393939;
                     font-weight: normal;
                 }
@@ -460,6 +454,28 @@ html,body{
     p {
         span {
             color:#FF7F26;
+        }
+    }
+}
+
+@media screen and (max-height: 535px) {
+    .charge_content {
+        .quota {
+            padding: 0.2rem 0 0.1rem;
+            .qu_h3 {
+                margin-bottom: 0.15rem;
+            }
+        }
+        .charge_agree{
+            padding: 0.1rem 0 0.3rem;
+            .agree_btn_set{
+                margin-bottom: 0.15rem;
+            }
+            .small_txt{
+                p {
+                    line-height: 0.18rem;
+                }
+            }
         }
     }
 }
