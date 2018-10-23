@@ -69,7 +69,8 @@
                 device: xmy.getQueryString('device'),
                 channelType: xmy.getQueryString('channelType'),
                 loan: false,
-                charge: ''
+                charge: '',
+                repay: 'N'
             }   
         },
 
@@ -117,7 +118,7 @@
                     success: function(res){
                         if(res.respCode == '000000'){
                             if(res.data.status == 'Y'){
-                                var link = '/api/static/xmy/module/init.html?token='+_this.token+'&userId='+_this.userId+'&productId='+productId + '&productUserId='+ productUserId;
+                                var link = '/api/static/xmy/module/init.html?token='+_this.token+'&userId='+_this.userId+'&productId='+productId + '&productUserId='+ productUserId+'&repay='+this.repay;
                                 window.location.href = link;
                                 
                             } else if(res.data.status == 'N'){
@@ -146,7 +147,7 @@
                         if(res.respCode == '000000'){
                             if(res.data.isPopRepayTip == 'Y' || res.data.isPopWithdrawTip == 'Y'){
                                 _this.charge = res.data.repaymentAmt;
-                                _this.loan = true;
+                                _this.repay = "Y";
                             }
                         }
                     }
@@ -156,7 +157,7 @@
 
         mounted() {
             this.recruit();
-            //this.render_loan();
+            this.render_loan();
         }
     }
 </script>
