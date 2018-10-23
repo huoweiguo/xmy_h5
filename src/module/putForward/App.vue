@@ -110,7 +110,7 @@ export default {
     },
     methods:{
         trim (str) {
-            return str.replace(/(^\s*)|(\s*$)/g,"");
+            return (str ? str.replace(/(^\s*)|(\s*$)/g,"") : '');
         },
         // 输入数字，提现手续费和到账金额获取
         inspect () {

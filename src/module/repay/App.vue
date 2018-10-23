@@ -213,7 +213,7 @@ export default {
 
     methods: {
         trim (str) {
-            return str.replace(/(^\s*)|(\s*$)/g,"");
+            return (str ? str.replace(/(^\s*)|(\s*$)/g,"") : '');
         },
 
         chkVal () {

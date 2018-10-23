@@ -1,7 +1,7 @@
 var xmy = {
 
     trim: function(str){
-        return str.replace(/\s+/g, ""); 
+        return (str ? str.replace(/\s+/g, ""):''); 
     },
 
     chkPhone: function(tel){

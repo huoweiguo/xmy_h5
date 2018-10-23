@@ -62,7 +62,7 @@ export default {
 
     methods: {
         trim (str) {
-            return str.replace(/(^\s*)|(\s*$)/g,"");
+            return (str ? str.replace(/(^\s*)|(\s*$)/g,"") : '');
         },
 
         cardName () {
@@ -123,8 +123,6 @@ export default {
                     }
 
                 });
-
-                
             }else{
                 xmy.toast("请输入11位手机号码！");
             }
