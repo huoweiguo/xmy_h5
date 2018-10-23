@@ -32,14 +32,16 @@
 
             <!--相关协议-->
             <div class="charge_agree">
-                <em class="protocol" @click="ischk = !ischk" :class="{agree: ischk}">本人阅读并同意签署协议</em><a :href="protocolPage" class="a_protocol">《借款合同及相关协议》</a>
+                <!--<em class="protocol" @click="ischk = !ischk" :class="{agree: ischk}">-->
+                <em class="protocol">*本人阅读并同意签署协议</em><a :href="protocolPage" class="a_protocol">《借款合同及相关协议》</a>
                 <div class="agree_btn_set">
-                    <a href="javascript:;" class="a_btn2" @click="toLoan" :class="{unclick: !ischk}">立即借款</a>
+                    <a href="javascript:;" class="a_btn2" @click="toLoan" :class="{unclick: !ischk}">立即拿钱</a>
                 </div>
 
                 <div class="small_txt">
-                    <p><strong>·</strong>点击<strong>“确认拿钱”</strong>，借款金额系统将自动放款至您绑定的银行卡</p>
-                    <p><strong>·</strong>到账时间一般不超过<strong>2小时</strong>，不同银行到账时间有所不同，如有疑问请联系在线客服</p>
+                    <p><strong>·</strong>点击<strong>“立即拿钱”</strong>，借款将自动放款至默认银行卡；</p>
+                    <p><strong>·</strong>到账时间一般不超过<strong>2小时</strong>，如有疑问联系在线客服；</p>
+                    <p><strong>·</strong>再次借款每笔<span>提额最高50%、降息最高30%。</span></p>
                     
                 </div>
             </div>
@@ -93,7 +95,7 @@
             </div>
             <div class="small-btn">
                 <a href="/api/static/app_xmy/gohome" class="r-btn1">返回首页</a>
-                <a href="/api/static/app_xmy/gohome" @click="" class="r-btn2" v-show="!success">更多借款</a>
+                <a href="/api/static/app_xmy/gohome" class="r-btn2" v-show="!success">更多借款</a>
                 <a href="javascript:;" @click="lookOrder" class="r-btn2" v-show="success">查看订单</a>
             </div>
         </div>
@@ -232,7 +234,7 @@
             },
 
             lookOrder () {
-                window.location.href = '/api/static/xmy/module/order.html?token='+_this.token+'&userId='+_this.userId+'&gotoType=mycenter';
+                window.location.href = '/api/static/xmy/module/order.html?token='+this.token+'&userId='+this.userId+'&gotoType=mycenter';
             }
         },
 
