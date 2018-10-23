@@ -211,7 +211,7 @@ export default {
         // 得到银行卡列表
         getBankList () {
             let _this = this;
-            _this.addCard = "bindCard?userId="+_this.userId+'&token='+_this.token;
+            _this.addCard = "bindCard.html?userId="+_this.userId+'&token='+_this.token;
             $.ajax({
                 type: "POST",
                 url: "/gateway/api/proxy/jbj/reCharge",
