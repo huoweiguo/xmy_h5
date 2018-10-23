@@ -6,7 +6,7 @@
             <div class="home-tj">推荐</div>
 
             <ul v-show="recruitList.length > 0">
-                <li v-for="item in recruitList" @click="gozp(item.recruitId,item.userId,item.educationDesc,item.yunxinId)" v-if="item.type == 'Recruit'">
+                <li v-for="item in recruitList" @click="gozp(item.recruitId,item.userId,item.employerDesc,item.yunxinId)" v-if="item.type == 'Recruit'">
                     <div class="li-content">
                         <div class="block-headImg"><img :src="item.userAvatar"></div>
                         <div class="list-block1">
@@ -48,6 +48,7 @@
         </div>
 
         <div class="plat_small">本平台不向22周岁以下学生提供服务</div>
+
 
         <!--
         <div class="repayment-ts" v-show="loan">
@@ -100,8 +101,8 @@
             },
 
 
-            gozp (recruitId,uid,educationDesc,yunxinId) {
-                window.location.href = '/api/static/app_xmy/zpdetail?recruitId='+recruitId+'&educationDesc='+educationDesc+'&userId='+uid+'&yunxinId='+yunxinId;
+            gozp (recruitId,uid,employerDesc,yunxinId) {
+                window.location.href = '/api/static/app_xmy/zpdetail?recruitId='+recruitId+'&employerDesc='+employerDesc+'&userId='+uid+'&yunxinId='+yunxinId;
             },
 
             golink (productId,productUserId,productName) {
