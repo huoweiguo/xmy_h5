@@ -141,7 +141,8 @@
                 bankCard: '',
                 actualAmt: '',
                 toLeave: false,
-                protocolPage: 'http://proxy.xiaomuyu.net:8704/xmy/agreement.html?loanUrl=http://baijiajiekuan.oss-cn-shanghai.aliyuncs.com/protocol/template/20180304231453.png&userId='+xmy.getQueryString('userId')
+                protocolPage: 'http://proxy.xiaomuyu.net:8704/xmy/agreement.html?loanUrl=http://baijiajiekuan.oss-cn-shanghai.aliyuncs.com/protocol/template/20180304231453.png&userId='+xmy.getQueryString('userId'),
+                isClick: true
             }
         },
 
@@ -156,6 +157,10 @@
 
             toLoan () {
                 let _this = this;
+                if(!this.isClick){
+                    return false;
+                }
+                this.isClick = false;
                 $.ajax({
                     url: '/gateway/api/order/loan/confirmLoan',
                     type: 'POST',
@@ -167,6 +172,8 @@
                         publishOrderId: _this.publishOrderId
                     },
                     success: function(res){
+
+                        _this.isClick = true;
 
                         if(res.respCode == '000000'){
                             _this.message = '借款成功';
