@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <navigation>
-            <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a>
+            <a href="/back/myCenter?href=return" slot="navigation_goback" class="navigation_goback"></a>
             <span slot="navigation_title" class="navigation_title">明细</span>
         </navigation>
         <div class="time"><button id='demo2' class="btn mui-btn mui-btn-block">{{queryDateText}}</button><img src="./images/arrow@2x.png"/></div>

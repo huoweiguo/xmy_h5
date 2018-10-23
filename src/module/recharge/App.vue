@@ -2,7 +2,7 @@
     <div id="app">
         <div class="amount" v-show="amount">
             <navigation>
-                <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a>
+                <a href="/back/myCenter?href=return" slot="navigation_goback" class="navigation_goback"></a>
                 <span slot="navigation_title" class="navigation_title">充值</span>
             </navigation>
             <p>注意：充值金额需大于等于100元，每笔将产生{{fee}}%的充值手续费。</p>
