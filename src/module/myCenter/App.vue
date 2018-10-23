@@ -88,7 +88,7 @@ export default {
     mounted () {
         let _this = this;
         $.ajax({
-            url: '/gateway/api/proxy/jbj/getUserDetail',
+            url: '/gateway/api/proxy/jbj/getUserDetail?t='+(new Date()).getTime(),
             type: 'post',
             data: {
                 token: _this.token,

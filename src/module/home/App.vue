@@ -80,7 +80,7 @@
                 let _this = this;
 
                 $.ajax({
-                    url: '/gateway/api/user/jbj/recruit/list/page/v2',
+                    url: '/gateway/api/user/jbj/recruit/list/page/v2?t='+(new Date()).getTime(),
                     type: 'POST',
                     data: {
                         token: _this.token,
@@ -109,7 +109,7 @@
                 xmy.setCookie('productName',productName);
                 let _this = this;
                 $.ajax({
-                    url: '/gateway/api/user/product/checkAuth',
+                    url: '/gateway/api/user/product/checkAuth?t='+(new Date()).getTime(),
                     type: 'POST',
                     data: {
                         token: _this.token,
@@ -137,7 +137,7 @@
             render_loan () {
                 var _this = this;
                 $.ajax({
-                    url: '/gateway/api/order/billOrder/queryOverduePopTip',
+                    url: '/gateway/api/order/billOrder/queryOverduePopTip?t='+(new Date()).getTime(),
                     type: 'POST',
                     data: {
                         userId : _this.userId,

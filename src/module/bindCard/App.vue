@@ -68,7 +68,7 @@ export default {
         cardName () {
             let _this = this;
             $.ajax({
-                url: '/gateway/api/proxy/jbj/getBankInfo?token='+_this.token+'&bankCard='+_this.bankId,
+                url: '/gateway/api/proxy/jbj/getBankInfo?t='+(new Date()).getTime()+'&token='+_this.token+'&bankCard='+_this.bankId,
                 type: 'GET',
                 success: function(res){
                     if(res.respCode == "000000"){
@@ -89,7 +89,7 @@ export default {
             if(telReg.test(tel)){
                 // _hmt.push(['_trackEvent', "口代鱼绑卡发送短信验证码", "getsms"]);
                 $.ajax({
-                    url: '/gateway/api/order/bindCard/pre',
+                    url: '/gateway/api/order/bindCard/pre?t='+(new Date()).getTime(),
                     type: 'POST',
                     data: {
                         token: _this.token,
@@ -134,7 +134,7 @@ export default {
             // _hmt.push(['_trackEvent', "口代鱼绑卡", "bindcard"]);
 
             $.ajax({
-                url: '/gateway/api/order/bindCard/confirm',
+                url: '/gateway/api/order/bindCard/confirm?t='+(new Date()).getTime(),
                 type: 'POST',
                 data: {
                     token: _this.token,
@@ -169,7 +169,7 @@ export default {
                 _this.buriedNo = 'Auth_RealName_Bank_Fail';
             }
             $.ajax({
-                url: '/gateway/api/report/userBuried/logging',
+                url: '/gateway/api/report/userBuried/logging?t='+(new Date()).getTime(),
                 type: 'POST',
                 data: {
                     token: _this.token,
@@ -201,7 +201,7 @@ export default {
         let _this = this;
 
         $.ajax({
-            url: '/gateway/api/order/bindCardLog/initBandCardInfo',
+            url: '/gateway/api/order/bindCardLog/initBandCardInfo?t='+(new Date()).getTime(),
             type: 'POST',
             data: {
                 token: _this.token,

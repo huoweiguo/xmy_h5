@@ -62,7 +62,7 @@ export default {
             let _this = this;
             console.log(_this.queryDate);
             $.ajax({
-                url: '/gateway/api/account/getAccountLogList',
+                url: '/gateway/api/account/getAccountLogList?t='+(new Date()).getTime(),
                 type: 'post',
                 data: {
                     token: _this.token,

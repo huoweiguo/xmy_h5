@@ -186,7 +186,7 @@
                 }
 
                 $.ajax({
-                    url: '/gateway/api/order/billOrder/getOrderListApp',
+                    url: '/gateway/api/order/billOrder/getOrderListApp?t='+(new Date()).getTime(),
                     type:"POST",
                     dataType:"json",
                     data: {
@@ -224,7 +224,7 @@
                     return false;
                 }
                 $.ajax({
-                    url: '/gateway/api/order/billOrder/getOrderListApp',
+                    url: '/gateway/api/order/billOrder/getOrderListApp?t='+(new Date()).getTime(),
                     type:'POST',
                     data: {
                         token: _this.token,
@@ -259,7 +259,7 @@
                     return false;
                 }
                 $.ajax({
-                    url: '/gateway/api/order/billOrder/getOrderListApp',
+                    url: '/gateway/api/order/billOrder/getOrderListApp?t='+(new Date()).getTime(),
                     type:'POST',
                     data: {
                         token: _this.token,

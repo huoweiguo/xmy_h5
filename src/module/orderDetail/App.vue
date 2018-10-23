@@ -125,8 +125,8 @@ export default {
             let _this = this;
             let orderId = xmy.getQueryString('orderId');
             $.ajax({
-                url: '/gateway/api/order/h5/orderDetail?token='+_this.orderText.token+'&userId='+_this.orderText.userId+'&orderId='+orderId,
-                type: 'post',
+                url: '/gateway/api/order/h5/orderDetail?t='+(new Date()).getTime()+'&token='+_this.orderText.token+'&userId='+_this.orderText.userId+'&orderId='+orderId,
+                type: 'get',
                 success: function(res){
                     if(res.respCode == '000000'){
                         _this.orderText.orderId = res.data.orderNo;

@@ -120,7 +120,7 @@ export default {
                 _this.haveNum = true;
                 $.ajax({
                     type: "POST",
-                    url: "/gateway/api/order/withdrawOrder/calc",
+                    url: '/gateway/api/order/withdrawOrder/calc?t='+(new Date()).getTime(),
                     data: {
                         token: _this.token,
                         userId: _this.userId,
@@ -153,7 +153,7 @@ export default {
             let _this = this;
             _this.haveNum = false;
             $.ajax({
-                url: '/gateway/api/order/withdrawOrder/add',
+                url: '/gateway/api/order/withdrawOrder/add?t='+(new Date()).getTime(),
                 type: 'POST',
                 data: {
                     token: _this.token,
@@ -216,7 +216,7 @@ export default {
             _this.addCard = "bindCard.html?userId="+_this.userId+'&token='+_this.token;
             $.ajax({
                 type: "POST",
-                url: "/gateway/api/proxy/jbj/reCharge",
+                url: '/gateway/api/proxy/jbj/reCharge?t='+(new Date()).getTime(),
                 data: {
                     token: _this.token,
                     userId: _this.userId,
@@ -248,7 +248,7 @@ export default {
         getFee () {
             let _this = this;
             $.ajax({
-                url: "/gateway/api/order/get/fee",
+                url: '/gateway/api/order/get/fee?t='+(new Date()).getTime(),
                 type: "POST",
                 data: {
                     token: _this.token,
