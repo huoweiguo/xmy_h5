@@ -232,7 +232,7 @@
             },
 
             lookOrder () {
-                window.location.href = '/api/static/xmy/module/order.html?token='+_this.token+'&userId='+_this.userId;
+                window.location.href = '/api/static/xmy/module/order.html?token='+_this.token+'&userId='+_this.userId+'&gotoType=mycenter';
             }
         },
 
