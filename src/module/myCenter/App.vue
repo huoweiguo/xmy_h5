@@ -27,8 +27,8 @@
                     <img src="../../../static/images/rightarrow_1f.png"/>
                 </a>
             </li>
-        </ul>
-        <ol>
+        <!-- </ul>
+        <ol> -->
             <li>
                 <a :href="shareLink">
                     <span>邀请返现金</span>
@@ -47,8 +47,8 @@
                     <img src="../../../static/images/rightarrow_1f.png"/>
                 </a>
             </li> -->
-        </ol>
-        <ol>
+        <!-- </ol>
+        <ul> -->
             <li>
                 <a href="/api/static/xmy_app/khfk">
                     <span>客服与反馈</span>
@@ -67,7 +67,7 @@
                     <img src="../../../static/images/rightarrow_1f.png"/>
                 </a>
             </li>
-        </ol>
+        </ul>
     </div>
 </template>
 <script>
