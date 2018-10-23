@@ -47,10 +47,13 @@
             </ul>
         </div>
 
+        <div class="plat_small">本平台不向22周岁以下学生提供借款服务</div>
+
+        <!--
         <div class="repayment-ts" v-show="loan">
             <span>待还金额: <b>{{charge}}元</b></span>
             <a href="javascript:;" @click="goOrder">立即还款</a>
-        </div>
+        </div>-->
     </div>
 </template>
 
@@ -153,7 +156,7 @@
 
         mounted() {
             this.recruit();
-            this.render_loan();
+            //this.render_loan();
         }
     }
 </script>

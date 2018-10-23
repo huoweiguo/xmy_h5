@@ -1,6 +1,7 @@
 <template>
     <div id="app">
         <div class="circle_rotate">
+            <div class="rotate_img"></div>
             <div class="computed_init">
                 <p>智能计算您的额度</p>
                 <span v-show="!com_result">计算中{{tickTime}}s</span>
@@ -100,7 +101,7 @@
                             _this.scrollNumber();
                             setTimeout(function(){
                                 window.location.href = '/api/static/xmy/module/charge.html?token='+_this.token+'&userId='+_this.userId+'&productId='+_this.productId+'&productUserId='+_this.productUserId+'&publishOrderId='+res.publishOrderId;
-                            },2500);
+                            },3000);
                             
                         } else if(res.respCode == '072018'){
                             _this.isResult = true;

@@ -25,9 +25,16 @@ html,body{
     top: 50%;
     width: 2.85rem;
     height: 2.85rem;
-    background: url(../../module/init/images/rotate.gif) no-repeat;
+    background: url(../../module/init/images/logo@3x.png) no-repeat;
     background-size:100% 100%;
     transform: translate(-50%,-50%);
+    .rotate_img{
+        width: 2.85rem;
+        height: 2.85rem;
+        background: url(../../module/init/images/gif@3x.png) no-repeat;
+        background-size:100% 100%;
+        animation: rotate 3s linear infinite;
+    }
     .computed_init{
         position:fixed;
         left: 50%;
@@ -105,5 +112,38 @@ html,body{
             color: #ffffff;
             float: right;
         }
+    }
+}
+
+@-webkit-keyframes rotate{
+    0%{
+        transform: rotate(0deg)
+    }
+    100%{
+        transform: rotate(360deg)
+    }
+}
+@-moz-keyframes rotate{
+    0%{
+        transform: rotate(0deg)
+    }
+    100%{
+        transform: rotate(360deg)
+    }
+}
+@-o-keyframes rotate{
+    0%{
+        transform: rotate(0deg)
+    }
+    100%{
+        transform: rotate(360deg)
+    }
+}
+@keyframes rotate{
+    0%{
+        transform: rotate(0deg)
+    }
+    100%{
+        transform: rotate(360deg)
     }
 }
