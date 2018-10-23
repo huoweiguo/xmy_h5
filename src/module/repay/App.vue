@@ -207,7 +207,7 @@ export default {
             userId: xmy.getQueryString('userId'),
             orderId: xmy.getQueryString('orderId'),
             bindCard:'',
-            order:'/api/static/xmy/module/order.html?token='+this.token+'&userId='+this.userId
+            order:"/api/static/xmy/module/order.html?token="+xmy.getQueryString('token')+"&userId="+xmy.getQueryString('userId')
         }
     },
 

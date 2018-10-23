@@ -31,7 +31,7 @@ export default {
             putForward:"",
             token: xmy.getQueryString('token'),
             userId: xmy.getQueryString('userId'),
-            fineBalance: '/api/static/xmy/module/fineBalance.html?token='+xmy.getQueryString('token')+'&userId='+xmy.getQueryString('userId')
+            fineBalance: "/api/static/xmy/module/fineBalance.html?token="+xmy.getQueryString('token')+"&userId="+xmy.getQueryString('userId')
         }
     },
     methods:{

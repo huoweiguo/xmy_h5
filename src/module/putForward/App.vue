@@ -105,7 +105,7 @@ export default {
             addCard:'',
             bankAmt:'',
             bankAccount:'',
-            myCenter:'/api/static/xmy/module/myCenter.html?token='+xmy.getQueryString('token')+'&userId='+xmy.getQueryString('userId')
+            myCenter:"/api/static/xmy/module/myCenter.html?token="+xmy.getQueryString('token')+"&userId="+xmy.getQueryString('userId')
         }
     },
     methods:{
