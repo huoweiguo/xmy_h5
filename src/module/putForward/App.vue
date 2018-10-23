@@ -2,7 +2,7 @@
     <div id="app">
         <div class="amount" v-show="amount">
             <navigation>
-                <a href="/back/myCenter?href=return" slot="navigation_goback" class="navigation_goback"></a>
+                <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a>
                 <span slot="navigation_title" class="navigation_title">提现</span>
             </navigation>
             <p>注意：提现金额需≥10元，每笔将产生{{fee}}%的提现手续费。</p>

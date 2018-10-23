@@ -1,6 +1,6 @@
 <template>
     <div class="xmy_nav">
-        <a class="goback" href="/back/myCenter?href=return"></a>
+        <a class="goback" href="javascript:window.history.go(-1);"></a>
         <span class="proname" v-text="title"></span>
         <slot name="detail"></slot>
     </div>

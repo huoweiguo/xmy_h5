@@ -1,7 +1,7 @@
 <template>
     <div>
         <navigation>
-            <a href="/back/myCenter?href=return" slot="navigation_goback" class="navigation_goback"></a>
+            <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a>
             <span slot="navigation_title" class="navigation_title">绑定银行卡</span>
         </navigation>
         <div class="order-bg"></div>
@@ -146,7 +146,7 @@ export default {
 
                 success: function(res){
                     if(res.respCode == "000000"){
-                        window.location.href = '/back/myCenter?href=return'
+                        window.location.href = 'javascript:window.history.go(-1);'
                     }else{
                         xmy.toast(res.data.respMsg);
                     }

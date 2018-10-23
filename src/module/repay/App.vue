@@ -1,7 +1,7 @@
 <template>
     <div class="content-pro" id="process">
         <navigation>
-            <a href="/back/myCenter?href=return" slot="navigation_goback" class="navigation_goback"></a>
+            <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a>
             <span slot="navigation_title" class="navigation_title">立即还款</span>
         </navigation>
         <div class="repaybg"></div>
