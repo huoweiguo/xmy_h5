@@ -47,7 +47,7 @@
             </ul>
         </div>
 
-        <div class="plat_small">本平台不向22周岁以下学生提供借款服务</div>
+        <div class="plat_small">本平台不向22周岁以下学生提供服务</div>
 
         <!--
         <div class="repayment-ts" v-show="loan">
@@ -118,7 +118,7 @@
                     success: function(res){
                         if(res.respCode == '000000'){
                             if(res.data.status == 'Y'){
-                                var link = '/api/static/xmy/module/init.html?token='+_this.token+'&userId='+_this.userId+'&productId='+productId + '&productUserId='+ productUserId+'&repay='+this.repay;
+                                var link = '/api/static/xmy/module/init.html?token='+_this.token+'&userId='+_this.userId+'&productId='+productId + '&productUserId='+ productUserId+'&repay='+_this.repay;
                                 window.location.href = link;
                                 
                             } else if(res.data.status == 'N'){

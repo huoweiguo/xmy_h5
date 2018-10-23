@@ -34,7 +34,7 @@
             <div class="charge_agree">
                 <em class="protocol" @click="ischk = !ischk" :class="{agree: ischk}">本人阅读并同意签署协议</em><a :href="protocolPage" class="a_protocol">《借款合同及相关协议》</a>
                 <div class="agree_btn_set">
-                    <a href="javacsript:;" class="a_btn2" @click="toLoan" :class="{unclick: !ischk}">立即借款</a>
+                    <a href="javascript:;" class="a_btn2" @click="toLoan" :class="{unclick: !ischk}">立即借款</a>
                 </div>
 
                 <div class="small_txt">
