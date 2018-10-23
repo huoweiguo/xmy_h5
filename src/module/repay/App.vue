@@ -238,7 +238,7 @@ export default {
             let _this = this;
             _this.showBtn = false;
             $.ajax({
-                url: '/gateway/api/order/orderLog/confirmDirect',
+                url: '/gateway/api/order/orderLog/confirmDirect?t='+(new Date()).getTime(),
                 type: 'POST',
                 data: {
                     token: _this.token,
@@ -270,7 +270,7 @@ export default {
         renderCardList () {
             let _this = this;
             $.ajax({
-                url: '/gateway/api/user/jbj/findBankCardByUserId',
+                url: '/gateway/api/user/jbj/findBankCardByUserId?t='+(new Date()).getTime(),
                 type: 'POST',
                 data: {
                     token: _this.token,
@@ -288,7 +288,7 @@ export default {
         renderYY () {
             let _this = this;
             $.ajax({
-                url: '/gateway/api/proxy/jbj/getUserDetail',
+                url: '/gateway/api/proxy/jbj/getUserDetail?t='+(new Date()).getTime(),
                 type: 'POST',
                 data: {
                     token: _this.token,
@@ -315,7 +315,7 @@ export default {
 
             $.ajax({
                 type: 'POST',
-                url: '/gateway/api/order/orderLog/begin',
+                url: '/gateway/api/order/orderLog/begin?t='+(new Date()).getTime(),
                 data: {
                     token: _this.token,
                     payerUserId: _this.userId,

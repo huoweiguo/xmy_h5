@@ -122,7 +122,7 @@ export default {
         relieveSure () {
             let _this = this;
             $.ajax({
-                url: '/gateway/api/order/unbindCard/direct',
+                url: '/gateway/api/order/unbindCard/direct?t='+(new Date()).getTime(),
                 type: "post",
                 data: {
                     userId: _this.userId,
@@ -160,7 +160,7 @@ export default {
         majorSure () {
             let _this = this;
             $.ajax({
-                url: '/gateway/api/user/jbj/setDefaultCard',
+                url: '/gateway/api/user/jbj/setDefaultCard?t='+(new Date()).getTime(),
                 type: "post",
                 data: {
                     userId: _this.userId,
@@ -209,7 +209,7 @@ export default {
             // 获取银行卡列表
             _this.bindCard = "/api/static/xmy/module/bindCard.html?userId="+_this.userId+'&token='+_this.token;
             $.ajax({
-                url: '/gateway/api/user/jbj/findBankCardByUserId',
+                url: '/gateway/api/user/jbj/findBankCardByUserId?t='+(new Date()).getTime(),
                 type: 'POST',
                 data: {
                     token: _this.token,

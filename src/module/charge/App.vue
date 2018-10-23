@@ -164,7 +164,7 @@
                 }
                 this.isClick = false;
                 $.ajax({
-                    url: '/gateway/api/order/loan/confirmLoan',
+                    url: '/gateway/api/order/loan/confirmLoan?t='+(new Date()).getTime(),
                     type: 'POST',
                     data: {
                         token: _this.token,
@@ -209,7 +209,7 @@
             init () {
                 var _this = this;
                 $.ajax({
-                    url: '/gateway/api/order/loan/verificationCredit',
+                    url: '/gateway/api/order/loan/verificationCredit?t='+(new Date()).getTime(),
                     type: 'POST',
                     data: {
                         token: _this.token,

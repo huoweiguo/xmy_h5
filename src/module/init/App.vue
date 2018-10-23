@@ -85,7 +85,7 @@
             verificationCredit() {
                 let _this = this;
                 _this.ajaxEV = $.ajax({
-                    url: '/gateway/api/order/loan/verificationCredit',
+                    url: '/gateway/api/order/loan/verificationCredit?t='+(new Date()).getTime(),
                     type: 'POST',
                     data: {
                         token: _this.token,
