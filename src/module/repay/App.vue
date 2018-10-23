@@ -249,6 +249,7 @@ export default {
                 },
                 success: function(res){
                     _this.result = true;
+                    _this.showBtn = true;
                     if(res.respCode == '000000'){
                         _this.faild = false;
                         _this.bankName = res.data.bankName;

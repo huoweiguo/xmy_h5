@@ -144,6 +144,7 @@ export default {
                 },
 
                 success: function(res){
+                    _this.bind = true;
                     if(res.respCode == "000000"){
                         if(_this.getInto == 1){
                             _this.buried(true)

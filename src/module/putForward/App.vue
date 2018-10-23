@@ -166,6 +166,7 @@ export default {
                     actualAmount: _this.actualAmount
                 },
                 success: function(res){
+                    _this.haveNum = true;
                     if(res.respCode === '000000'){
                         _this.amount = false
                         _this.results = true;
