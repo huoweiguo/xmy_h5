@@ -5,7 +5,7 @@
     font-size: 0.14rem;
     font-family: PingFangSC-Light,-apple-system,Helvetica Neue,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
     -webkit-overflow-scrolling: touch;
-    -webkit-tab-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 html,body{
     width: 100%;

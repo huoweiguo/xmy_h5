@@ -218,10 +218,12 @@ export default {
                         _this.bankList = res.bankList;
                         for(var i=0;i<res.bankList.length;i++){
                             if(res.bankList[i].isDefault == 'Y'){
-                                 _this.bankLogo = res.bankList[i].bankImag;
+                                _this.bankLogo = res.bankList[i].bankImag;
                                 _this.bankName = res.bankList[i].bankName;
                                 _this.bankId = res.bankList[i].id;
                                 _this.balance = res.bankList[i].accountBalance;
+                                _this.perDayLimit = res.bankList[i].perDayLimit/10000;
+                                _this.perTransactionLimit = res.bankList[i].perTransactionLimit/10000;
                             }
                         }
                         _this.$nextTick(function(){
