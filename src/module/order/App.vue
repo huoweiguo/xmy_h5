@@ -2,7 +2,7 @@
     <div>
         <div class="body-mask"></div>
         <navigation>
-            <a href="/api/static/xmy_app/gohome" slot="navigation_goback" class="navigation_goback"></a>
+            <a href="javascript:;" @click="backLink" slot="navigation_goback" class="navigation_goback"></a>
             <span slot="navigation_title" class="navigation_title">订单列表</span>
         </navigation>
         <div class="order_menu">
@@ -215,6 +215,17 @@
                         _this.isWetherAll =  true;
                     }
                 });
+            },
+
+
+            backLink () {
+                var typeLink = xmy.getQueryString('typeLink');
+
+                if(typeLink == 'mycenter'){
+                    window.location.href = '/back/myCenter?href=return';
+                } else {
+                    window.location.href = '/api/static/app_xmy/gohome';
+                }
             },
 
             //渲染待处理订单列表

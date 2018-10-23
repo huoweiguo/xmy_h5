@@ -234,7 +234,7 @@
             },
 
             lookOrder () {
-                window.location.href = '/api/static/xmy/module/order.html?token='+this.token+'&userId='+this.userId+'&gotoType=mycenter';
+                window.location.href = '/api/static/xmy/module/order.html?token='+this.token+'&userId='+this.userId+'&typeLink=mycenter';
             }
         },
 

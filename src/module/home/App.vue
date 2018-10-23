@@ -131,7 +131,7 @@
             },
 
             goOrder () {
-                window.location.href = '/api/static/xmy/module/order.html?token='+  this.token + '&userId='+this.userId+'&gotoType=home';
+                window.location.href = '/api/static/xmy/module/order.html?token='+  this.token + '&userId='+this.userId;
             },
 
             render_loan () {
