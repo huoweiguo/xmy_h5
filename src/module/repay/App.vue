@@ -22,7 +22,8 @@
         <!--<div class="no-repport">暂不支持余额还款</div>-->
         <!--<button class="repay-btn2" v-show="nextProcess" @click="nextClick">下一步</button>-->
         <div class="repay_small">本次还款手续费<span>{{serviceFee}}</span>元，实扣金额<span>{{orderAmount}}</span>元</div>
-        <button class="repay-btn2" @click="repaySure">确认</button>
+        <button class="repay-btn2" style="background:#ccc;" v-show="!showBtn">确认</button>
+        <button class="repay-btn2" v-show="showBtn" @click="repaySure">确认</button>
 
         <!--去除-->
         <!--
@@ -171,7 +172,7 @@ export default {
             hktel: '',
             hkcode: '',
             showTel: true,
-            showBtn: false,
+            showBtn: true,
             unOpen: false,
             isSms: false,
             timer: null,
@@ -235,6 +236,7 @@ export default {
         //确认还款
         repaySure () {
             let _this = this;
+            _this.showBtn = false;
             $.ajax({
                 url: '/gateway/api/order/orderLog/confirmDirect',
                 type: 'POST',

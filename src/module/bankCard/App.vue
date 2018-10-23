@@ -8,8 +8,8 @@
             <img src="../../../static/images/icon_bank_card@2x.png"/>
             <p>还没有银行卡哟！</p>
         </div>
-        <ul>
-            <li v-for="(item,index) in cardList" :data-cardname="item.bankName" :data-realbankcard="item.realBankCard" :data-lastname="item.bankCard" :data-bankid="item.id" :data-isdefault="item.isDefault" @click="operationCard">
+        <ul id="cardLi">
+            <li v-for="(item,index) in cardList" :data-cardname="item.bankName" :data-realbankcard="item.realBankCard" :data-lastname="item.bankCard" :data-bankid="item.id" :data-isdefault="item.isDefault">
                 <img :src="item.bankImag"/>
                 <div class="cardContent">
                     <h2><strong>{{item.bankName}}</strong><span v-show="item.isDefault == 'Y'" >默认</span></h2>
@@ -86,18 +86,17 @@ export default {
     },
     methods:{
         // 操作卡
-        operationCard ($event) {
+        operationCard () {
             let _this = this;
-            _this.cardId = $event.path[2].dataset.bankid;
-            _this.isDefault = $event.path[2].dataset.isdefault;
-            _this.realBankCard =$event.path[2].dataset.realbankcard;
-            _this.cardName = $event.path[2].dataset.cardname;
-            _this.lastName = $event.path[2].dataset.lastname;
+            // _this.cardId = $event.path[2].dataset.bankid;
+            // _this.isDefault = $event.path[2].dataset.isdefault;
+            // _this.realBankCard =$event.path[2].dataset.realbankcard;
+            // _this.cardName = $event.path[2].dataset.cardname;
+            // _this.lastName = $event.path[2].dataset.lastname;
             if(_this.isDefault == "Y"){
                 _this.isMain = false;
                 _this.isChk = false;
                 // 提示默认银行卡不可操作
-                console.log('默认银行卡不可操作');
                 _this.showTip = true;
                 _this.success = false;
                 _this.showResult = true;
@@ -189,6 +188,20 @@ export default {
             this.isChk = false;
             this.showTip = false;
             window.location.reload();
+        },
+        chengeCard () {
+            var cardLi = $("#cardLi").find("li");
+            var _this = this;
+            $.each(cardLi,function(index,item){
+                $(item).click(function(){
+                    _this.cardName = $(this).data('cardname');
+                    _this.lastName = $(this).data('lastname');
+                    _this.realBankCard = $(this).data('realbankcard');
+                    _this.cardId = $(this).data('bankid');
+                    _this.isDefault = $(this).data('isdefault');
+                    _this.operationCard();
+                });
+            })
         }
     },
     mounted () {
@@ -211,9 +224,15 @@ export default {
                             _this.noCard = false;
                         }
                         _this.cardList = res.data;
+                        // 渲染结束后再调用
+                        _this.$nextTick(function(){
+                            _this.chengeCard();
+                        });
+                        
                     }
                 }
             });
+            
         }
 }
 </script>

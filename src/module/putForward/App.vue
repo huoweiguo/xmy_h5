@@ -151,6 +151,7 @@ export default {
         // 确认提现
         next () {
             let _this = this;
+            _this.haveNum = false;
             $.ajax({
                 url: '/gateway/api/order/withdrawOrder/add',
                 type: 'POST',

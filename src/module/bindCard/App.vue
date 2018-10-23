@@ -55,7 +55,8 @@ export default {
             bankName:'',
             bindCardSeqNo:'',
             token: xmy.getQueryString('token'),
-            userId: xmy.getQueryString('userId')
+            userId: xmy.getQueryString('userId'),
+            getInto: xmy.getQueryString('type')
         }
     },
 
@@ -131,7 +132,7 @@ export default {
 
         gobind () {
             let _this = this;
-
+            _this.bind = false;
             // _hmt.push(['_trackEvent', "口代鱼绑卡", "bindcard"]);
 
             $.ajax({
@@ -146,12 +147,43 @@ export default {
 
                 success: function(res){
                     if(res.respCode == "000000"){
-                        window.location.href = 'javascript:window.history.go(-1);'
+                        if(_this.getInto == 1){
+                            _this.buried(true)
+                        }else{
+                            window.location.href = 'javascript:window.history.go(-1)'
+                        }
                     }else{
+                        if(_this.getInto == 1){
+                            _this.buried(false)
+                        }
                         xmy.toast(res.data.respMsg);
                     }
                 }
             });
+        },
+
+        buried (status) {
+            let _this = this;
+            if(status){
+                _this.buriedNo = 'Auth_RealName_Bank_Success';
+            }else{
+                _this.buriedNo = 'Auth_RealName_Bank_Fail';
+            }
+            $.ajax({
+                url: '/gateway/api/report/userBuried/logging',
+                type: 'POST',
+                data: {
+                    token: _this.token,
+                    userId: _this.userId,
+                    buriedNo: _this.buriedNo
+                },
+                success:function(s){
+                    if(status){
+                        window.location.href = '/api/static/xmy_app/popAuth';
+                    }
+                    
+                }
+            })
         },
 
         isEmpty () {
@@ -186,7 +218,6 @@ export default {
                 xmy.toast(res.respMsg);
             }
         });
-        
     }
 }
 </script>

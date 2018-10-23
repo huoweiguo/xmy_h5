@@ -144,6 +144,7 @@ export default {
         // 确认充值，接口等待小志
         next () {
             let _this = this;
+            _this.haveNum = false;
             $.ajax({
                 url: '/gateway/api/order/rechargeOrder/confirm',
                 type: 'POST',
