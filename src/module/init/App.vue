@@ -104,9 +104,11 @@
                             },3000);
                             
                         } else if(res.respCode == '072018'){
-                            _this.isResult = true;
-                            _this.refuse_msg = '小主别灰心，为您推荐更多借款产品';
-                            _this.refuse_reson = '审核未通过';
+                            setTimeout(function(){
+                                _this.isResult = true;
+                                _this.refuse_msg = '小主别灰心，为您推荐更多借款产品';
+                                _this.refuse_reson = '审核未通过';
+                            },3000);
                         }
 
                         clearInterval(_this.timer);
