@@ -47,7 +47,7 @@
 
         this.$html.find('[data-role="ok"]').on('click', $.proxy(function () {
             var num = this.el.data('num');
-            if (num) {
+            if (num > 0) {
                 if (this.isCurrency) {
                     this.el.val(addZero(num, 2));
                 } else {
@@ -55,9 +55,19 @@
                 }
             } else {
                 this.el.val('');
+                this.el.data("num",'');
                 num = '';
             }
             this.$body.css('marginTop', '');
+            if(num <= 0){
+                layer.open({
+                    content: '输入金额必须大于0',
+                    skin: 'msg',
+                    time: 1.5
+                });
+
+                return false;
+            }
             this.options.callback && this.options.callback(this, num);
             this.close();
         }, this));
