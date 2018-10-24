@@ -3,9 +3,9 @@
         <div class="body-mask"></div>
         
         <div class="home-list">
-            <div class="home-tj">推荐</div>
+            <div class="home-tj" v-show="isZp">推荐</div>
 
-            <ul v-show="recruitList.length > 0">
+            <ul>
                 <li v-for="item in recruitList" @click="gozp(item.recruitId,item.userId,item.employerDesc,item.yunxinId)" v-if="item.type == 'Recruit'">
                     <div class="li-content">
                         <div class="block-headImg"><img :src="item.userAvatar"></div>
@@ -47,7 +47,7 @@
             </ul>
         </div>
 
-        <div class="plat_small">本平台不向22周岁以下学生提供服务</div>
+        <div class="plat_small" v-show="!isZp">本平台不向22周岁以下学生提供服务</div>
 
 
         <!--
@@ -71,7 +71,8 @@
                 channelType: xmy.getQueryString('channelType'),
                 loan: false,
                 charge: '',
-                repay: 'N'
+                repay: 'N',
+                isZp: false
             }   
         },
 
@@ -95,6 +96,11 @@
                     success: function(res){
                         if(res.respCode == '000000'){
                             _this.recruitList = res.data;
+                            if(res.data.length > 0){
+                                if(res.data[0].userAvatar){
+                                    _this.isZp = true;
+                                }
+                            }
                         }
                     }
                 });
@@ -146,7 +152,7 @@
                     },
                     success: function(res){
                         if(res.respCode == '000000'){
-                            if(res.data.isPopRepayTip == 'Y' || res.data.isPopWithdrawTip == 'Y'){
+                            if(res.data.isWaitRepayTip == 'Y'){
                                 _this.charge = res.data.repaymentAmt;
                                 _this.repay = "Y";
                             }
