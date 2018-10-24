@@ -220,7 +220,7 @@
 
 
             backLink () {
-                var typeLink = xmy.getQueryString('typeLink');
+                var typeLink = xmy.getQueryString('linkType');
 
                 if(typeLink == 'mycenter'){
                     window.location.href = '/back/myCenter?href=return';

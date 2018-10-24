@@ -266,7 +266,8 @@ export default {
         let _this = this;
         _this.getBankList();
         _this.getFee();
-        $('#bindcard').on('click', function () {
+        $('#bindcard').on('click', function (ev) {
+            ev.preventDefault();
             $('#bindcard').NumberKeypad({
                 type: 'number',
                 zIndex: 1001,
