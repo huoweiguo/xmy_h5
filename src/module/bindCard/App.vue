@@ -161,6 +161,7 @@ export default {
             });
         },
         goBack () {
+            let _this = this;
             if(_this.getInto == 1){
                 window.location.href = '/api/static/xmy_app/popAuth';
             }else{
