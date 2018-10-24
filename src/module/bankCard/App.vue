@@ -229,6 +229,8 @@ export default {
                             _this.chengeCard();
                         });
                         
+                    }else{
+                        xmy.toast(res.respMsg);
                     }
                 }
             });

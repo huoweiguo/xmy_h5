@@ -206,7 +206,7 @@ export default {
         let _this = this;
 
         $.ajax({
-            url: '/gateway/api/order/bindCardLog/initBandCardInfo?t='+(new Date()).getTime(),
+            url: '/gateway/api/user/jbj/findUserByUserIdAndType?t='+(new Date()).getTime(),
             type: 'POST',
             data: {
                 token: _this.token,
@@ -215,7 +215,7 @@ export default {
             },
             success: function(res){
                 if(res.respCode == "000000"){
-                    _this.userName = res.data.userName;
+                    _this.userName = res.data.username;
                     _this.idCard = res.data.idCard;
                     _this.telphone = res.data.mobile;
                 }else{

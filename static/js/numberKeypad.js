@@ -60,13 +60,13 @@
                 num = '';
             }
             this.$body.css('marginTop', '');
-            if(num <= 0){
+            
+            if(num != "" && num <= 0){
                 layer.open({
                     content: '输入金额必须大于0',
                     skin: 'msg',
                     time: 1.5
                 });
-
                 return false;
             }
             this.options.callback && this.options.callback(this, num);
