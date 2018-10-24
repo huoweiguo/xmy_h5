@@ -100,7 +100,7 @@ export default {
                 _this.showTip = true;
                 _this.success = false;
                 _this.showResult = true;
-                _this.resultTittle = " 默认银行卡不可操作 请先更换默认卡"
+                _this.resultTittle = "默认银行卡不可操作"
                 
             }else{
                 _this.isMain = true;
