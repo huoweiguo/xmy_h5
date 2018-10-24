@@ -68,6 +68,8 @@ export default {
                         }else{
                             window.location.href = _this.putForward
                         }
+                    }else{
+                        xmy.toast(res.respMsg)
                     }
                 }
             })
