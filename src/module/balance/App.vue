@@ -66,7 +66,7 @@ export default {
                             // 弹窗
                             _this.toLeave = true;
                         }else{
-                            // window.location.href = _this.putForward
+                            window.location.href = _this.putForward
                         }
                     }
                 }
