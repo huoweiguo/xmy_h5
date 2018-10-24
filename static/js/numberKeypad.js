@@ -47,6 +47,7 @@
 
         this.$html.find('[data-role="ok"]').on('click', $.proxy(function () {
             var num = this.el.data('num');
+            num = parseFloat(num).toString();
             if (num > 0) {
                 if (this.isCurrency) {
                     this.el.val(addZero(num, 2));
