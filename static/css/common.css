@@ -13,6 +13,9 @@ html,body{
     max-width: 750px;
     margin:0 auto;
 }
+#app{
+    overflow: hidden;
+}
 .body-mask{
     position: fixed;
     left: 0;
