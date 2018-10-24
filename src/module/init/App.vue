@@ -105,13 +105,13 @@
                                 window.location.href = '/api/static/xmy/module/charge.html?token='+_this.token+'&userId='+_this.userId+'&productId='+_this.productId+'&productUserId='+_this.productUserId+'&publishOrderId='+res.publishOrderId;
                             },3000);
                             
-                        } else if(res.respCode == '072018'){
+                        } else {
                             setTimeout(function(){
                                 clearInterval(_this.timer);
                                 _this.tickTime = 10;
                                 _this.isResult = true;
                                 _this.refuse_msg = '小主别灰心，为您推荐更多借款产品';
-                                _this.refuse_reson = '审核未通过';
+                                _this.refuse_reson = res.respMsg;
                             },3000);
                         }
                     }

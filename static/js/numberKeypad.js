@@ -185,9 +185,15 @@
                 num += key;
                 // 限制不能超过 max
                 if (_this.options.max && num > _this.options.max) {
+                    var strPrice = '单笔限额不能高于'+_this.options.max;
+                    layer.open({
+                        content: strPrice,
+                        skin: 'msg',
+                        time: 1.5
+                    });
                     num = num.substring(0, num.length - 1);
-                    $this.el.data('num', num);
-                    $this.el.val(num);
+                    _this.el.data('num', num);
+                    _this.el.val(num);
                     return;
                 }
                 _this.el.data('num', num);
@@ -210,9 +216,15 @@
                     num += key;
                     // 限制不能超过 max
                     if (_this.options.max && num > _this.options.max) {
+                        var strPrice = '单笔限额不能高于'+_this.options.max;
+                        layer.open({
+                            content: strPrice,
+                            skin: 'msg',
+                            time: 1.5
+                        });
                         num = num.substring(0, num.length - 1);
-                        $this.el.data('num', num);
-                        $this.el.val(num);
+                        _this.el.data('num', num);
+                        _this.el.val(num);
                         return;
                     }
                     _this.el.data('num', num);

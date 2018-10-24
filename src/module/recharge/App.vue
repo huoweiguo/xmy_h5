@@ -270,6 +270,8 @@ export default {
             $('#bindcard').NumberKeypad({
                 type: 'number',
                 zIndex: 1001,
+                max: 200000,
+                currency: true,
                 callback: function (elem, number) {
                     _this.tradeAmount = number;
                     _this.inspect();
