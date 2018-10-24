@@ -12,7 +12,7 @@
                     <span>{{bankName}} ({{bankNum}})</span>
                     <em>单笔金额≤{{perDayLimit}}万元，单日金额≤{{perTransactionLimit}}万元</em>
                 </div>
-                <em>＞</em>
+                <em><img src="../../../static/images/rightarrow_1f.png"/></em>
             </div>
             <div class="money">
                 <span>¥</span>
