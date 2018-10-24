@@ -27,7 +27,7 @@
             <div class="inquiry">
                 <h2>您当前没有银行卡，请先去认证绑卡</h2>
                 <div class="btn">
-                    <button class="cancelBtn" @click="loankv">取消</button>
+                    <button class="cancelBtn" @click="leave">取消</button>
                     <button class="sureBtn" @click="gotoAuthCard">确定</button>
                 </div>
             </div>
@@ -87,7 +87,11 @@ export default {
         loankv () {
             let _this = this
             _this.toLeave = false;
+        },
+        leave () {
+            let _this = this;
             _this.toAuth = false;
+            window.location.href = "/back/myCenter?href=return"
         },
         gotoAuth () {
             let _this = this;
