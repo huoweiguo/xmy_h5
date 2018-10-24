@@ -9,14 +9,14 @@
             <div class="card" @click="selectBank">
                 <img :src="bankLogo"/>
                 <div class="cardName">
-                    <span class="repayment">{{bankName}}</span>
+                    <span class="repayment">{{bankName}} ({{bankNum}})</span>
                     <!-- <em>单笔金额≤5万元，单日金额≤5万元</em> -->
                 </div>
                 <em>＞</em>
             </div>
             <div class="money">
                 <span>¥</span>
-                <input type="text" id="bindcard" v-model="tradeAmount" readonly placeholder="请输入大于等于100的金额"/>
+                <input type="text" id="bindcard" v-model="tradeAmount" readonly placeholder="请输入大于等于10的金额"/>
                 <strong @click="allMoney">全部转出</strong>
             </div>
             <div class="cost">提示：本次提现手续费<span>{{serviceFee}}</span>元，实际到账金额<span>{{actualAmount}}</span>元。</div>
@@ -29,7 +29,7 @@
         <div class="bank-slt">
             <h3 class="bank-nav">选择支付方式<span class="close-btn" @click="closeBank"></span></h3>
             <ul id="bank_list">
-                <li v-for="item in bankList" :class="{'active':item.isDefault =='Y'}" :data-bankid="item.id" :data-bankname="item.bankName" :data-banklogo="item.bankImag">
+                <li v-for="item in bankList" :class="{'active':item.isDefault =='Y'}" :data-bankid="item.id" :data-banknum="item.bankCard" :data-bankname="item.bankName" :data-banklogo="item.bankImag">
                     <img :src="item.bankImag" class="bankImg">
                     <div class="bank-detail">
                         <span class="bank-name">{{item.bankName}}<i>({{item.bankCard}})</i></span>
@@ -105,7 +105,8 @@ export default {
             addCard:'',
             bankAmt:'',
             bankAccount:'',
-            myCenter:"/api/static/xmy/module/myCenter.html?token="+xmy.getQueryString('token')+"&userId="+xmy.getQueryString('userId')
+            myCenter:"/back/myCenter?href=return",
+            bankNum:''
         }
     },
     methods:{
@@ -147,6 +148,7 @@ export default {
                 _this.haveNum = true;
             }
             _this.tradeAmount = _this.balance;
+            _this.inspect ();
         },
         // 确认提现
         next () {
@@ -206,6 +208,7 @@ export default {
                     _this.bankId = $(this).data("bankid");
                     _this.bankLogo = $(this).data("banklogo");
                     _this.bankName = $(this).data("bankname");
+                    _this.bankNum = $(this).data("banknum");
                     _this.closeBank();
                 });
             });
@@ -230,7 +233,8 @@ export default {
                                 _this.bankLogo = res.bankList[i].bankImag;
                                 _this.bankName = res.bankList[i].bankName;
                                 _this.bankId = res.bankList[i].id;
-                                _this.balance = res.bankList[i].accountBalance;
+                                _this.bankNum = res.bankList[i].bankCard;
+                                _this.balance = res.accountBalance;
                                 _this.perDayLimit = res.bankList[i].perDayLimit/10000;
                                 _this.perTransactionLimit = res.bankList[i].perTransactionLimit/10000;
                             }

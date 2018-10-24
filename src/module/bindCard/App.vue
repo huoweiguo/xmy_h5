@@ -1,7 +1,7 @@
 <template>
     <div>
         <navigation>
-            <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a>
+            <a href="javascript:;" @click="goBack" slot="navigation_goback" class="navigation_goback"></a>
             <span slot="navigation_title" class="navigation_title">绑定银行卡</span>
         </navigation>
         <div class="order-bg"></div>
@@ -160,7 +160,13 @@ export default {
                 }
             });
         },
-
+        goBack () {
+            if(_this.getInto == 1){
+                window.location.href = '/api/static/xmy_app/popAuth';
+            }else{
+                window.location.href = 'javascript:window.history.go(-1)'
+            }
+        },
         buried (status) {
             let _this = this;
             if(status){
@@ -180,7 +186,6 @@ export default {
                     if(status){
                         window.location.href = '/api/static/xmy_app/popAuth';
                     }
-                    
                 }
             })
         },
@@ -213,8 +218,9 @@ export default {
                     _this.userName = res.data.userName;
                     _this.idCard = res.data.idCard;
                     _this.telphone = res.data.mobile;
+                }else{
+                    xmy.toast(res.respMsg);
                 }
-                xmy.toast(res.respMsg);
             }
         });
     }

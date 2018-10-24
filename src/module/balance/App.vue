@@ -13,7 +13,16 @@
         <div class="amt" v-show="showAmt">{{accountBalance}}</div>
         <div class="amt" v-show="!showAmt">****</div>
         <a class="recharge" :href="recharge">充值</a>
-        <a class="putForward" :href="putForward">提现</a>
+        <a class="putForward" href="javascript:;" @click="isPutForward">提现</a>
+        <div class="popup" v-show="toLeave">
+            <div class="inquiry">
+                <h2>您当前存在逾期订单，请先还款</h2>
+                <div class="btn">
+                    <button class="cancelBtn" @click="loankv">取消</button>
+                    <button class="sureBtn" @click="gotoAuth">确定</button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -31,6 +40,7 @@ export default {
             putForward:"",
             token: xmy.getQueryString('token'),
             userId: xmy.getQueryString('userId'),
+            toLeave: false,
             fineBalance: "/api/static/xmy/module/fineBalance.html?token="+xmy.getQueryString('token')+"&userId="+xmy.getQueryString('userId')
         }
     },
@@ -40,6 +50,36 @@ export default {
         },
         goDetail: function(){
             window.location.href = this.fineBalance;
+        },
+        isPutForward () {
+            let _this = this;
+            $.ajax({
+                url: '/gateway/api/order/billOrder/queryOverduePopTip?t='+(new Date()).getTime(),
+                type: 'post',
+                data: {
+                    token: _this.token,
+                    userId: _this.userId
+                },
+                success: function(res){
+                    if(res.respCode == "000000"){
+                        if(res.data.isPopWithdrawTip == "Y"){
+                            // 弹窗
+                            _this.toLeave = true;
+                        }else{
+                            // window.location.href = _this.putForward
+                        }
+                    }
+                }
+            })
+        },
+        loankv () {
+            let _this = this
+            _this.toLeave = false;
+        },
+        gotoAuth () {
+            let _this = this;
+            _this.toLeave = false;
+            window.location.href = "/api/static/xmy/module/order.html?token="+xmy.getQueryString('token')+"&userId="+xmy.getQueryString('userId')
         }
     },
     mounted () {

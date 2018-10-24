@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li>
-                <a :href="myCard">
+                <a href="javascript:;" @click="gotoCard">
                     <span>我的银行卡</span>
                     <img src="../../../static/images/rightarrow_1f.png"/>
                 </a>
@@ -68,6 +68,15 @@
                 </a>
             </li>
         </ul>
+        <div class="popup" v-show="toLeave">
+            <div class="inquiry">
+                <h2>您还未实名认证哟</h2>
+                <div class="btn">
+                    <button class="cancelBtn" @click="loankv">取消</button>
+                    <button class="sureBtn" @click="gotoAuth">确定</button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -82,7 +91,30 @@ export default {
             shareLink:'',
             myCard:'',
             balance:'',
-            order:''
+            order:'',
+            toLeave: false,
+            bankCardAuth:''
+        }
+    },
+    methods: {
+        loankv () {
+            let _this = this;
+            _this.toLeave = false;
+        },
+        gotoCard () {
+            let _this = this;
+            if(_this.bankCardAuth == "Y"){
+               _this.myCard = "/api/static/xmy/module/bankCard.html?userId="+_this.userId+"&token="+_this.token;         
+                window.location.href = _this.myCard;
+            }else{
+                // 提示去认证
+                _this.toLeave = true;
+            }
+        },
+        gotoAuth () {
+            let _this = this;
+            _this.toLeave = false;
+            window.location.href = '/api/static/xmy_app/stars'
         }
     },
     mounted () {
@@ -105,11 +137,7 @@ export default {
                     }
                     _this.shareLink = "http://proxy.xiaomuyu.net:8704/myd/share.html?userId="+_this.userId+"&token="+_this.token;
                     _this.creditCard = "http://proxy.xiaomuyu.net:8704/myd/creditCard.html?userId="+_this.userId+"&token="+_this.token+"&userType=B";
-                    if(res.userAuthInfo.bankCardAuth == "Y"){
-                        _this.myCard = "/api/static/xmy/module/bankCard.html?userId="+_this.userId+"&token="+_this.token;
-                    }else{
-                        _this.myCard = "/api/static/xmy/module/bindCard.html?userId="+_this.userId+"&token="+_this.token;
-                    }
+                    _this.bankCardAuth = res.userAuthInfo.bankCardAuth;
                     _this.balance = "/api/static/xmy/module/balance.html?userId="+_this.userId+"&token="+_this.token;
                     _this.order = "/api/static/xmy/module/order.html?userId="+_this.userId+"&token="+_this.token+"&linkType=mycenter";
                 }

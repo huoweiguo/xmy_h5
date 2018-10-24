@@ -9,7 +9,7 @@
             <div class="card" @click="selectBank">
                 <img :src="bankLogo"/>
                 <div class="cardName">
-                    <span>{{bankName}}</span>
+                    <span>{{bankName}} ({{bankNum}})</span>
                     <em>单笔金额≤{{perDayLimit}}万元，单日金额≤{{perTransactionLimit}}万元</em>
                 </div>
                 <em>＞</em>
@@ -28,7 +28,7 @@
         <div class="bank-slt">
             <h3 class="bank-nav">选择支付方式<span class="close-btn" @click="closeBank"></span></h3>
             <ul id="bank_list">
-                <li v-for="item in bankList" :class="{'active':item.isDefault =='Y'}" :data-bankid="item.id" :data-bankname="item.bankName" :data-banklogo="item.bankImag">
+                <li v-for="item in bankList" :class="{'active':item.isDefault =='Y'}" :data-bankid="item.id" :data-banknum="item.bankCard" :data-bankname="item.bankName" :data-banklogo="item.bankImag">
                     <img :src="item.bankImag" class="bankImg">
                     <div class="bank-detail">
                         <span class="bank-name">{{item.bankName}}<i>({{item.bankCard}})</i></span>
@@ -106,7 +106,8 @@ export default {
             perTransactionLimit:'',
             bankAccount:'',
             bankAmt:'',
-            myCenter:"/api/static/xmy/module/myCenter.html?token="+xmy.getQueryString('token')+"&userId="+xmy.getQueryString('userId')
+            myCenter:"/back/myCenter?href=return",
+            bankNum:''
         }
     },
     methods:{
@@ -199,6 +200,7 @@ export default {
                     _this.bankId = $(this).data("bankid");
                     _this.bankLogo = $(this).data("banklogo");
                     _this.bankName = $(this).data("bankname");
+                    _this.bankNum = $(this).data("banknum");
                     _this.closeBank();
                 });
             });
@@ -223,7 +225,8 @@ export default {
                                 _this.bankLogo = res.bankList[i].bankImag;
                                 _this.bankName = res.bankList[i].bankName;
                                 _this.bankId = res.bankList[i].id;
-                                _this.balance = res.bankList[i].accountBalance;
+                                _this.bankNum = res.bankList[i].bankCard;
+                                _this.balance = res.accountBalance;
                                 _this.perDayLimit = res.bankList[i].perDayLimit/10000;
                                 _this.perTransactionLimit = res.bankList[i].perTransactionLimit/10000;
                             }
