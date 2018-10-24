@@ -90,7 +90,7 @@ export default {
             userId: xmy.getQueryString('userId'),
             repayment:'',
             shareLink:'',
-            myCard:'',
+            myCard:"/api/static/xmy/module/bankCard.html?userId="+xmy.getQueryString('userId')+"&token="+xmy.getQueryString('token'),
             balance:'',
             order:'',
             toLeave: false,
