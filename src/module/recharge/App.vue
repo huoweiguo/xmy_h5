@@ -16,7 +16,7 @@
             </div>
             <div class="money">
                 <span>¥</span>
-                <input type="text" id="bindcard" readonly v-model="tradeAmount" placeholder="请输入大于等于100的金额"/>
+                <input type="text" id="bindcard" readonly="readonly" v-model="tradeAmount" placeholder="请输入大于等于100的金额"/>
             </div>
             <div class="cost">提示：本次充值手续费<span>{{serviceFee}}</span>元，实际支付金额<span>{{actualAmount}}</span>元。</div>
             <a href="http://proxy.xiaomuyu.net:8704/jbj/listBanks">支持的银行卡和限额</a>

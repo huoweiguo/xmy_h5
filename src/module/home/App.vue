@@ -5,7 +5,7 @@
         <div class="home-list">
             <div class="home-tj" v-show="isZp">推荐</div>
 
-            <ul>
+            <ul v-show="isZp">
                 <li v-for="item in recruitList" @click="gozp(item.recruitId,item.userId,item.employerDesc,item.yunxinId)" v-if="item.type == 'Recruit'">
                     <div class="li-content">
                         <div class="block-headImg"><img :src="item.userAvatar"></div>
@@ -39,7 +39,7 @@
             </ul>
         </div>
         
-        <div class="online">
+        <div class="online" v-show="!isZp">
             <ul>
                 <li v-for="item in recruitList" :data-id="item.productId"  :data-uid="item.productUserId" v-if="item.type == 'Loan'" @click="golink(item.productId, item.productUserId, item.productName)">
                     <img :src="item.bannerUrl"/>
