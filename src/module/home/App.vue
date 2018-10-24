@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="padding-bottom: 0.6rem;">
         <div class="body-mask"></div>
         
         <div class="home-list">
