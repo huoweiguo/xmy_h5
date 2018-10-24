@@ -56,7 +56,7 @@
             <h2 v-show="!success">充值成功</h2>
             <h2 v-show="success">充值失败</h2>
             <p v-show="success">{{result}}</p>
-            <p v-show="!success">到账银行：{{bankAccount}} 充值金额：{{bankAmt}}元</p>
+            <p v-show="!success">充值方式：{{bankAccount}} 充值金额：{{bankAmt}}元</p>
             <div class="again" v-show="!success">
                 <a :href="myCenter">返回我的</a>
             </div>
