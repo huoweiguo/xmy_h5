@@ -12,7 +12,7 @@
                     <span class="repayment">{{bankName}} ({{bankNum}})</span>
                     <!-- <em>单笔金额≤5万元，单日金额≤5万元</em> -->
                 </div>
-                <em>＞</em>
+                <em><img src="../../../static/images/rightarrow_1f.png"/></em>
             </div>
             <div class="money">
                 <span>¥</span>
@@ -117,7 +117,7 @@ export default {
         inspect () {
             let _this = this;
             // 判断输入的是数字，显示手续费、实际支付金额和下一步按钮成可点击
-            if(Number(_this.trim(_this.tradeAmount))!=NaN&&Number(_this.trim(_this.tradeAmount))>0){
+            if(Number(_this.trim(_this.tradeAmount))!=NaN&&Number(_this.trim(_this.tradeAmount))>10){
                 _this.haveNum = true;
                 $.ajax({
                     type: "POST",
@@ -278,9 +278,10 @@ export default {
             $('#bindcard').NumberKeypad({
                 type: 'number',
                 zIndex: 1001,
+                max: 200000,
                 callback: function (elem, number) {
                     if(Number(number)>Number(_this.balance)){
-                        xmy.toast("提现金额应小于等于账户余额");
+                        xmy.toast("提现金额应小于或等于账户余额");
                     }
                     _this.tradeAmount = number;
                     _this.inspect();
