@@ -118,7 +118,7 @@ export default {
                                 }
                             },1000);
                         }else{
-                            xmy.toast(res.data.respMsg);
+                            xmy.toast(res.respMsg);
                         }
                     }
 
@@ -155,7 +155,7 @@ export default {
                         if(_this.getInto == 1){
                             _this.buried(false)
                         }
-                        xmy.toast(res.data.respMsg);
+                        xmy.toast(res.respMsg);
                     }
                 }
             });

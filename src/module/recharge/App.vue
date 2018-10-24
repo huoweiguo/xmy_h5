@@ -118,7 +118,7 @@ export default {
         inspect () {
             let _this = this;
             // 判断输入的是数字，显示手续费、实际支付金额和下一步按钮成可点击
-            if(Number(_this.trim(_this.tradeAmount))!=NaN){
+            if(Number(_this.trim(_this.tradeAmount))!=NaN&&Number(_this.trim(_this.tradeAmount))>0){
                 _this.haveNum = true;
                 $.ajax({
                     type: "POST",
@@ -134,12 +134,14 @@ export default {
                         if(res.respCode == "000000"){
                             _this.actualAmount = res.data.actualAmount;
                             _this.serviceFee = res.data.serviceFee;
-
+                        }else{
+                            xmy.toast(res.respMsg)
                         }
                     }
                 })
             }else{
-                alert("请输入正确的数字")
+                _this.haveNum = false;
+                xmy.toast("输入金额正确且大于100")
             }
         },
         // 确认充值，接口等待小志

@@ -117,7 +117,7 @@ export default {
         inspect () {
             let _this = this;
             // 判断输入的是数字，显示手续费、实际支付金额和下一步按钮成可点击
-            if(Number(_this.trim(_this.tradeAmount))!=NaN){
+            if(Number(_this.trim(_this.tradeAmount))!=NaN&&Number(_this.trim(_this.tradeAmount))>0){
                 _this.haveNum = true;
                 $.ajax({
                     type: "POST",
@@ -133,12 +133,14 @@ export default {
                         if(res.respCode == "000000"){
                             _this.actualAmount = res.data.actualAmount;
                             _this.serviceFee = res.data.serviceFee;
-
+                        }else{
+                            xmy.toast(res.respMsg)
                         }
                     }
                 })
             }else{
-                alert("请输入正确的数字")
+                _this.haveNum = false;
+                xmy.toast("输入金额正确且大于10")
             }
         },
         // 全部转出
@@ -277,6 +279,9 @@ export default {
                 type: 'number',
                 zIndex: 1001,
                 callback: function (elem, number) {
+                    if(Number(number)>Number(_this.balance)){
+                        xmy.toast("提现金额应小于等于账户余额");
+                    }
                     _this.tradeAmount = number;
                     _this.inspect();
                     elem.close();
