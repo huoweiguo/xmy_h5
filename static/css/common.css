@@ -73,8 +73,8 @@ html,body{
     margin-top: 0.5rem;
   }
   .result .success .detail {
-    border-top: 0.01rem solid #eeeeee;
-    border-bottom: 0.01rem solid #eeeeee;
+    border-top: 1px solid #eeeeee;
+    border-bottom: 1px solid #eeeeee;
     margin: 0 0.3rem;
     padding: 0.15rem 0;
     overflow: hidden;
