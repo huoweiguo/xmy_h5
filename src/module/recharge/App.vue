@@ -118,7 +118,7 @@ export default {
         inspect () {
             let _this = this;
             // 判断输入的是数字，显示手续费、实际支付金额和下一步按钮成可点击
-            if(Number(_this.trim(_this.tradeAmount))!=NaN&&Number(_this.trim(_this.tradeAmount))>0){
+            if(Number(_this.trim(_this.tradeAmount))!=NaN&&Number(_this.trim(_this.tradeAmount))>100){
                 _this.haveNum = true;
                 $.ajax({
                     type: "POST",
