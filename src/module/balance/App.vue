@@ -95,7 +95,7 @@ export default {
             window.location.href = "/api/static/xmy/module/order.html?token="+xmy.getQueryString('token')+"&userId="+xmy.getQueryString('userId')
         },
         gotoAuthCard () {
-            this.toAuth = true;
+            this.toAuth = false;
             window.location.href = '/api/static/xmy_app/stars'
         }
     },
