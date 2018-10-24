@@ -168,6 +168,7 @@
                 curComplete: 1,
                 token: xmy.getQueryString('token'),
                 userId: xmy.getQueryString('userId'),
+                orderTab: xmy.getQueryString('orderTab'),
                 isWetherAll: true,
                 isWetherDeal: true,
                 isWetherComplete: true
@@ -307,7 +308,11 @@
 
         mounted () {
             var _this = this;
-
+            if(_this.orderTab == 3){
+                _this.isAll = false;
+                _this.isDeal = true;
+                _this.isComplete = false;
+            }
             this.renderAll();
             this.renderDeal();
             this.renderComplete();
@@ -316,9 +321,6 @@
                 let scrollTop = xmy.getScrollTop(),
                     clientHeight = xmy.getClientHeight(),
                     scrollHeight = xmy.getScrollHeight();
-                
-
-                console.log(_this.isAll,_this.isDeal,_this.isComplete);
 
                 if(scrollTop + clientHeight + 70 > scrollHeight) {
                     if(_this.isAll && _this.isWetherAll){
