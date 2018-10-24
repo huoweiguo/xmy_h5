@@ -134,7 +134,6 @@ export default {
                         if(res.respCode == "000000"){
                             _this.actualAmount = res.data.actualAmount;
                             _this.serviceFee = res.data.serviceFee;
-
                         }
                     }
                 })
@@ -268,6 +267,8 @@ export default {
             $('#bindcard').NumberKeypad({
                 type: 'number',
                 zIndex: 1001,
+                max: 200000,
+                currency: true,
                 callback: function (elem, number) {
                     _this.tradeAmount = number;
                     _this.inspect();
