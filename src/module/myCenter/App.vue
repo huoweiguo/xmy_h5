@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li>
-                <a href="javascript:;" @click="gotoCard">
+                <a :href="myCard">
                     <span>我的银行卡</span>
                     <img src="../../../static/images/rightarrow_1f.png"/>
                 </a>
@@ -68,6 +68,7 @@
                 </a>
             </li>
         </ul>
+        <!-- 原生弹窗 -->
         <div class="popup" v-show="toLeave">
             <div class="inquiry">
                 <h2>您还未实名认证哟</h2>
