@@ -1,5 +1,5 @@
 <template>
-    <div class="main">
+    <div id="app" class="main">
         <navigation>
             <a href="/back/myCenter?href=return" slot="navigation_goback" class="navigation_goback"></a>
             <span slot="navigation_title" class="navigation_title">银行卡</span>

@@ -1,4 +1,5 @@
 <template>
+<div id="app">
     <div class="content-pro" id="process">
         <navigation>
             <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a>
@@ -157,6 +158,7 @@
         </div>
         <div id="xdy_toast" class="xdy_toast" v-show="unOpen"></div>
     </div>
+</div>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="app">
         <div class="body-mask"></div>
         <navigation>
             <a href="javascript:;" @click="backLink" slot="navigation_goback" class="navigation_goback"></a>
@@ -36,18 +36,18 @@
                         <div class="order_money">
                             <i>&yen;</i>{{item.orderAmt}}
                         </div>
-                        <div class="order_rate">
+                        <!-- <div class="order_rate">
                             <p>酬金：{{item.rewardRateDesc}}</p>
                             <p>利率：{{item.interestRateDesc}}</p>
-                        </div>
+                        </div> -->
                         <div class="order_date">
-                            <p>借款日：{{item.orderTime}}</p>
-                            <p>还款日：{{item.repaymentDate}}</p>
+                            <p>借款：{{item.orderTime}}</p>
+                            <p>还款：{{item.repaymentDate}}</p>
                         </div>
                     </div>
                 </li>
             </ul>
-            <div class="isbottom" v-show="showAll">别扯了，已经到底了...</div>
+            <!-- <div class="isbottom" v-show="showAll">别扯了，已经到底了...</div> -->
             <div class="nodata" v-show="visAll">
                 <img src="../../../static/images/group7@2x.png">
                 暂无数据
@@ -78,18 +78,18 @@
                         <div class="order_money">
                             <i>&yen;</i>{{item.orderAmt}}
                         </div>
-                        <div class="order_rate">
+                        <!-- <div class="order_rate">
                             <p>酬金：{{item.rewardRateDesc}}</p>
                             <p>利率：{{item.interestRateDesc}}</p>
-                        </div>
+                        </div> -->
                         <div class="order_date">
-                            <p>借款日：{{item.orderTime}}</p>
-                            <p>还款日：{{item.repaymentDate}}</p>
+                            <p>借款：{{item.orderTime}}</p>
+                            <p>还款：{{item.repaymentDate}}</p>
                         </div>
                     </div>
                 </li>
             </ul>
-            <div class="isbottom" v-show="showDeal">别扯了，已经到底了...</div>
+            <!-- <div class="isbottom" v-show="showDeal">别扯了，已经到底了...</div> -->
             <div class="nodata" v-show="visDeal">
                 <img src="../../../static/images/group7@2x.png">
                 暂无数据
@@ -121,18 +121,18 @@
                         <div class="order_money">
                             <i>&yen;</i>{{item.orderAmt}}
                         </div>
-                        <div class="order_rate">
+                        <!-- <div class="order_rate">
                             <p>酬金：{{item.rewardRateDesc}}</p>
                             <p>利率：{{item.interestRateDesc}}</p>
-                        </div>
+                        </div> -->
                         <div class="order_date">
-                            <p>借款日：{{item.orderTime}}</p>
-                            <p>还款日：{{item.repaymentDate}}</p>
+                            <p>借款：{{item.orderTime}}</p>
+                            <p>还款：{{item.repaymentDate}}</p>
                         </div>
                     </div>
                 </li>
             </ul>
-            <div class="isbottom" v-show="showComplete">别扯了，已经到底了...</div>
+            <!-- <div class="isbottom" v-show="showComplete">别扯了，已经到底了...</div> -->
             <div class="nodata" v-show="visComplete">
                 <img src="../../../static/images/group7@2x.png">
                 暂无数据

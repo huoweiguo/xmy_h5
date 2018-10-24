@@ -16,7 +16,7 @@
             </div>
             <div class="money">
                 <span>¥</span>
-                <input type="text" id="bindcard" v-model="tradeAmount" readonly unselectable="on" onfocus="this.blur()" placeholder="请输入大于等于10的金额"/>
+                <input type="text" id="bindcard" v-model="tradeAmount" readonly="readonly"  unselectable="on" onfocus="this.blur()" placeholder="请输入大于等于10的金额"/>
                 <strong @click="allMoney">全部转出</strong>
             </div>
             <div class="cost">提示：本次提现手续费<span>{{serviceFee}}</span>元，实际到账金额<span>{{actualAmount}}</span>元。</div>

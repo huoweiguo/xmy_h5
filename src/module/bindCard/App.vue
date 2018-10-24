@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="app">
         <navigation>
             <a href="javascript:;" @click="goBack" slot="navigation_goback" class="navigation_goback"></a>
             <span slot="navigation_title" class="navigation_title">绑定银行卡</span>
@@ -149,7 +149,10 @@ export default {
                         if(_this.getInto == 1){
                             _this.buried(true)
                         }else{
-                            window.location.href = 'javascript:window.history.go(-1)'
+                            xmy.toast(res.respMsg);
+                            setTimeout(function(){
+                                window.location.href = 'javascript:window.history.go(-1)'
+                            },1000);
                         }
                     }else{
                         if(_this.getInto == 1){

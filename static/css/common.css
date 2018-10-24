@@ -12,10 +12,11 @@ html,body{
     height: 100%;
     max-width: 750px;
     margin:0 auto;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 #app{
-    /* overflow: hidden; */
+    /* height: 100%; */
+    overflow: hidden;
 }
 .body-mask{
     position: fixed;
