@@ -23,15 +23,6 @@
                 </div>
             </div>
         </div>
-        <div class="popup" v-show="toAuth">
-            <div class="inquiry">
-                <h2>您当前没有银行卡，请先去认证绑卡</h2>
-                <div class="btn">
-                    <button class="cancelBtn" @click="leave">取消</button>
-                    <button class="sureBtn" @click="gotoAuthCard">确定</button>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 <script>
@@ -50,7 +41,6 @@ export default {
             token: xmy.getQueryString('token'),
             userId: xmy.getQueryString('userId'),
             toLeave: false,
-            toAuth: false,
             fineBalance: "/api/static/xmy/module/fineBalance.html?token="+xmy.getQueryString('token')+"&userId="+xmy.getQueryString('userId')
         }
     },
@@ -88,19 +78,10 @@ export default {
             let _this = this
             _this.toLeave = false;
         },
-        leave () {
-            let _this = this;
-            _this.toAuth = false;
-            window.location.href = "/back/myCenter?href=return"
-        },
         gotoAuth () {
             let _this = this;
             _this.toLeave = false;
             window.location.href = "/api/static/xmy/module/order.html?token="+xmy.getQueryString('token')+"&userId="+xmy.getQueryString('userId')
-        },
-        gotoAuthCard () {
-            this.toAuth = false;
-            window.location.href = '/api/static/xmy_app/stars'
         }
     },
     mounted () {
@@ -115,9 +96,6 @@ export default {
             },
             success: function(res){
                 if(res.respCode == "000000"){
-                    if(res.userAuthInfo.bankCardAuth != "Y"){
-                        _this.toAuth = true;
-                    }
                     _this.accountBalance = res.accountBalance;
                     _this.putForward = "putForward.html?token="+_this.token+"&userId="+_this.userId;
                     _this.recharge = "recharge.html?token="+_this.token+"&userId="+_this.userId;
