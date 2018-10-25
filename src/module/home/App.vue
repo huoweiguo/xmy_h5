@@ -137,7 +137,7 @@
                                     window.location.href = link;
                                     
                                 } else if(res.data.status == 'N'){
-                                    window.location.href = '/api/static/xmy/app_xmy/renzhen?productId='+productId+'&productUserId='+productUserId;
+                                    window.location.href = '/api/static/xmy/app_xmy/renzhen?productId='+productId+'&productUserId='+productUserId+'&repay='+_this.repay;;
                                 }
                             }
                         }
