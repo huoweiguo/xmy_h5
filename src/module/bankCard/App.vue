@@ -81,11 +81,12 @@ export default {
             resultTittle:'',
             resultReason:'',
             defaulted:false,
-            clear: false
+            clear: false,
+            doNothing: true
         }
     },
     methods:{
-        // 操作卡
+        // 判断是否是默认卡
         operationCard () {
             let _this = this;
             // _this.cardId = $event.path[2].dataset.bankid;
@@ -100,9 +101,12 @@ export default {
                 _this.showTip = true;
                 _this.success = false;
                 _this.showResult = true;
-                _this.resultTittle = "默认银行卡不可操作"
+                _this.resultTittle = "默认银行卡不可操作";
+                _this.doNothing = true;
                 
             }else{
+                _this.doNothing = false;
+                _this.showResult = false;
                 _this.isMain = true;
                 _this.isChk = true;
             }
@@ -150,6 +154,7 @@ export default {
             let _this = this;
             _this.isChk = false;
             _this.defaulted = true;
+            _this.showResult = false;
             _this.clear = false;
             _this.showTip = true;
             _this.success = true;
@@ -187,8 +192,11 @@ export default {
         abolish () {
             this.isChk = false;
             this.showTip = false;
-            window.location.reload();
+            if(this.doNothing == false){
+                window.location.reload();
+            }
         },
+        // 操作卡
         chengeCard () {
             var cardLi = $("#cardLi").find("li");
             var _this = this;
@@ -199,6 +207,7 @@ export default {
                     _this.realBankCard = $(this).data('realbankcard');
                     _this.cardId = $(this).data('bankid');
                     _this.isDefault = $(this).data('isdefault');
+                    console.log(_this.isDefault);
                     _this.operationCard();
                 });
             })
