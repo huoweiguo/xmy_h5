@@ -100,16 +100,6 @@
                 </a>
             </li> -->
         </ul>
-        <!-- 原生弹窗 -->
-        <div class="popup" v-show="toLeave">
-            <div class="inquiry">
-                <h2>您还未实名认证哟</h2>
-                <div class="btn">
-                    <button class="cancelBtn" @click="loankv">取消</button>
-                    <button class="sureBtn" @click="gotoAuth">确定</button>
-                </div>
-            </div>
-        </div>
     </div>
 </template>
 <script>
@@ -129,31 +119,11 @@ export default {
             myCard:"/api/static/xmy/module/bankCard.html?userId="+xmy.getQueryString('userId')+"&token="+xmy.getQueryString('token'),
             balance:'',
             order:'',
-            toLeave: false,
             bankCardAuth:'',
             menuList:[]
         }
     },
     methods: {
-        loankv () {
-            let _this = this;
-            _this.toLeave = false;
-        },
-        gotoCard () {
-            let _this = this;
-            if(_this.bankCardAuth == "Y"){
-               _this.myCard = "/api/static/xmy/module/bankCard.html?userId="+_this.userId+"&token="+_this.token;         
-                window.location.href = _this.myCard;
-            }else{
-                // 提示去认证
-                _this.toLeave = true;
-            }
-        },
-        gotoAuth () {
-            let _this = this;
-            _this.toLeave = false;
-            window.location.href = '/api/static/xmy_app/stars'
-        },
         getMenu () {
             let _this = this;
             $.ajax({
