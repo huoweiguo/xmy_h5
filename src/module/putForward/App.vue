@@ -20,7 +20,7 @@
                 <strong @click="allMoney">全部转出</strong>
             </div>
             <div class="cost">提示：本次提现手续费<span>{{serviceFee}}</span>元，实际到账金额<span>{{actualAmount}}</span>元。</div>
-            <a href="http://test-proxy.xiaomuyu.net:8704/jbj/listBanks">支持的银行卡和限额</a>
+            <a href="http://proxy.xiaomuyu.net:8704/jbj/listBanks">支持的银行卡和限额</a>
             <button v-show="!haveNum">确认</button>
             <button class="click-btn" v-show="haveNum" @click="next"><div class="ft20" v-show="isCharging">确认</div> <div class="ft20" v-show="!isCharging">提现中<span class="interPoint"><em class="inter_em gomove">...</em></span></div></button>
         </div>
