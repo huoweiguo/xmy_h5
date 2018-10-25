@@ -131,7 +131,7 @@
                 productId: xmy.getQueryString('productId'),
                 productUserId: xmy.getQueryString('productUserId'),
                 publishOrderId: xmy.getQueryString('publishOrderId'),
-                productName: xmy.getCookie('productName'),
+                productName: xmy.getQueryString('productName'),
                 message: '',
                 faildMsg: '',
                 bank_suc: false,

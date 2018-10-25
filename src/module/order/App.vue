@@ -36,10 +36,6 @@
                         <div class="order_money">
                             <i>&yen;</i>{{item.orderAmt}}
                         </div>
-                        <!-- <div class="order_rate">
-                            <p>酬金：{{item.rewardRateDesc}}</p>
-                            <p>利率：{{item.interestRateDesc}}</p>
-                        </div> -->
                         <div class="order_date">
                             <p>借款：{{item.orderTime}}</p>
                             <p>还款：{{item.repaymentDate}}</p>
