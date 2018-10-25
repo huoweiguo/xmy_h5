@@ -143,7 +143,7 @@
                 bankCard: '',
                 actualAmt: '',
                 toLeave: false,
-                protocolPage: 'http://proxy.xiaomuyu.net:8704/xmy/agreement.html?loanUrl=http://baijiajiekuan.oss-cn-shanghai.aliyuncs.com/protocol/template/20180304231453.png&userId='+xmy.getQueryString('userId'),
+                protocolPage: 'http://test-proxy.xiaomuyu.net:8704/xmy/agreement.html?loanUrl=http://baijiajiekuan.oss-cn-shanghai.aliyuncs.com/protocol/template/20180304231453.png&userId='+xmy.getQueryString('userId'),
                 isClick: true
             }
         },
@@ -154,7 +154,7 @@
             },
 
             productDetail() {
-                window.location.href = 'http://proxy.xiaomuyu.net:8704/xmy/productDetail.html?productId='+this.productId+'&publishOrderId=' + this.publishOrderId;
+                window.location.href = 'http://test-proxy.xiaomuyu.net:8704/xmy/productDetail.html?productId='+this.productId+'&publishOrderId=' + this.publishOrderId;
             },
 
             toLoan () {

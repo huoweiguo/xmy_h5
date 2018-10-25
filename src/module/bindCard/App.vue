@@ -22,7 +22,7 @@
         </div>
 
         <div class="bind-set">
-            <a href="http://proxy.xiaomuyu.net:8704/jbj/listBanks">支持的银行卡和限额</a>
+            <a href="http://test-proxy.xiaomuyu.net:8704/jbj/listBanks">支持的银行卡和限额</a>
             <button v-show="!bind" class="bind-btn1">确认绑定银行卡</button>
             <button v-show="bind" @click="gobind" class="bind-btn2">确认绑定银行卡</button>
         </div>
