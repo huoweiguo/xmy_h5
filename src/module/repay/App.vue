@@ -1,6 +1,6 @@
 <template>
 <div id="app">
-    <div class="content-pro" id="process">
+    <div class="content-pro" id="process" v-show="!result">
         <navigation>
             <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a>
             <span slot="navigation_title" class="navigation_title">立即还款</span>
@@ -18,55 +18,9 @@
                 {{orderAmount}}
             </div>
         </div>
-
-        <!--去除-->
-        <!--<div class="no-repport">暂不支持余额还款</div>-->
-        <!--<button class="repay-btn2" v-show="nextProcess" @click="nextClick">下一步</button>-->
         <div class="repay_small">本次还款手续费<span>{{serviceFee}}</span>元，实扣金额<span>{{orderAmount}}</span>元</div>
         <a href="javascript:;" class="repay-btn7" v-show="!showBtn">还款中<span class="interPoint"><em class="inter_em gomove">...</em></span></a>
         <button class="repay-btn2" v-show="showBtn" @click="repaySure">确认</button>
-
-        <!--去除-->
-        <!--
-        <div class="repay_detail" v-show="!nextProcess">
-            <div class="repay-hk">
-                <div class="hk-ms">还款金额(元)</div>
-                <div class="hk-money">{{orderAmount}}</div>
-            </div>
-
-            <div class="hk-list">
-                <div><span>订单编号</span><i>{{orderId}}</i></div>
-                <div>
-                    <span>银行名称</span>
-                    <i>
-                        <template v-if="payType == 'A'">账户余额</template>
-                        <template v-if="payType == 'B'">{{bankName}}</template>
-                    </i>
-                </div>
-                <div><span>银行卡号</span><i>{{bankCard}}</i></div>
-                <div><span>姓名</span><i>{{cardName}}</i></div>
-            </div>
-
-            <div class="hk-list">
-                <div>
-                    <span>预留电话</span>
-                    <h5 v-show="showTel">{{bankPhone}}</h5>
-                    <input type="number" @input="chkVal" v-show="!showTel" v-model="bankPhone"> 
-                    <em @click="showTel = false">修改电话</em>
-                </div>
-                <div>
-                    <span>验证码&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <input type="number" v-model="hkcode" @input="chkVal" placeholder="输入验证码">
-                    <em class="getcode" v-show="!isSms" @click="getSms">获取验证码</em> 
-                    <em class="getcode orange" v-show="isSms">{{getNumber}}s</em> 
-                </div>
-            </div>
-
-            <button class="repay-btn3" v-show="!showBtn">确认还款</button>
-            <button class="repay-btn2" @click="sureRepay" v-show="showBtn">确认还款</button>
-        </div>
-        -->
-
         <div class="bank-mask" v-show="selectCard" @click="closeBank"></div>
         <!--选择还款方式-->
         <div class="bank-slt" id="bank_list" :class="{'showBank': selectCard}">
@@ -124,40 +78,39 @@
 
             
         </div>
-
-
-        <!--还款成功/失败信息-->
-        <div class="repay-mes" v-show="result"><!--v-show="result"-->
-            <navigation>
-                <!-- <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a> -->
-                <span slot="navigation_title" class="navigation_title">还款结果</span>
-            </navigation>
-            <img v-show="faild" src="../../../static/images/more_add@2x.png">
-            <img v-show="!faild" src="../../../static/images/icon_ok@2x.png">
-
-            <h2 v-show="faild">
-                <template v-if="deal">还款失败</template>
-                <p style="color:#ff7f26;">{{faildMes}}</p>
-            </h2>
-
-            <h2 v-show="!faild">
-                还款成功，为信用点赞
-                <p>还款方式：{{bankName}} 还款金额：{{tradeAmount}}元</p>
-            </h2>
-            <div class="again" v-show="!faild">
-                <a href="/api/static/app_xmy/gohome">提额降息了，再去借一笔</a>
-                <a class="look" :href="order">查看订单</a>
-            </div>
-            <div class="again" v-show="faild">
-                <a :href="order">确保余额充足，再次还款</a>
-                <a class="look" :href="order">查看订单</a>
-            </div>
-            <!-- <a v-show="faild" class="repay-btn5" href="orderDetail.html">返回重试</a> -->
-            <!-- <a href="javascript:;" @click="download" v-show="faild" class="repay-btn6">下载小木鱼APP查看订单</a>
-            <a href="javascript:;" @click="download" v-show="!faild" class="repay-btn5">下载小木鱼APP再借一笔</a> -->
-        </div>
-        <div id="xdy_toast" class="xdy_toast" v-show="unOpen"></div>
     </div>
+
+    <!--还款成功/失败信息-->
+    <div class="repay-mes" v-show="result"><!--v-show="result"-->
+        <navigation>
+            <!-- <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a> -->
+            <span slot="navigation_title" class="navigation_title">还款结果</span>
+        </navigation>
+        <img v-show="faild" src="../../../static/images/more_add@2x.png">
+        <img v-show="!faild" src="../../../static/images/icon_ok@2x.png">
+
+        <h2 v-show="faild">
+            <template v-if="deal">还款失败</template>
+            <p style="color:#ff7f26;">{{faildMes}}</p>
+        </h2>
+
+        <h2 v-show="!faild">
+            还款成功，为信用点赞
+            <p>还款方式：{{bankName}} 还款金额：{{tradeAmount}}元</p>
+        </h2>
+        <div class="again" v-show="!faild">
+            <a href="/api/static/app_xmy/gohome">提额降息了，再去借一笔</a>
+            <a class="look" :href="order">查看订单</a>
+        </div>
+        <div class="again" v-show="faild">
+            <a :href="order">确保余额充足，再次还款</a>
+            <a class="look" :href="order">查看订单</a>
+        </div>
+        <!-- <a v-show="faild" class="repay-btn5" href="orderDetail.html">返回重试</a> -->
+        <!-- <a href="javascript:;" @click="download" v-show="faild" class="repay-btn6">下载小木鱼APP查看订单</a>
+        <a href="javascript:;" @click="download" v-show="!faild" class="repay-btn5">下载小木鱼APP再借一笔</a> -->
+    </div>
+    <div id="xdy_toast" class="xdy_toast" v-show="unOpen"></div>
 </div>
 </template>
 
