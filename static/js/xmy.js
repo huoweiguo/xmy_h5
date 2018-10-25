@@ -1,3 +1,5 @@
+import { callbackify } from "util";
+
 var xmy = {
 
     trim: function(str){
@@ -105,8 +107,16 @@ var xmy = {
         });
     },
 
-    confirm: function(){
-        
+    buried (data,callback) {
+        let _this = this;
+        $.ajax({
+            url: '/gateway/api/report/userBuried/logging?t='+(new Date()).getTime(),
+            type: 'POST',
+            data: data,
+            success:function(s){
+                callback();
+            }
+        })
     }
 }
 

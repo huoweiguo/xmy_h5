@@ -113,26 +113,35 @@
 
             golink (productId,productUserId,productName) {
                 xmy.setCookie('productName',productName);
+                var buriedNo = 'Home_Click_Prod_'+productId;
                 let _this = this;
-                $.ajax({
-                    url: '/gateway/api/user/product/checkAuth?t='+(new Date()).getTime(),
-                    type: 'POST',
-                    data: {
-                        token: _this.token,
-                        userId: _this.userId,
-                        productId: productId
-                    },
-                    success: function(res){
-                        if(res.respCode == '000000'){
-                            if(res.data.status == 'Y'){
-                                var link = '/api/static/xmy/module/init.html?token='+_this.token+'&userId='+_this.userId+'&productId='+productId + '&productUserId='+ productUserId+'&repay='+_this.repay;
-                                window.location.href = link;
-                                
-                            } else if(res.data.status == 'N'){
-                                window.location.href = '/api/static/xmy/app_xmy/renzhen?productId='+productId+'&productUserId='+productUserId;
+
+                xmy.buried ({
+                    token: _this.token,
+                    userId: _this.userId,
+                    buriedNo: buriedNo
+                },function(){
+
+                    $.ajax({
+                        url: '/gateway/api/user/product/checkAuth?t='+(new Date()).getTime(),
+                        type: 'POST',
+                        data: {
+                            token: _this.token,
+                            userId: _this.userId,
+                            productId: productId
+                        },
+                        success: function(res){
+                            if(res.respCode == '000000'){
+                                if(res.data.status == 'Y'){
+                                    var link = '/api/static/xmy/module/init.html?token='+_this.token+'&userId='+_this.userId+'&productId='+productId + '&productUserId='+ productUserId+'&repay='+_this.repay;
+                                    window.location.href = link;
+                                    
+                                } else if(res.data.status == 'N'){
+                                    window.location.href = '/api/static/xmy/app_xmy/renzhen?productId='+productId+'&productUserId='+productUserId;
+                                }
                             }
                         }
-                    }
+                    });
                 });
             },
 
