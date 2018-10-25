@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="app">
         <ul>
             <li>
                 <a :href="balance">
@@ -40,65 +40,12 @@
                 </a>
                 
             </li>
-            <!-- <li>
-                <a :href="order">
-                    <span>我的订单</span>
-                    <img src="../../../static/images/rightarrow_1f.png"/>
-                    <em style="color:#FF7F26;">{{repayment}}</em>
-                </a>
-            </li>
-            <li>
-                <a href="/api/static/xmy_app/stars">
-                    <span>我的星级</span>
-                    <img src="../../../static/images/rightarrow_1f.png"/>
-                </a>
-            </li>
-            <li>
-                <a :href="myCard">
-                    <span>我的银行卡</span>
-                    <img src="../../../static/images/rightarrow_1f.png"/>
-                </a>
-            </li> -->
-        <!-- </ul>
-        <ol> -->
-            <!-- <li>
-                <a :href="shareLink">
-                    <span>邀请返现金</span>
-                    <img src="../../../static/images/rightarrow_1f.png"/>
-                </a>
-            </li> -->
-            <!-- <li>
-                <a :href="creditCard">
-                    <span>信用卡取现</span>
-                    <img src="../../../static/images/rightarrow_1f.png"/>
-                </a>
-            </li> -->
-            <!-- <li>
-                <a>
-                    <span>签到拿现金</span>
-                    <img src="../../../static/images/rightarrow_1f.png"/>
-                </a>
-            </li> -->
-        <!-- </ol>
-        <ul> -->
-            <!-- <li>
-                <a href="/api/static/xmy_app/khfk">
-                    <span>客服与反馈</span>
-                    <img src="../../../static/images/rightarrow_1f.png"/>
-                </a>
-            </li> -->
             <li>
                 <a href="/api/static/xmy_app/setting">
                     <span>设置</span>
                     <img src="../../../static/images/rightarrow_1f.png"/>
                 </a>
             </li>
-            <!-- <li>
-                <a href="/api/static/xmy_app/phone">
-                    <span>手机检测</span>
-                    <img src="../../../static/images/rightarrow_1f.png"/>
-                </a>
-            </li> -->
         </ul>
     </div>
 </template>
