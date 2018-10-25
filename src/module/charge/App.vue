@@ -35,7 +35,7 @@
                 <!--<em class="protocol" @click="ischk = !ischk" :class="{agree: ischk}">-->
                 <em class="protocol">*本人阅读并同意签署协议</em><a :href="protocolPage" class="a_protocol">《借款合同及相关协议》</a>
                 <div class="agree_btn_set">
-                    <a href="javascript:;" class="a_btn2" @click="toLoan" :class="{unclick: !ischk}">立即拿钱</a>
+                    <a href="javascript:;" class="a_btn2" @click="toLoanClick" :class="{unclick: !ischk}">立即拿钱</a>
                 </div>
 
                 <div class="small_txt">
@@ -105,7 +105,7 @@
             <h3>任性！确认不拿钱了？</h3>
             <div class="loan_small">借款成功后，下次借款可以<span>提额</span>还<span>降息</span>哟</div>
             <div class="loan_set">
-                <a href="/api/static/app_xmy/gohome">确认返回</a>
+                <a href="javascript:;" @click="sureReturn">确认返回</a>
                 <a href="javascript:;" @click="loankv" class="loankv">再考虑下</a>
             </div>
         </div>
@@ -157,11 +157,25 @@
                 window.location.href = 'http://test-proxy.xiaomuyu.net:8704/xmy/productDetail.html?productId='+this.productId+'&publishOrderId=' + this.publishOrderId;
             },
 
+            //点击立即拿钱埋点
+            toLoanClick () {
+                let _this = this;
+                let buriedNo = 'Prod_Confirm_' + this.productId;
+                xmy.buried({
+                    token: _this.token,
+                    userId: _this.userId,
+                    buriedNo: buriedNo
+                }, function(){
+                    _this.toLoan();
+                });
+            },
+
             toLoan () {
                 let _this = this;
                 if(!this.isClick){
                     return false;
                 }
+
                 this.isClick = false;
                 $.ajax({
                     url: '/gateway/api/order/loan/confirmLoan?t='+(new Date()).getTime(),
@@ -230,7 +244,27 @@
             },
 
             loankv () {
-                this.toLeave = false;
+                let _this = this;
+                let buriedNo = 'Prod_Consider_' + this.productId;
+                xmy.buried({
+                    token: _this.token,
+                    userId: _this.userId,
+                    buriedNo: buriedNo
+                }, function(){
+                    _this.toLeave = false;
+                });
+            },
+
+            sureReturn () {
+                let _this = this;
+                let buriedNo = 'Prod_Abandon_' + this.productId;
+                xmy.buried({
+                    token: _this.token,
+                    userId: _this.userId,
+                    buriedNo: buriedNo
+                }, function(){
+                    window.location.href = '/api/static/app_xmy/gohome';
+                });
             },
 
             lookOrder () {

@@ -14,7 +14,7 @@
         <div class="result_refuse" v-show="isRefuse">
             <p>提交失败，请重新提交！</p>
             <div class="btn">
-                <a href="/api/static/app_xmy/gohome">返回首页</a>
+                <a href="javascript:;" @click="gohome">返回首页</a>
                 <span @click="reSubmit">重新提交</span>
             </div>
         </div>
@@ -117,13 +117,32 @@
                     }
                 });
             },
-
+            
+            //风控返回首页
+            gohome () {
+                var buriedNo = 'Risk_Return_Prod_' + this.productId;
+                xmy.buried ({
+                    token: _this.token,
+                    userId: _this.userId,
+                    buriedNo: buriedNo
+                },function(){
+                    window.location.href = '/api/static/app_xmy/gohome';
+                });
+            },
 
             //重新获取额度
             reSubmit () {
-                this.tickTime = 10;
-                this.isRefuse = false;
-                this.verificationCredit();
+                var buriedNo = 'Risk_Submit_Prod_' + productId;
+                var _this = this;
+                xmy.buried({
+                    token: _this.token,
+                    userId: _this.userId,
+                    buriedNo: buriedNo
+                },function() {
+                    _this.tickTime = 10;
+                    _this.isRefuse = false;
+                    _this.verificationCredit();
+                });
             }
         },
         
