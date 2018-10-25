@@ -136,8 +136,8 @@ export default {
                     }else{
                         _this.repayment = '';
                     }
-                    _this.shareLink = "http://proxy.xiaomuyu.net:8704/myd/share.html?userId="+_this.userId+"&token="+_this.token;
-                    _this.creditCard = "http://proxy.xiaomuyu.net:8704/myd/creditCard.html?userId="+_this.userId+"&token="+_this.token+"&userType=B";
+                    _this.shareLink = "http://test-proxy.xiaomuyu.net:8704/myd/share.html?userId="+_this.userId+"&token="+_this.token;
+                    _this.creditCard = "http://test-proxy.xiaomuyu.net:8704/myd/creditCard.html?userId="+_this.userId+"&token="+_this.token+"&userType=B";
                     _this.bankCardAuth = res.userAuthInfo.bankCardAuth;
                     _this.balance = "/api/static/xmy/module/balance.html?userId="+_this.userId+"&token="+_this.token;
                     _this.order = "/api/static/xmy/module/order.html?userId="+_this.userId+"&token="+_this.token+"&linkType=mycenter";
