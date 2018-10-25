@@ -161,6 +161,12 @@
             //点击立即拿钱埋点
             toLoanClick () {
                 let _this = this;
+                
+                if(!this.isClick){
+                    return false;
+                }
+                this.isClick = false;
+
                 let buriedNo = 'Prod_Confirm_' + this.productId;
                 xmy.buried({
                     token: _this.token,
@@ -173,12 +179,7 @@
 
             toLoan () {
                 let _this = this;
-                if(!this.isClick){
-                    return false;
-                }
-
                 _this.isCharging = false;
-                this.isClick = false;
                 $.ajax({
                     url: '/gateway/api/order/loan/confirmLoan?t='+(new Date()).getTime(),
                     type: 'POST',
