@@ -118,10 +118,10 @@
     export default {
         data () {
             return {
-                money: "1568.00",
-                account: 750,
-                repayment: 1020.11,
-                date: '7',
+                money: "",
+                account: 0,
+                repayment: 0,
+                date: '',
                 dw: '天',
                 ischk: true,
                 result: false,
@@ -161,7 +161,7 @@
             //点击立即拿钱埋点
             toLoanClick () {
                 let _this = this;
-                
+
                 if(!this.isClick){
                     return false;
                 }

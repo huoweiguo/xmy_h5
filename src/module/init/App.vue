@@ -45,7 +45,7 @@
                 timer: null,
                 tickTime: 10,
                 com_result: false,
-                money: 1289,
+                money: 0,
                 token: xmy.getQueryString('token'),
                 userId: xmy.getQueryString('userId'),
                 productId: xmy.getQueryString('productId'),
@@ -95,15 +95,20 @@
                     },
                     success: function(res){
                         if(res.respCode == '000000'){
-                            _this.money = res.loanExtend.limit;
-                            _this.com_result = true;
 
-                            _this.scrollNumber();
-                            setTimeout(function(){
+                            setTimeout(function() {
+                                _this.money = res.loanExtend.limit;
+                                _this.com_result = true;
                                 clearInterval(_this.timer);
+                                _this.scrollNumber();
                                 _this.tickTime = 10;
-                                window.location.href = '/api/static/xmy/module/charge.html?token='+_this.token+'&userId='+_this.userId+'&productId='+_this.productId+'&productUserId='+_this.productUserId+'&publishOrderId='+res.publishOrderId;
-                            },3000);
+
+                                setTimeout(function(){
+                                    window.location.href = '/api/static/xmy/module/charge.html?token='+_this.token+'&userId='+_this.userId+'&productId='+_this.productId+'&productUserId='+_this.productUserId+'&publishOrderId='+res.publishOrderId;
+                                },1500);
+
+                            }, 1500);
+                                                        
                             
                         } else {
                             setTimeout(function(){
