@@ -50,6 +50,7 @@
                 userId: xmy.getQueryString('userId'),
                 productId: xmy.getQueryString('productId'),
                 productUserId: xmy.getQueryString('productUserId'),
+                productName: xmy.getQueryString('productName'),
                 isRefuse: false,
                 refuse_msg: '',
                 refuse_reson: '',
@@ -104,7 +105,7 @@
                                 _this.tickTime = 10;
 
                                 setTimeout(function(){
-                                    window.location.href = '/api/static/xmy/module/charge.html?token='+_this.token+'&userId='+_this.userId+'&productId='+_this.productId+'&productUserId='+_this.productUserId+'&publishOrderId='+res.publishOrderId;
+                                    window.location.href = '/api/static/xmy/module/charge.html?token='+_this.token+'&userId='+_this.userId+'&productId='+_this.productId+'&productUserId='+_this.productUserId+'&productName'+_this.productName+'&publishOrderId='+res.publishOrderId;
                                 },1500);
 
                             }, 1500);
