@@ -26,10 +26,10 @@
                             <img v-if="item.orderStatus == 'S'" src="../../../static/images/icon_yhk@2x.png">
                             <img v-if="item.orderStatus == 'P'" src="../../../static/images/icon_lyz@2x.png">
                             <img v-if="item.orderStatus == 'W'" src="../../../static/images/round_blue@2x.png">
-                            <template v-if="item.orderStatus == 'O'">已逾期{{item.overdueDay}}天</template>
+                            <template v-if="item.orderStatus == 'O'"><span>已逾期{{item.overdueDay}}天</span></template>
                             <template v-if="item.orderStatus == 'S'">已还款</template>
-                            <template v-if="item.orderStatus == 'P'">处理中</template>
-                            <template v-if="item.orderStatus == 'W'">剩余{{item.day}}天还款</template>
+                            <template v-if="item.orderStatus == 'P'"><em>处理中</em></template>
+                            <template v-if="item.orderStatus == 'W'"><em>剩余{{item.day}}天还款</em></template>
                         </div>
                     </div>
                     <div class="li_desc">
