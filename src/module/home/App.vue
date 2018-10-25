@@ -101,11 +101,6 @@
                                     _this.isZp = true;
                                 }
                             }
-
-                            _this.$nextTick(function(){
-                                var height = $('#app_body').height();
-                                $("body").height(height);
-                            });
                         }
                     }
                 });
