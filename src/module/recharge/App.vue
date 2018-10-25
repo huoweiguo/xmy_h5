@@ -19,7 +19,7 @@
                 <input type="text" id="bindcard" readonly="readonly" unselectable="on" onfocus="this.blur()" v-model="tradeAmount" placeholder="请输入大于等于100的金额"/>
             </div>
             <div class="cost">提示：本次充值手续费<span>{{serviceFee}}</span>元，实际支付金额<span>{{actualAmount}}</span>元。</div>
-            <a href="http://test-proxy.xiaomuyu.net:8704/jbj/listBanks">支持的银行卡和限额</a>
+            <a href="http://proxy.xiaomuyu.net:8704/jbj/listBanks">支持的银行卡和限额</a>
             <button v-show="!haveNum">确认</button>
             <button class="click-btn" v-show="haveNum" @click="next"><div class="ft20" v-show="isCharging">确认</div> <div class="ft20" v-show="!isCharging">充值中<span class="interPoint"><em class="inter_em gomove">...</em></span></div></button>
         </div>
