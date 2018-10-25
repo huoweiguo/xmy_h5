@@ -35,7 +35,7 @@
                 <!--<em class="protocol" @click="ischk = !ischk" :class="{agree: ischk}">-->
                 <em class="protocol">*本人阅读并同意签署协议</em><a :href="protocolPage" class="a_protocol">《借款合同及相关协议》</a>
                 <div class="agree_btn_set">
-                    <a href="javascript:;" class="a_btn2" @click="toLoanClick" :class="{unclick: !ischk}">立即拿钱</a>
+                    <a href="javascript:;" class="a_btn2" @click="toLoanClick"><div v-show="isCharging">立即拿钱</div> <div v-show="!isCharging">拿钱中<span class="interPoint"><em class="inter_em gomove">...</em></span></div></a>
                 </div>
 
                 <div class="small_txt">
@@ -144,7 +144,8 @@
                 actualAmt: '',
                 toLeave: false,
                 protocolPage: 'http://test-proxy.xiaomuyu.net:8704/xmy/agreement.html?loanUrl=http://baijiajiekuan.oss-cn-shanghai.aliyuncs.com/protocol/template/20180304231453.png&userId='+xmy.getQueryString('userId'),
-                isClick: true
+                isClick: true,
+                isCharging: true
             }
         },
 
@@ -176,6 +177,7 @@
                     return false;
                 }
 
+                _this.isCharging = false;
                 this.isClick = false;
                 $.ajax({
                     url: '/gateway/api/order/loan/confirmLoan?t='+(new Date()).getTime(),
@@ -190,6 +192,7 @@
                     success: function(res){
 
                         _this.isClick = true;
+                        _this.isCharging = true;
 
                         if(res.respCode == '000000'){
                             _this.message = '借款成功';

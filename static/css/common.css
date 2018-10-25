@@ -232,3 +232,59 @@ html,body{
       color: #9B9B9B;
       text-decoration: none;
   }
+  .ft20{
+      font-size:0.2rem;
+  }
+  .interPoint{
+      display: inline-block;
+      width: 0.25rem;
+      margin-left:0.05rem;
+      line-height: 0.5rem;
+      font-size: 0.2rem;
+      overflow: hidden;
+      vertical-align: middle;
+      letter-spacing: 0.03rem;
+  }
+  .interPoint em{
+      display: block;
+      width: 100%;
+      font-size: 0.2rem;
+      overflow: hidden;
+  }
+
+  .gomove{
+      animation: moveto 1.5s linear infinite;
+  }
+
+  @-webkit-keyframes moveto{
+    0%{
+        width: 0;
+    }
+    100%{
+        width: 0.25rem;
+    }
+}
+@-moz-keyframes rotate{
+    0%{
+        width: 0;
+    }
+    100%{
+        width: 0.25rem;
+    }
+}
+@-o-keyframes rotate{
+    0%{
+        width: 0;
+    }
+    100%{
+        width: 0.25rem;
+    }
+}
+@keyframes rotate{
+    0%{
+        width: 0;
+    }
+    100%{
+        width: 0.25rem;
+    }
+}

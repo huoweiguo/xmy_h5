@@ -23,7 +23,7 @@
         <!--<div class="no-repport">暂不支持余额还款</div>-->
         <!--<button class="repay-btn2" v-show="nextProcess" @click="nextClick">下一步</button>-->
         <div class="repay_small">本次还款手续费<span>{{serviceFee}}</span>元，实扣金额<span>{{orderAmount}}</span>元</div>
-        <button class="repay-btn2" style="background:#ccc;" v-show="!showBtn">确认</button>
+        <a href="javascript:;" class="repay-btn7" v-show="!showBtn">还款中<span class="interPoint"><em class="inter_em gomove">...</em></span></a>
         <button class="repay-btn2" v-show="showBtn" @click="repaySure">确认</button>
 
         <!--去除-->

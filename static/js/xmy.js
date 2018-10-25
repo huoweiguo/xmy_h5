@@ -2,6 +2,10 @@ import { callbackify } from "util";
 
 var xmy = {
 
+    VAR: {
+        timer: null
+    },
+
     trim: function(str){
         return (str ? str.replace(/\s+/g, ""):''); 
     },

@@ -22,7 +22,7 @@
             <div class="cost">提示：本次提现手续费<span>{{serviceFee}}</span>元，实际到账金额<span>{{actualAmount}}</span>元。</div>
             <a href="http://test-proxy.xiaomuyu.net:8704/jbj/listBanks">支持的银行卡和限额</a>
             <button v-show="!haveNum">确认</button>
-            <button class="click-btn" v-show="haveNum" @click="next">确认</button>
+            <button class="click-btn" v-show="haveNum" @click="next"><div class="ft20" v-show="isCharging">确认</div> <div class="ft20" v-show="!isCharging">提现中<span class="interPoint"><em class="inter_em gomove">...</em></span></div></button>
         </div>
         <div class="bank-mask" @click="closeBank" v-show="selectCard"></div>
         <!--选择提现方式-->
@@ -106,7 +106,8 @@ export default {
             bankAmt:'',
             bankAccount:'',
             myCenter:"/back/myCenter?href=return",
-            bankNum:''
+            bankNum:'',
+            isCharging: true
         }
     },
     methods:{
@@ -155,7 +156,10 @@ export default {
         // 确认提现
         next () {
             let _this = this;
-            _this.haveNum = false;
+            if(!this.isCharging){
+                return false;
+            }
+            this.isCharging = false;
             $.ajax({
                 url: '/gateway/api/order/withdrawOrder/add?t='+(new Date()).getTime(),
                 type: 'POST',
@@ -170,7 +174,7 @@ export default {
                     actualAmount: _this.actualAmount
                 },
                 success: function(res){
-                    _this.haveNum = true;
+                    _this.isCharging = true;
                     if(res.respCode === '000000'){
                         _this.amount = false
                         _this.results = true;
