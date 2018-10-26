@@ -67,18 +67,26 @@ export default {
 
         cardName () {
             let _this = this;
-            $.ajax({
-                url: '/gateway/api/proxy/jbj/getBankInfo?t='+(new Date()).getTime()+'&token='+_this.token+'&bankCard='+_this.bankId,
-                type: 'GET',
-                success: function(res){
-                    if(res.respCode == "000000"){
-                        _this.bankCode = res.bankCode;
-                        _this.bankName = res.bankName;
-                    }else{
-                        xmy.toast(res.respMsg);
+            if(_this.bankId == ""){
+                xmy.toast("输入银行卡号");
+                return false;
+            }
+            if(_this.bankId.length>15){
+                $.ajax({
+                    url: '/gateway/api/proxy/jbj/getBankInfo?t='+(new Date()).getTime()+'&token='+_this.token+'&bankCard='+_this.bankId,
+                    type: 'GET',
+                    success: function(res){
+                        if(res.respCode == "000000"){
+                            _this.bankCode = res.bankCode;
+                            _this.bankName = res.bankName;
+                        }else{
+                            xmy.toast(res.respMsg);
+                        }
                     }
-                }
-            });
+                });
+            }else{
+                xmy.toast("请输入正确的银行卡号");
+            }
         },
 
         getSms () {
