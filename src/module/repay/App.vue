@@ -234,6 +234,8 @@ export default {
                 success: function(res){
                     if(res.respCode == '000000'){
                         _this.cardList = res.data;
+                    }else{
+                        xmy.toast(res.respMsg);
                     }
                 }
             });
@@ -258,6 +260,8 @@ export default {
                         } else {
                             _this.adequate = false;
                         }
+                    }else{
+                        xmy.toast(res.respMsg);
                     }
                 }
             });
@@ -291,6 +295,8 @@ export default {
                         _this.serviceFee = res.data.serviceFee;
                         _this.balance.number = res.data.accountBalance;
                         _this.cardEndNum = res.data.cardEndNum;
+                    }else{
+                        xmy.toast(res.respMsg);
                     }
                     _this.renderYY();
                     _this.listEvent();
