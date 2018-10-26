@@ -72,7 +72,8 @@
                 loan: false,
                 charge: '',
                 repay: 'N',
-                isZp: false
+                isZp: false,
+                isClick: true
             }   
         },
 
@@ -112,6 +113,11 @@
             },
 
             golink (productId,productUserId,productName) {
+                if(!this.isClick){
+                    return false;
+                }
+
+                this.isClick = false;
                 var buriedNo = 'Home_Click_Prod_'+productId;
                 let _this = this;
 
@@ -130,6 +136,7 @@
                             productId: productId
                         },
                         success: function(res){
+                            _this.isClick = true;
                             if(res.respCode == '000000'){
                                 if(res.data.status == 'Y'){
                                     var link = '/api/static/xmy/module/init.html?token='+_this.token+'&userId='+_this.userId+'&productId='+productId +'&productName='+ productName +'&productUserId='+ productUserId+'&repay='+_this.repay;
