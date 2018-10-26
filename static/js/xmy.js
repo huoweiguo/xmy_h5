@@ -118,7 +118,7 @@ var xmy = {
             type: 'POST',
             data: data,
             success:function(s){
-                callback();
+                callback && callback();
             }
         })
     }

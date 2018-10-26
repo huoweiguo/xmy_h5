@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <navigation>
-            <a href="/back/myCenter?href=return" slot="navigation_goback" class="navigation_goback"></a> 
+            <a href="javascript:;" slot="navigation_goback" class="navigation_goback"></a> 
             <span slot="navigation_title" class="navigation_title">余额</span>
             <a href="javascript:;" @click="goDetail" slot="navigation_small" class="navigation_small">余额明细</a>
         </navigation>
@@ -41,10 +41,23 @@ export default {
             token: xmy.getQueryString('token'),
             userId: xmy.getQueryString('userId'),
             toLeave: false,
+            goBack:"/back/myCenter?href=return",
             fineBalance: "/api/static/xmy/module/fineBalance.html?token="+xmy.getQueryString('token')+"&userId="+xmy.getQueryString('userId')
         }
     },
     methods:{
+        goCenter () {
+            // 退出余额埋点
+            let _this = this;
+            let params={
+                token: _this.token,
+                userId: _this.userId,
+                buriedNo: 'Center_Balance_Quit'
+            }
+            xmy.buried(params,function(){
+                window.location = _this.goBack;
+            });
+        },
         lookAmt: function(){
             this.showAmt = !this.showAmt;
         },
@@ -86,6 +99,13 @@ export default {
     },
     mounted () {
         let _this = this;
+        // 进入埋点
+        let params={
+            token: _this.token,
+            userId: _this.userId,
+            buriedNo: 'Center_Balance_Enter'
+        }
+        xmy.buried(params);
         $.ajax({
             url: '/gateway/api/proxy/jbj/getUserDetail?t='+(new Date()).getTime(),
             type: 'post',

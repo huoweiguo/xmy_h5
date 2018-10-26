@@ -1,7 +1,7 @@
 <template>
     <div id="app" class="main">
         <navigation>
-            <a href="/back/myCenter?href=return" slot="navigation_goback" class="navigation_goback"></a>
+            <a href="javascript:;" @click="goCenter" slot="navigation_goback" class="navigation_goback"></a>
             <span slot="navigation_title" class="navigation_title">银行卡</span>
         </navigation>
         <div class="none" v-show="noCard">
@@ -82,10 +82,23 @@ export default {
             resultReason:'',
             defaulted:false,
             clear: false,
+            goBack:"/back/myCenter?href=return",
             doNothing: true
         }
     },
     methods:{
+        goCenter () {
+            // 退出余额埋点
+            let _this = this;
+            let params={
+                token: _this.token,
+                userId: _this.userId,
+                buriedNo: 'Center_Bankcard_Quit'
+            }
+            xmy.buried(params,function(){
+                window.location = _this.goBack;
+            });
+        },
         // 判断是否是默认卡
         operationCard () {
             let _this = this;
@@ -215,6 +228,13 @@ export default {
     },
     mounted () {
             let _this = this;
+            // 进入埋点
+            let params={
+                token: _this.token,
+                userId: _this.userId,
+                buriedNo: 'Center_Bankcard_Enter'
+            }
+            xmy.buried(params);
             // 获取银行卡列表
             _this.bindCard = "/api/static/xmy/module/bindCard.html?userId="+_this.userId+'&token='+_this.token;
             $.ajax({

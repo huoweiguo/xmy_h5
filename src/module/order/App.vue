@@ -216,13 +216,20 @@
 
 
             backLink () {
-                var typeLink = xmy.getQueryString('linkType');
-
-                if(typeLink == 'mycenter'){
-                    window.location.href = '/back/myCenter?href=return';
-                } else {
-                    window.location.href = '/api/static/app_xmy/gohome';
+                let _this = this;
+                let typeLink = xmy.getQueryString('linkType');
+                let params={
+                    token: _this.token,
+                    userId: _this.userId,
+                    buriedNo: 'Center_Balance_Quit'
                 }
+                xmy.buried(params,function(){
+                    if(typeLink == 'mycenter'){
+                        window.location.href = '/back/myCenter?href=return';
+                    } else {
+                        window.location.href = '/api/static/app_xmy/gohome';
+                    }
+                });
             },
 
             //渲染待处理订单列表
@@ -304,6 +311,13 @@
 
         mounted () {
             var _this = this;
+            // 进入埋点
+            let params={
+                token: _this.token,
+                userId: _this.userId,
+                buriedNo: 'Center_Order_Enter'
+            }
+            xmy.buried(params);
             if(_this.orderTab == 3){
                 _this.isAll = false;
                 _this.isDeal = true;
