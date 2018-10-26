@@ -221,7 +221,7 @@
                 let params={
                     token: _this.token,
                     userId: _this.userId,
-                    buriedNo: 'Center_Balance_Quit'
+                    buriedNo: 'Center_Order_Quit'
                 }
                 xmy.buried(params,function(){
                     if(typeLink == 'mycenter'){
