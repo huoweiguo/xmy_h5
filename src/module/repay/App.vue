@@ -86,7 +86,7 @@
             <!-- <a href="javascript:window.history.go(-1);" slot="navigation_goback" class="navigation_goback"></a> -->
             <span slot="navigation_title" class="navigation_title">还款结果</span>
         </navigation>
-        <img v-show="faild" src="../../../static/images/more_add@2x.png">
+        <img v-show="faild" src="../../../static/images/icon_refuse@2x.png">
         <img v-show="!faild" src="../../../static/images/icon_ok@2x.png">
 
         <h2 v-show="faild">
