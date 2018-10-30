@@ -47,7 +47,7 @@
             </ul>
         </div>
 
-        <div class="plat_small" v-show="!isZp">本平台不向22周岁以下学生提供服务</div>
+        <!--<div class="plat_small" v-show="!isZp">本平台不向22周岁以下学生提供服务</div>-->
 
 
         <!--
