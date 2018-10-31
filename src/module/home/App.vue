@@ -50,7 +50,7 @@
         <!--<div class="plat_small" v-show="!isZp">本平台不向22周岁以下学生提供服务</div>-->
 
 
-        <!--
+        <!--去除
         <div class="repayment-ts" v-show="loan">
             <span>待还金额: <b>{{charge}}元</b></span>
             <a href="javascript:;" @click="goOrder">立即还款</a>
